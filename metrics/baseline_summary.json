@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "recorded_run_date": "2026-11-11",
+  "baseline_commit": "5de4d3f",
+  "provenance": "Aggregated from local saved evaluation; no new inference run. Private questions, source names and quotes excluded.",
+  "corpus": {
+    "documents": 20,
+    "pdf": 9,
+    "docx": 8,
+    "xlsx": 3,
+    "raw_bytes": 28469871,
+    "pdf_pages": 79,
+    "ocr_pages": 44,
+    "docx_paragraphs": 998,
+    "docx_tables": 44,
+    "xlsx_sheets": 4,
+    "xlsx_formulas": 854,
+    "xlsx_merged_ranges": 250,
+    "chunks": 3079
+  },
+  "timing_seconds": {
+    "retrieval": {
+      "n": 8,
+      "min": 0.4451140999999552,
+      "median": 0.9458403999999518,
+      "mean": 0.9140393000000131,
+      "max": 1.144504999999981,
+      "sum": 7.312314400000105
+    },
+    "end_to_end": {
+      "n": 8,
+      "min": 5.98892950000004,
+      "median": 22.07822800000008,
+      "mean": 18.80313401250004,
+      "max": 32.665800999999874,
+      "sum": 150.4250721000003
+    },
+    "after_retrieval": {
+      "n": 8,
+      "min": 5.102297500000077,
+      "median": 21.038436250000018,
+      "mean": 17.889094712500025,
+      "max": 31.6494189,
+      "sum": 143.1127577000002
+    }
+  },
+  "quality": {
+    "manual_counts": {
+      "partial": 4,
+      "failed": 1,
+      "passed": 2,
+      "unverified": 1
+    },
+    "all_expected_documents_present_at_6": {
+      "passed": 7,
+      "eligible": 7
+    },
+    "exact_quote_occurrences": {
+      "valid": 17,
+      "total": 17,
+      "meaning": "substring check, not semantic citation precision; repetitions counted"
+    },
+    "unanswerable_abstention": {
+      "passed": 1,
+      "eligible": 1
+    },
+    "technical_status_counts": {
+      "supported_quotes": 6,
+      "insufficient": 2
+    }
+  },
+  "scenarios": [
+    {
+      "id": "single",
+      "label": "Простой вопрос",
+      "manual_review": "partial",
+      "technical_status": "supported_quotes",
+      "retrieval_seconds": 1.144504999999981,
+      "total_seconds": 20.93925760000002,
+      "all_expected_documents_present_at_6": true,
+      "gold_terms_check": true,
+      "abstention_check": null,
+      "note": "Роль верна, есть лишние цитаты; прямой пункт об инициаторе не выбран."
+    },
+    {
+      "id": "steps",
+      "label": "Пошаговая инструкция",
+      "manual_review": "failed",
+      "technical_status": "supported_quotes",
+      "retrieval_seconds": 1.0163820999998734,
+      "total_seconds": 32.665800999999874,
+      "all_expected_documents_present_at_6": true,
+      "gold_terms_check": null,
+      "abstention_check": null,
+      "note": "Неполная процедура, посторонняя строка бланка в шагах."
+    },
+    {
+      "id": "multi_document",
+      "label": "Несколько документов",
+      "manual_review": "partial",
+      "technical_status": "supported_quotes",
+      "retrieval_seconds": 0.4451140999999552,
+      "total_seconds": 5.98892950000004,
+      "all_expected_documents_present_at_6": true,
+      "gold_terms_check": null,
+      "abstention_check": null,
+      "note": "Оба документа найдены, ответ цитирует только один."
+    },
+    {
+      "id": "paraphrase",
+      "label": "Перефразировка",
+      "manual_review": "passed",
+      "technical_status": "supported_quotes",
+      "retrieval_seconds": 0.9350785000001451,
+      "total_seconds": 23.217198400000143,
+      "all_expected_documents_present_at_6": true,
+      "gold_terms_check": true,
+      "abstention_check": null,
+      "note": "Срок найден, цитата соответствует вопросу."
+    },
+    {
+      "id": "version",
+      "label": "Актуальная редакция",
+      "manual_review": "partial",
+      "technical_status": "supported_quotes",
+      "retrieval_seconds": 0.9662480000001779,
+      "total_seconds": 24.72882440000012,
+      "all_expected_documents_present_at_6": true,
+      "gold_terms_check": null,
+      "abstention_check": null,
+      "note": "Новый документ и отмена прежнего найдены; полная актуальность не проверена."
+    },
+    {
+      "id": "absent",
+      "label": "Отсутствующий ответ",
+      "manual_review": "passed",
+      "technical_status": "insufficient",
+      "retrieval_seconds": 0.9404958000000079,
+      "total_seconds": 25.063987800000177,
+      "all_expected_documents_present_at_6": null,
+      "gold_terms_check": null,
+      "abstention_check": true,
+      "note": "Корректный отказ без выдуманной информации."
+    },
+    {
+      "id": "conflict",
+      "label": "Возможное противоречие",
+      "manual_review": "unverified",
+      "technical_status": "insufficient",
+      "retrieval_seconds": 0.9511849999998958,
+      "total_seconds": 6.053482499999973,
+      "all_expected_documents_present_at_6": true,
+      "gold_terms_check": null,
+      "abstention_check": null,
+      "note": "Отказ; эталонный конфликт не размечен, детектор не оценен."
+    },
+    {
+      "id": "complex",
+      "label": "Составной вопрос",
+      "manual_review": "partial",
+      "technical_status": "supported_quotes",
+      "retrieval_seconds": 0.9133059000000685,
+      "total_seconds": 11.76759089999996,
+      "all_expected_documents_present_at_6": true,
+      "gold_terms_check": null,
+      "abstention_check": null,
+      "note": "Специальное правило найдено; порядок действий пропущен, есть смежная норма."
+    }
+  ],
+  "models": {
+    "embedding": {
+      "repo": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+    },
+    "reranker": {
+      "repo": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+      "revision": "1427fd652930e4ba29e8149678df786c240d8825"
+    },
+    "llm": {
+      "repo": "Qwen/Qwen2.5-3B-Instruct-GGUF",
+      "revision": "7dabda4d13d513e3e842b20f0d435c732f172cbe",
+      "file": "qwen2.5-3b-instruct-q4_k_m.gguf",
+      "local_dir": "llm3"
+    }
+  },
+  "unmeasured": [
+    "gold-fragment Recall@k",
+    "MRR",
+    "nDCG",
+    "semantic citation precision and recall",
+    "claim faithfulness",
+    "procedure completeness",
+    "OCR CER/WER",
+    "contradiction F1",
+    "balanced abstention precision/recall",
+    "peak RAM/VRAM",
+    "throughput/concurrency",
+    "clean Docker deployment"
+  ],
+  "limits": [
+    "8 exploratory cases, not a representative benchmark",
+    "no independent double annotation",
+    "model and prompting changed together, not a controlled ablation",
+    "warm/cold effects not separated",
+    "single-observation timings, no confidence intervals"
+  ]
+}
