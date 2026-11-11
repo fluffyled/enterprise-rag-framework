@@ -1,0 +1,9 @@
+import os
+from pathlib import Path
+os.environ.setdefault("HAYSTACK_TELEMETRY_ENABLED", "False")
+os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
+os.environ.setdefault("DO_NOT_TRACK", "1")
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data"
+MODELS = ROOT / "models"
+INDEX = DATA / "index.json"
