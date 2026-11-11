@@ -1,7 +1,11 @@
-# Готовность к GitHub
+# Репозиторий GitHub
 
-Проверены Git CLI и подключенная интеграция GitHub; аккаунт fluffyled. Создан локальный репозиторий main. Remote, внешний репозиторий и push пока не создавались.
+Проект: https://github.com/fluffyled/enterprise-rag-framework
 
-В Git включаются код, исследования по открытым источникам, архитектура, зависимости, конфигурация запуска и обезличенные сводки проверок. Оригиналы документов, OCR, индекс, подробные ответы, реальные эталонные вопросы, бинарники, веса и окружение исключены .gitignore. Подробные внутренние отчеты остаются в reports; не добавляйте их через git add -f.
+Владелец: fluffyled. Создан приватным по выбору владельца. Основная ветка: main. Локальная папка: D:/хакатон. Git remote origin указывает на https://github.com/fluffyled/enterprise-rag-framework.git.
 
-Перед отправкой выберите существующий или новый репозиторий аккаунта. Затем проверьте git status, git diff --cached и содержимое истории. Для закрытых документов отдельно требуется разрешение владельца на распространение. Токены не сохранены в проекте.
+В Git включены весь исходный код baseline, открытое исследование, архитектура, зависимости, конфигурация запуска, тесты и обезличенные сводки проверок. Оригиналы документов, OCR, поисковый индекс, подробные ответы, реальные эталонные вопросы, бинарники, веса и окружение исключены .gitignore. Скрипты загрузки данных и моделей включены. Подробные внутренние отчеты остаются в reports; не добавляйте их через git add -f. Токены не сохранены в проекте.
+
+Название можно изменить в Settings / General / Repository name. Видимость можно позже изменить в Settings / General / Danger Zone / Change repository visibility. Перед открытием доступа проверьте всю историю Git и разрешения на распространение содержимого.
+
+Документация GitHub: https://docs.github.com/en/repositories/creating-and-managing-repositories/renaming-a-repository и https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility
