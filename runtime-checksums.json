@@ -1,0 +1,9 @@
+{
+  "models/embedding/model.safetensors": "1a55775f53449dac10a2bcbc312469fac40b96d53198c407081a831f81c98477",
+  "models/reranker/model.safetensors": "5daeca2481a76b5976a2bdc32f0a78532b6716da4f8cd3ff59460ef8d2f359b4",
+  "models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+  "tools/llama/llama-server.exe": "5e1c96c64978cea3ae8ea505285e93dd1721ac46800f96d2002fb28c02618d55",
+  "tools/tesseract/tesseract.exe": "c66f0f12ed76f6aa455dac97684bbc86756d6a732380bee09122454cfda3f420",
+  "tools/tesseract/tessdata/rus.traineddata": "e16e5e036cce1d9ec2b00063cf8b54472625b9e14d893a169e2b0dedeb4df225",
+  "models/llm3/qwen2.5-3b-instruct-q4_k_m.gguf": "626b4a6678b86442240e33df819e00132d3ba7dddfe1cdc4fbb18e0a9615c62d"
+}

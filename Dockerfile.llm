@@ -1,0 +1,9 @@
+FROM debian:bookworm-slim AS build
+RUN apt-get update && apt-get install -y --no-install-recommends git cmake build-essential libcurl4-openssl-dev
+RUN git clone --branch b12284 --depth 1 https://github.com/ggml-org/llama.cpp /src
+WORKDIR /src
+RUN cmake -B build -DGGML_NATIVE=OFF -DLLAMA_CURL=ON -DBUILD_SHARED_LIBS=OFF && cmake --build build --config Release -j2 --target llama-server
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 libcurl4 && rm -rf /var/lib/apt/lists/*
+COPY --from=build /src/build/bin/llama-server /usr/local/bin/llama-server
+ENTRYPOINT ["llama-server"]
