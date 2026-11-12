@@ -1,4 +1,5 @@
-from navigator.settings import INDEX
+from navigator.settings import INDEX, CONFIG
+from pathlib import Path
 import streamlit as st
 from navigator.retrieval import Retriever
 from navigator.answer import answer, ABSTAIN
@@ -9,9 +10,9 @@ if not INDEX.exists():
     st.info("База документов ещё не подготовлена. Выполните индексацию по README.")
     st.stop()
 @st.cache_resource
-def get_retriever(stamp): return Retriever()
+def get_retriever(stamp, config_stamp): return Retriever(config=CONFIG)
 try:
-    retriever = get_retriever(INDEX.stat().st_mtime_ns)
+    retriever = get_retriever(INDEX.stat().st_mtime_ns, Path(CONFIG).stat().st_mtime_ns)
 except Exception as e:
     st.error(f"Не удалось открыть базу: {e}"); st.stop()
 q = st.text_input("Вопрос сотрудника", placeholder="Кто инициирует поиск сотрудника на вакансию?")

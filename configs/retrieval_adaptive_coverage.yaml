@@ -1,0 +1,9 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "coverage_decomposed"
+  adaptive: true
+  adaptive_mode: "rules"
+  adaptive_min_candidates: 2
+  adaptive_min_unique_documents: 1
+  adaptive_min_score: 0.0
+  adaptive_max_expansions: 2

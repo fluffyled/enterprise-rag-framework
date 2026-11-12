@@ -1,0 +1,4 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "coverage_decomposed"
+  coverage_lambda: 0.15

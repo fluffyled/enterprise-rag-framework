@@ -1,0 +1,8 @@
+retrieval:
+  coverage_aware: false
+  adaptive: true
+  adaptive_mode: "rules"
+  adaptive_min_candidates: 21
+  adaptive_min_unique_documents: 21
+  adaptive_min_score: 1000000.0
+  adaptive_max_expansions: 2

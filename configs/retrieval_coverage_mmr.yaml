@@ -1,0 +1,4 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "mmr"
+  mmr_lambda: 0.7

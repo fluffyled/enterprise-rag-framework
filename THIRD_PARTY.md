@@ -6,6 +6,10 @@
 | multilingual-e5-small | MIT | https://huggingface.co/intfloat/multilingual-e5-small |
 | mmarco-mMiniLMv2-L12-H384-v1 | Apache-2.0 | https://huggingface.co/cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 |
 | Qwen2.5-3B-Instruct-GGUF | Qwen Research License, см. LICENSE в репозитории весов | https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF |
+| BGE-M3 / FlagEmbedding | MIT | https://huggingface.co/BAAI/bge-m3 и https://github.com/FlagOpen/FlagEmbedding |
+| MultiDoc2Dial | CC BY 3.0, см. карточку датасета | https://huggingface.co/datasets/IBM/multidoc2dial |
+| MIRACL | Apache-2.0 | https://huggingface.co/datasets/miracl/miracl |
+| LegalBench-RAG | Права исходных ContractNLI/CUAD/MAUD/PrivacyQA сохраняются | https://github.com/zeroentropy-ai/legalbenchrag |
 | llama.cpp | MIT | https://github.com/ggml-org/llama.cpp |
 | Tesseract / tessdata_fast | Apache-2.0 | https://github.com/tesseract-ocr/tesseract и https://github.com/tesseract-ocr/tessdata_fast |
 | pypdfium2 / PDFium | Apache-2.0 или BSD-3-Clause / BSD-style и third-party notices | https://github.com/pypdfium2-team/pypdfium2 |

@@ -1,0 +1,5 @@
+retrieval:
+  embedding_backend: "bge-m3-dense"
+  reranker_backend: "mminilm"
+  coverage_aware: true
+  selection_strategy: "coverage_decomposed"

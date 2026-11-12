@@ -43,8 +43,13 @@ def units(path):
         doc = WordDocument(path)
         for i, child in enumerate(doc.element.body):
             if child.tag.endswith("}p"):
-                text = Paragraph(child, doc).text
-                yield text, {"locator": f"абзац {i+1}", "parent_id": f"block-{i+1}"}
+                paragraph = Paragraph(child, doc)
+                text = paragraph.text
+                properties = child.pPr
+                numbering = None
+                if properties is not None and properties.numPr is not None:
+                    numbering = {"num_id": properties.numPr.numId.val if properties.numPr.numId is not None else None, "level": properties.numPr.ilvl.val if properties.numPr.ilvl is not None else 0}
+                yield text, {"locator": f"абзац {i+1}", "parent_id": f"block-{i+1}", "style": paragraph.style.name if paragraph.style else None, "numbering": numbering}
             elif child.tag.endswith("}tbl"):
                 table = Table(child, doc)
                 for j, row in enumerate(table.rows):
@@ -71,31 +76,52 @@ def units(path):
 
 
 def ingest():
-    docs, manifest, errors = [], [], []
+    docs, manifest, errors, source_documents = [], [], [], []
     raw = DATA / "raw"
     if not raw.exists(): raise RuntimeError("Нет data/raw. Сначала скачайте документы.")
     for path in sorted(raw.rglob("*")):
         if not path.is_file(): continue
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         date = re.search(r"\b\d{2}\.\d{2}\.\d{4}\b", path.name)
-        base = {"name": path.name, "relative_path": path.relative_to(raw).as_posix(), "sha256": digest, "date_hint": date.group() if date else None, "validity": "не подтверждена"}
+        relative_path = path.relative_to(raw).as_posix()
+        base = {"name": path.name, "relative_path": relative_path, "document_id": relative_path, "document_version_id": digest, "sha256": digest, "date_hint": date.group() if date else None, "validity": "не подтверждена"}
         count = 0
         section = ""
+        source_parts = []
+        source_offset = 0
         try:
             pending = []
             for text, meta in units(path):
                 text = re.sub(r"[ \t]+", " ", text).strip()
                 if not text: continue
-                for line in text.splitlines():
-                    if re.match(r"^\d+(?:\.\d+)*\.?\s+\S", line.strip()): section = line.strip()[:180]; break
-                words = text.split()
+                unit_start = source_offset
+                unit_end = unit_start + len(text)
+                source_parts.append(text)
+                source_offset = unit_end + 2
+                from .structure import heading_from_text
+                if meta.get("sheet"):
+                    section = f"Лист: {meta['sheet']}"
+                else:
+                    for line in text.splitlines():
+                        heading = heading_from_text(line, meta.get("style"), meta.get("numbering"))
+                        if heading:
+                            section = heading["title"]
+                            meta["heading"] = heading
+                            break
+                words = list(re.finditer(r"\S+", text))
                 # Conservative 110-word windows stay below multilingual tokenizer limit in most cases.
                 for start in range(0, len(words), 90):
-                    content = " ".join(words[start:start+110])
-                    m = dict(base, **meta, section=section, word_start=start)
+                    selected = words[start:start+110]
+                    content = " ".join(word.group() for word in selected)
+                    char_start = unit_start + selected[0].start()
+                    char_end = unit_start + selected[-1].end()
+                    span = {"document_id": relative_path, "start": char_start, "end": char_end}
+                    m = dict(base, **meta, section=section, word_start=start, chunk_id=None, source_span=span, unit_source_span={"start": unit_start, "end": unit_end}, original_content=content)
                     cid = hashlib.sha256(json.dumps([digest, meta["locator"], start], ensure_ascii=False).encode()).hexdigest()[:24]
+                    m["chunk_id"] = cid
                     pending.append({"id": cid, "content": content, "meta": m})
             docs.extend(pending); count = len(pending)
+            source_documents.append({"document_id": relative_path, "name": path.name, "sha256": digest, "text": "\n\n".join(source_parts)})
         except Exception as exc:
             errors.append({"name": path.name, "error": str(exc)})
         manifest.append(dict(base, chunks=count))
@@ -108,4 +134,7 @@ def ingest():
     tmp = DATA / "chunks.tmp"
     tmp.write_text(json.dumps(docs, ensure_ascii=False), encoding="utf-8")
     tmp.replace(DATA / "chunks.json")
+    tmp = DATA / "source_documents.tmp"
+    tmp.write_text(json.dumps(source_documents, ensure_ascii=False), encoding="utf-8")
+    tmp.replace(DATA / "source_documents.json")
     return docs

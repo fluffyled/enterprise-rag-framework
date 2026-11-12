@@ -1,0 +1,4 @@
+retrieval:
+  graph_expansion: true
+  graph_relation_mode: "references"
+  graph_depth: 1

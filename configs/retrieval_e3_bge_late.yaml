@@ -1,0 +1,4 @@
+retrieval:
+  embedding_backend: "bge-m3-late"
+  reranker_backend: "mminilm"
+  bge_late_interaction_top_n: 20

@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $stateFile = Join-Path $PSScriptRoot 'data/processes.json'
 if (-not (Test-Path -LiteralPath $stateFile)) { Write-Output 'Нет сохранённых процессов'; exit }
 $state = Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json

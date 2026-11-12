@@ -1,0 +1,3 @@
+retrieval:
+  embedding_backend: "bge-m3-dense"
+  reranker_backend: "mminilm"

@@ -1,7 +1,8 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
 if (Test-Path -LiteralPath 'data/processes.json') { throw 'Уже есть processes.json. Выполните stop.ps1 перед повторным запуском.' }
-$pythonExe = Join-Path $PSScriptRoot '.venv/Scripts/python.exe'
+$pythonExe = 'C:\Users\valera\.conda\envs\neuro_clean\python.exe'
+if (-not (Test-Path -LiteralPath $pythonExe)) { throw "Не найден python окружения neuro_clean: $pythonExe" }
 $llamaExe = Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'tools/llama') -Recurse -Filter 'llama-server.exe' | Select-Object -First 1
 if (-not $llamaExe) { throw 'Не найден llama-server.exe' }
 New-Item -ItemType Directory -Path 'reports' -Force | Out-Null

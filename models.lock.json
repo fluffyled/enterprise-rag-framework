@@ -7,6 +7,11 @@
     "repo": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
     "revision": "1427fd652930e4ba29e8149678df786c240d8825"
   },
+  "bge_m3": {
+    "repo": "BAAI/bge-m3",
+    "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+    "local_dir": "bge-m3"
+  },
   "llm": {
     "repo": "Qwen/Qwen2.5-3B-Instruct-GGUF",
     "revision": "7dabda4d13d513e3e842b20f0d435c732f172cbe",

@@ -1,0 +1,4 @@
+retrieval:
+  embedding_backend: "bge-m3-sparse"
+  reranker_backend: "mminilm"
+  bge_sparse_weight: 0.5

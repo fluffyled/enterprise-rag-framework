@@ -79,4 +79,33 @@ docker compose down
 ## Происхождение
 Переиспользуются библиотечные компоненты [Haystack](https://github.com/deepset-ai/haystack), Apache-2.0, а не скопированный исходный код приложения. Перечень лицензий компонентов и весов: THIRD_PARTY.md.
 
-Реальные контрольные вопросы и эталонные выдержки находятся в локальном data/eval_cases.json и исключены из Git. TEST_RESULTS.md содержит общую сводку без текстов внутренних документов; подробные сценарии сохраняются локально в reports.
+Реальные контрольные вопросы и эталонные выдержки находятся в локальных файлах `data/eval_cases.json` и `data/retrieval_eval_*.json` и исключены из Git. TEST_RESULTS.md содержит общую сводку без текстов внутренних документов; подробные сценарии сохраняются локально в reports.
+
+## Retrieval research и конфигурация
+
+Полный научно-технический отчёт: [RETRIEVAL_RESEARCH_REPORT.md](RETRIEVAL_RESEARCH_REPORT.md). Приложение и CLI по умолчанию используют `configs/retrieval_stable.yaml`. Другой YAML можно задать через `NAVIGATOR_CONFIG` или `python -m navigator.cli --config configs/retrieval_baseline.yaml ask "Вопрос"`.
+
+Предусмотрены независимые флаги `hierarchical`, `contextual`, `coverage_aware`, `adaptive`, `graph_expansion`, а также `embedding_backend` и `reranker_backend`. По умолчанию активны E5-small, mMiniLM и coverage-aware selection с правиловой декомпозицией; экспериментальные hierarchy/contextual/adaptive/graph выключены. При смене chunking, контекстного представления или embedding-модели индекс обязательно перестраивается.
+
+Retrieval benchmark не вызывает Qwen:
+```powershell
+python scripts/prepare_internal_eval.py
+python scripts/evaluate_retrieval.py --dataset internal --split dev --name baseline_dev --config configs/retrieval_baseline.yaml --repeat 3
+python scripts/evaluate_retrieval.py --dataset internal --split holdout --name stable_holdout --config configs/retrieval_stable.yaml
+python scripts/compare_experiments.py baseline_dev stable_dev --output reports/retrieval_experiments/stable
+```
+
+Внешние pilots:
+```powershell
+python scripts/evaluate_retrieval.py --dataset multidoc2dial --split validation --limit 4 --document-limit 5 --name multidoc2dial_pilot
+python scripts/evaluate_retrieval.py --dataset legalbench --split privacy_qa --limit 4 --name legalbench_pilot
+python scripts/evaluate_retrieval.py --dataset miracl --split dev --limit 2 --corpus-limit 100 --name miracl_pilot
+```
+LegalBench скачивает официальный архив локально; при готовых данных можно передать `--legal-data-dir`. MIRACL pilot не является официальной оценкой полного корпуса. Внутренние вопросы, исходные тексты, индексы и reports не публикуются.
+
+BGE-M3 — отдельный эксперимент, а не замена основной модели:
+```powershell
+python scripts/download_bge_m3.py
+python scripts/evaluate_retrieval.py --dataset internal --split dev --name bge_e2_dev --config configs/retrieval_e2_bge_sparse.yaml --rebuild
+```
+Доступны E1 dense, E2 dense+sparse, E3 late interaction и E4 full. Late interaction ограничена top-N кандидатов и работает на CPU. Точные параметры, число ошибок, CI и ресурсы сохраняются в `reports/retrieval_experiments/`.

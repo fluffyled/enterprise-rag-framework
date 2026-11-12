@@ -1,0 +1,4 @@
+retrieval:
+  graph_expansion: true
+  graph_relation_mode: "amendments"
+  graph_depth: 2

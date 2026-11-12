@@ -1,0 +1,824 @@
+{
+  "schema_version": 1,
+  "privacy": "aggregates only",
+  "experiments": {
+    "baseline_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.8944444444444444,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8326061351355464,
+        "gold_span_coverage": 0.8944444444444444,
+        "redundancy_ratio": 0.048245208949487854,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 0.7863651000006939,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2799325184
+    },
+    "baseline_holdout": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "holdout"
+        },
+        "questions": 27,
+        "evaluated": 27
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.8125,
+        "all_evidence_hit@6": 0.7916666666666666,
+        "mrr@10": 0.7430555555555555,
+        "ndcg@10": 0.7341463368137245,
+        "gold_span_coverage": 0.8125,
+        "redundancy_ratio": 0.0837527075007477,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 0.8567597000001115,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2701606912
+    },
+    "stable_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8833333333333333,
+        "document_ndcg@10": 0.9130929753571457,
+        "evidence_recall@6": 0.9222222222222222,
+        "all_evidence_hit@6": 0.8666666666666667,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8216368559005557,
+        "gold_span_coverage": 0.9222222222222222,
+        "redundancy_ratio": 0.042760011150392845,
+        "all_evidence_hit@6_errors": 4
+      },
+      "median_retrieval_seconds": 0.8936878999957116,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2836152320
+    },
+    "stable_holdout": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "holdout"
+        },
+        "questions": 27,
+        "evaluated": 27
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8888888888888888,
+        "document_ndcg@10": 0.920598363885048,
+        "evidence_recall@6": 0.8680555555555555,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.8055555555555555,
+        "ndcg@10": 0.8063475293336325,
+        "gold_span_coverage": 0.8680555555555555,
+        "redundancy_ratio": 0.07676177895724791,
+        "all_evidence_hit@6_errors": 4
+      },
+      "median_retrieval_seconds": 0.8724098999955459,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 3085586432
+    },
+    "hierarchy_h1_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 0.9333333333333333,
+        "evidence_recall@6": 0.8166666666666667,
+        "all_evidence_hit@6": 0.7666666666666667,
+        "mrr@10": 0.7598148148148148,
+        "ndcg@10": 0.7782909576616349,
+        "gold_span_coverage": 0.8166666666666667,
+        "redundancy_ratio": 0.03666854759606291,
+        "all_evidence_hit@6_errors": 7
+      },
+      "median_retrieval_seconds": 1.4014240999968024,
+      "index_bytes": 38386488,
+      "peak_rss_bytes": 3019091968
+    },
+    "hierarchy_h2_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.8944444444444444,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8326061351355464,
+        "gold_span_coverage": 0.8944444444444444,
+        "redundancy_ratio": 0.049224329958900415,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 1.6003323000040837,
+      "index_bytes": 38386488,
+      "peak_rss_bytes": 2955882496
+    },
+    "hierarchy_h3_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.8944444444444444,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8326061351355464,
+        "gold_span_coverage": 0.8944444444444444,
+        "redundancy_ratio": 0.049224329958900415,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 1.610904200002551,
+      "index_bytes": 38386488,
+      "peak_rss_bytes": 2956943360
+    },
+    "contextual_c1_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 0.9666666666666667,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8777777777777779,
+        "document_ndcg@10": 0.9082998815940798,
+        "evidence_recall@6": 0.8777777777777778,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.8139285714285714,
+        "ndcg@10": 0.8342581048706478,
+        "gold_span_coverage": 0.8777777777777778,
+        "redundancy_ratio": 0.045437509114232624,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 0.8054356999928132,
+      "index_bytes": 34033881,
+      "peak_rss_bytes": 2827390976
+    },
+    "contextual_c2_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8888888888888888,
+        "document_ndcg@10": 0.9147813267811339,
+        "evidence_recall@6": 0.8777777777777778,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.72,
+        "ndcg@10": 0.7649288192302357,
+        "gold_span_coverage": 0.8777777777777778,
+        "redundancy_ratio": 0.018434681519724452,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 0.777534699998796,
+      "index_bytes": 39141097,
+      "peak_rss_bytes": 2857906176
+    },
+    "contextual_c3_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8694444444444444,
+        "document_ndcg@10": 0.9001682038359623,
+        "evidence_recall@6": 0.8666666666666667,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.726984126984127,
+        "ndcg@10": 0.7734330504577103,
+        "gold_span_coverage": 0.8666666666666667,
+        "redundancy_ratio": 0.01943204910179245,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 0.7481861999985995,
+      "index_bytes": 40243654,
+      "peak_rss_bytes": 2847752192
+    },
+    "coverage_dedup_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.9111111111111111,
+        "all_evidence_hit@6": 0.8666666666666667,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8326061351355464,
+        "gold_span_coverage": 0.9111111111111111,
+        "redundancy_ratio": 0.0,
+        "all_evidence_hit@6_errors": 4
+      },
+      "median_retrieval_seconds": 2.666116199994576,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2791981056
+    },
+    "coverage_mmr_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.9444444444444444,
+        "all_evidence_hit@6": 0.9,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8326061351355464,
+        "gold_span_coverage": 0.9444444444444444,
+        "redundancy_ratio": 0.021379118016065596,
+        "all_evidence_hit@6_errors": 3
+      },
+      "median_retrieval_seconds": 2.6905452999999397,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2791460864
+    },
+    "coverage_greedy_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.8944444444444444,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8326061351355464,
+        "gold_span_coverage": 0.8944444444444444,
+        "redundancy_ratio": 0.048245208949487854,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 2.72890109999571,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2790809600
+    },
+    "coverage_decomposed_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.9222222222222222,
+        "all_evidence_hit@6": 0.8666666666666667,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8216368559005557,
+        "gold_span_coverage": 0.9222222222222222,
+        "redundancy_ratio": 0.042760011150392845,
+        "all_evidence_hit@6_errors": 4
+      },
+      "median_retrieval_seconds": 2.8392033000054653,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2798247936
+    },
+    "adaptive_always_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.861111111111111,
+        "all_evidence_hit@6": 0.8,
+        "mrr@10": 0.8206878306878307,
+        "ndcg@10": 0.8087776877829078,
+        "gold_span_coverage": 0.861111111111111,
+        "redundancy_ratio": 0.05451489719728968,
+        "all_evidence_hit@6_errors": 6
+      },
+      "median_retrieval_seconds": 3.2743396000005305,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2807955456
+    },
+    "adaptive_rules_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.8944444444444444,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8216368559005557,
+        "gold_span_coverage": 0.8944444444444444,
+        "redundancy_ratio": 0.048638110009669173,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 1.5112092999988818,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2792030208
+    },
+    "adaptive_coverage_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.9222222222222222,
+        "all_evidence_hit@6": 0.8666666666666667,
+        "mrr@10": 0.8237037037037037,
+        "ndcg@10": 0.8216368559005557,
+        "gold_span_coverage": 0.9222222222222222,
+        "redundancy_ratio": 0.04208568547606717,
+        "all_evidence_hit@6_errors": 4
+      },
+      "median_retrieval_seconds": 2.879037699996843,
+      "index_bytes": 31009040,
+      "peak_rss_bytes": 2801438720
+    },
+    "graph_refs_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.861111111111111,
+        "all_evidence_hit@6": 0.8,
+        "mrr@10": 0.8217989417989418,
+        "ndcg@10": 0.8308221526721727,
+        "gold_span_coverage": 0.861111111111111,
+        "redundancy_ratio": 0.048245208949487854,
+        "all_evidence_hit@6_errors": 6
+      },
+      "median_retrieval_seconds": 0.758345600006578,
+      "index_bytes": 31290881,
+      "peak_rss_bytes": 2911567872
+    },
+    "graph_amendments_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.861111111111111,
+        "all_evidence_hit@6": 0.8,
+        "mrr@10": 0.8217989417989418,
+        "ndcg@10": 0.8308221526721727,
+        "gold_span_coverage": 0.861111111111111,
+        "redundancy_ratio": 0.048245208949487854,
+        "all_evidence_hit@6_errors": 6
+      },
+      "median_retrieval_seconds": 0.764127099995676,
+      "index_bytes": 31290881,
+      "peak_rss_bytes": 2875445248
+    },
+    "graph_depth2_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.861111111111111,
+        "all_evidence_hit@6": 0.8,
+        "mrr@10": 0.8217989417989418,
+        "ndcg@10": 0.8308221526721727,
+        "gold_span_coverage": 0.861111111111111,
+        "redundancy_ratio": 0.048245208949487854,
+        "all_evidence_hit@6_errors": 6
+      },
+      "median_retrieval_seconds": 0.7615669000006164,
+      "index_bytes": 31290881,
+      "peak_rss_bytes": 2877706240
+    },
+    "graph_coverage_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.8888888888888888,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.8217989417989418,
+        "ndcg@10": 0.8198528734371819,
+        "gold_span_coverage": 0.8888888888888888,
+        "redundancy_ratio": 0.042760011150392845,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 1.491171800000302,
+      "index_bytes": 31290881,
+      "peak_rss_bytes": 2893795328
+    },
+    "bge_e1_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8777777777777779,
+        "document_ndcg@10": 0.9087286502380972,
+        "evidence_recall@6": 0.8944444444444444,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.7925925925925926,
+        "ndcg@10": 0.8013575074924567,
+        "gold_span_coverage": 0.8944444444444444,
+        "redundancy_ratio": 0.037571492182055716,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 1.1453244000003906,
+      "index_bytes": 78555717,
+      "peak_rss_bytes": 3746922496
+    },
+    "bge_e2_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.888888888888889,
+        "document_ndcg@10": 0.9174573004761943,
+        "evidence_recall@6": 0.9277777777777777,
+        "all_evidence_hit@6": 0.8666666666666667,
+        "mrr@10": 0.8038888888888889,
+        "ndcg@10": 0.8333067900667296,
+        "gold_span_coverage": 0.9277777777777777,
+        "redundancy_ratio": 0.020743255794199146,
+        "all_evidence_hit@6_errors": 4
+      },
+      "median_retrieval_seconds": 1.1249556000038865,
+      "index_bytes": 78555717,
+      "peak_rss_bytes": 3816099840
+    },
+    "bge_e3_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8777777777777779,
+        "document_ndcg@10": 0.9087286502380972,
+        "evidence_recall@6": 0.8944444444444444,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.7925925925925926,
+        "ndcg@10": 0.8013575074924567,
+        "gold_span_coverage": 0.8944444444444444,
+        "redundancy_ratio": 0.037571492182055716,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 7.958519200001319,
+      "index_bytes": 78555717,
+      "peak_rss_bytes": 3849719808
+    },
+    "bge_e4_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.888888888888889,
+        "document_ndcg@10": 0.9174573004761943,
+        "evidence_recall@6": 0.9277777777777777,
+        "all_evidence_hit@6": 0.8666666666666667,
+        "mrr@10": 0.8038888888888889,
+        "ndcg@10": 0.8333067900667296,
+        "gold_span_coverage": 0.9277777777777777,
+        "redundancy_ratio": 0.020743255794199146,
+        "all_evidence_hit@6_errors": 4
+      },
+      "median_retrieval_seconds": 9.895544200000586,
+      "index_bytes": 78555717,
+      "peak_rss_bytes": 3870703616
+    },
+    "bge_e4_weighted_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.888888888888889,
+        "document_ndcg@10": 0.9174573004761943,
+        "evidence_recall@6": 0.9277777777777777,
+        "all_evidence_hit@6": 0.8666666666666667,
+        "mrr@10": 0.8038888888888889,
+        "ndcg@10": 0.8333067900667296,
+        "gold_span_coverage": 0.9277777777777777,
+        "redundancy_ratio": 0.020743255794199146,
+        "all_evidence_hit@6_errors": 4
+      },
+      "median_retrieval_seconds": 9.463175600001705,
+      "index_bytes": 78555717,
+      "peak_rss_bytes": 3854786560
+    },
+    "bge_e1_coverage_dev": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "dev"
+        },
+        "questions": 33,
+        "evaluated": 33
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8777777777777779,
+        "document_ndcg@10": 0.9087286502380972,
+        "evidence_recall@6": 0.8944444444444444,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "mrr@10": 0.7925925925925926,
+        "ndcg@10": 0.7952049842664711,
+        "gold_span_coverage": 0.8944444444444444,
+        "redundancy_ratio": 0.03542193934922758,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 1.2214888999951654,
+      "index_bytes": 78555717,
+      "peak_rss_bytes": 3797401600
+    },
+    "bge_e2_holdout": {
+      "dataset": {
+        "name": "internal",
+        "language": "ru",
+        "metadata": {
+          "private": true,
+          "split": "holdout"
+        },
+        "questions": 27,
+        "evaluated": 27
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 0.8680555555555555,
+        "document_ndcg@10": 0.9052204369505255,
+        "evidence_recall@6": 0.8680555555555555,
+        "all_evidence_hit@6": 0.7916666666666666,
+        "mrr@10": 0.7847222222222222,
+        "ndcg@10": 0.7886763823629698,
+        "gold_span_coverage": 0.8680555555555555,
+        "redundancy_ratio": 0.09530576693303502,
+        "all_evidence_hit@6_errors": 5
+      },
+      "median_retrieval_seconds": 1.153434499996365,
+      "index_bytes": 78555717,
+      "peak_rss_bytes": 3823427584
+    },
+    "multidoc2dial_pilot": {
+      "dataset": {
+        "name": "multidoc2dial",
+        "language": "en",
+        "metadata": {
+          "official": false,
+          "history_included": true,
+          "target_agent_answer_in_query": false,
+          "skipped_missing_documents": 112
+        },
+        "questions": 4,
+        "evaluated": 4
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.75,
+        "all_evidence_hit@6": 0.75,
+        "mrr@10": 0.75,
+        "ndcg@10": 0.7220123435930363,
+        "gold_span_coverage": 0.7370283018867925,
+        "redundancy_ratio": 0.0,
+        "all_evidence_hit@6_errors": 1
+      },
+      "median_retrieval_seconds": 0.8333731000020634,
+      "index_bytes": 730064,
+      "peak_rss_bytes": 2694934528
+    },
+    "legalbench_pilot": {
+      "dataset": {
+        "name": "legalbench_rag",
+        "language": "en",
+        "metadata": {
+          "official": false,
+          "benchmark_name": "privacy_qa",
+          "source_record_count": 194,
+          "selected_record_count": 4
+        },
+        "questions": 4,
+        "evaluated": 4
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "evidence_recall@6": 0.5,
+        "all_evidence_hit@6": 0.5,
+        "mrr@10": 0.1,
+        "ndcg@10": 0.09165392177074735,
+        "gold_span_coverage": 0.25619495324479064,
+        "redundancy_ratio": 0.0,
+        "all_evidence_hit@6_errors": 2
+      },
+      "median_retrieval_seconds": 0.5359003999983543,
+      "index_bytes": 468486,
+      "peak_rss_bytes": 2589794304
+    },
+    "miracl_pilot": {
+      "dataset": {
+        "name": "miracl_ru",
+        "language": "ru",
+        "metadata": {
+          "official": false,
+          "official_corpus": false,
+          "pilot": true,
+          "incomplete_judgments": true,
+          "seed": 42,
+          "shards": [
+            "miracl-corpus-v1.0-ru/docs-0.jsonl.gz"
+          ]
+        },
+        "questions": 2,
+        "evaluated": 2
+      },
+      "metrics": {
+        "document_recall@5": 1.0,
+        "document_recall@10": 1.0,
+        "document_mrr@10": 1.0,
+        "document_ndcg@10": 1.0,
+        "redundancy_ratio": 0.0
+      },
+      "median_retrieval_seconds": 1.6786105999999563,
+      "index_bytes": 1018950,
+      "peak_rss_bytes": 2856603648
+    }
+  }
+}

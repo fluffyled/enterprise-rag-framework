@@ -1,0 +1,30 @@
+schema_version: 1
+retrieval:
+  hierarchical: false
+  hierarchy_mode: "off"
+  contextual: false
+  contextual_mode: "off"
+  coverage_aware: false
+  selection_strategy: "top_k"
+  adaptive: false
+  adaptive_mode: "off"
+  graph_expansion: false
+  graph_depth: 1
+  embedding_backend: "e5-small"
+  reranker_backend: "mminilm"
+  candidate_top_k: 20
+  output_top_k: 6
+  context_token_budget: 2000
+  rerank: true
+  chunk_words: 110
+  chunk_stride: 90
+  contextual_max_chars: 1200
+  mmr_lambda: 0.7
+  coverage_lambda: 0.15
+  adaptive_min_candidates: 4
+  adaptive_min_unique_documents: 2
+  adaptive_min_score: -4.0
+  adaptive_max_expansions: 2
+  bge_sparse_weight: 0.5
+  bge_late_interaction_top_n: 20
+seed: 42

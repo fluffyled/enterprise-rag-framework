@@ -1,0 +1,5 @@
+retrieval:
+  embedding_backend: "bge-m3-full"
+  reranker_backend: "mminilm"
+  bge_sparse_weight: 0.5
+  bge_late_interaction_top_n: 20

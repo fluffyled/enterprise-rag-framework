@@ -7,3 +7,4 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 MODELS = ROOT / "models"
 INDEX = DATA / "index.json"
+CONFIG = os.environ.get("NAVIGATOR_CONFIG") or str(ROOT / "configs" / "retrieval_stable.yaml")

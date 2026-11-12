@@ -1,0 +1,6 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "coverage_decomposed"
+  graph_expansion: true
+  graph_relation_mode: "amendments"
+  graph_depth: 1

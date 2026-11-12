@@ -1,0 +1,103 @@
+import re
+
+
+def token_count(document):
+    return len(re.findall(r"\w+|[^\w\s]", document.content, flags=re.UNICODE))
+
+
+def tokens(document):
+    return set(re.findall(r"\w+", document.content.lower(), flags=re.UNICODE))
+
+
+def similarity(left, right):
+    a, b = tokens(left), tokens(right)
+    return len(a & b) / len(a | b) if a | b else 0.0
+
+
+def fits(document, selected, budget):
+    return sum(token_count(item) for item in selected) + token_count(document) <= budget
+
+
+def select_top_k(documents, top_k, token_budget, **kwargs):
+    selected = []
+    for document in documents:
+        if len(selected) < top_k and fits(document, selected, token_budget):
+            selected.append(document)
+    return selected
+
+
+def select_deduplicated(documents, top_k, token_budget, threshold=0.8, **kwargs):
+    selected = []
+    for document in documents:
+        if any(similarity(document, existing) >= threshold for existing in selected):
+            continue
+        if fits(document, selected, token_budget):
+            selected.append(document)
+        if len(selected) == top_k:
+            break
+    return selected
+
+
+def select_mmr(documents, top_k, token_budget, mmr_lambda=0.7, **kwargs):
+    selected = []
+    remaining = list(documents)
+    if not remaining:
+        return []
+    raw = [document.meta.get("rerank_score", document.score or 0) for document in documents]
+    minimum, maximum = min(raw), max(raw)
+    normalized = {document.id: (value - minimum) / (maximum - minimum) if maximum > minimum else 1.0 for document, value in zip(documents, raw)}
+    while remaining and len(selected) < top_k:
+        def score(document):
+            redundancy = max((similarity(document, existing) for existing in selected), default=0.0)
+            return mmr_lambda * normalized[document.id] - (1 - mmr_lambda) * redundancy
+        document = max(remaining, key=score)
+        remaining.remove(document)
+        if fits(document, selected, token_budget):
+            selected.append(document)
+    return selected
+
+
+def select_coverage(documents, top_k, token_budget, queries, matrix, coverage_lambda=0.15, **kwargs):
+    selected = []
+    selected_indices = []
+    remaining = list(enumerate(documents))
+    current_coverage = [0.0] * len(queries)
+    while remaining and len(selected) < top_k:
+        best = None
+        best_gain = 0.0
+        for index, document in remaining:
+            if not fits(document, selected, token_budget):
+                continue
+            gains = []
+            for query_index, query in enumerate(queries):
+                score = matrix[query][index]
+                gains.append(max(current_coverage[query_index], score) - current_coverage[query_index])
+            coverage_gain = sum(gains) / len(queries)
+            redundancy = sum(similarity(document, selected_document) for selected_document in selected) / max(1, len(selected))
+            cost = max(0.05, token_count(document) / token_budget)
+            gain = (coverage_gain - coverage_lambda * redundancy) / cost
+            if gain > best_gain:
+                best_gain = gain
+                best = (index, document, gains)
+        if best is None:
+            for index, document in remaining:
+                if fits(document, selected, token_budget):
+                    best = (index, document, [0.0] * len(queries))
+                    break
+        if best is None:
+            break
+        index, document, gains = best
+        selected.append(document)
+        selected_indices.append(index)
+        current_coverage = [current + gain for current, gain in zip(current_coverage, gains)]
+        remaining = [(candidate_index, candidate) for candidate_index, candidate in remaining if candidate_index != index]
+    if not selected and documents:
+        return select_top_k(documents, top_k, token_budget)
+    return selected
+
+
+def select_context(strategy, documents, top_k, token_budget, **kwargs):
+    selectors = {"top_k": select_top_k, "deduplicated": select_deduplicated, "mmr": select_mmr, "coverage": select_coverage, "coverage_decomposed": select_coverage}
+    if strategy not in selectors:
+        raise ValueError(f"Неизвестная стратегия выбора: {strategy}")
+    return selectors[strategy](documents, top_k, token_budget, **kwargs)

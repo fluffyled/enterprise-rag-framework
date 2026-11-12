@@ -19,10 +19,14 @@ flowchart LR
   M --> N[Streamlit / CLI]
 ```
 
-Это адаптация известного Haystack hybrid pipeline. Сохраняем parent_id исходной страницы, абзаца или строки; полноценное автоматическое parent-child merging не реализовано. В baseline используется flat retrieval по структурным блокам. PDF OCR выполняется только на страницах с текстом короче 80 символов. OCR cache идентифицируется хешем исходника и страницей. При ошибке файла индекс не заменяется. Повторный ingest/index полностью пересобирает snapshot, удаленные файлы исчезают после перестройки.
+Это адаптация известного Haystack hybrid pipeline. Сохраняются parent_id и символьные source spans исходной страницы, абзаца или строки. Baseline использует flat retrieval; parent/sibling expansion реализовано как отдельный отключённый эксперимент H3, но не принято. PDF OCR выполняется только на страницах с текстом короче 80 символов. OCR cache идентифицируется хешем исходника и страницей. При ошибке файла индекс не заменяется. Повторный ingest/index полностью пересобирает snapshot, удаленные файлы исчезают после перестройки.
 
 Модели: intfloat/multilingual-e5-small (CPU, query/passsage prefixes, normalized cosine), cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 (CPU), Qwen/Qwen2.5-3B-Instruct-GGUF Q4_K_M (local llama.cpp, context 8192). SHA в models.lock.json. Бинарник llama.cpp и веса локально, не в Git.
 
 Ответ — extractive grounded QA: модель выбирает номера предложений, код извлекает их дословный текст и проверяет их принадлежность фрагментам и номера источников. Свободный пересказ сознательно не используется в baseline. Это исключает новые факты в сформулированных моделью предложениях, но не гарантирует релевантность выбранной цитаты и правильность порядка шагов. insufficiency определяет небольшая LLM; оценка уверенности по cosine не применяется без калибровки. Полнота сложных ответов не гарантирована. Конфликты — предложения модели с двумя проверяемыми цитатами, семантическая корректность требует проверки. Актуальность юридически не выводится из даты файла.
 
 Документы не отправляются внешним LLM. Сетевые обращения подготовки: Google Drive (скачивание), PyPI/PyTorch (зависимости), Hugging Face (веса), GitHub (инструменты/исходники). Во время QA только localhost, а в Compose имя llm. Телеметрия библиотек отключена. Перед публикацией исключаются data, reports, tools, models, секреты и окружение.
+
+## Retrieval research
+
+`configs/retrieval_stable.yaml` добавляет к baseline правиловую декомпозицию и coverage-aware greedy selection при неизменных E5/mMiniLM и бюджете контекста. `Retriever.search` сохраняет снимки BM25, dense, RRF, reranker и выбранного контекста, оценки и время этапов без вызова Qwen. Экспериментальные иерархия, contextual indexing, adaptive expansion, graph и BGE-M3 управляются независимыми YAML и по умолчанию выключены. Индекс проверяет модель, chunking и search representation. Метрики, абляции и научные ссылки: [RETRIEVAL_RESEARCH_REPORT.md](RETRIEVAL_RESEARCH_REPORT.md).

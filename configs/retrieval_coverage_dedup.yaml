@@ -1,0 +1,3 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "deduplicated"
