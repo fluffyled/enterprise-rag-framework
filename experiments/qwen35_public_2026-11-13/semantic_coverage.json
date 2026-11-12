@@ -1,0 +1,41 @@
+{
+  "common_case_ids": [
+    "261383ad88faa4fc4be7b10fcf385b18-15",
+    "6QwthcyjURgUTk3i6TxyXQ",
+    "816d879a8571a6a35bd9ad9e6cb898d7-6",
+    "8dc956a239a7d24ab97945d718a34313-8",
+    "927dafd0dd7632be82744c7bcb858d86-7",
+    "97b89d77600b3661ce5a2942127643cb-9",
+    "9fd9ac67b01535b3e3ee084c54afe47b-8",
+    "A8Aj7DciFqsDLUuUnSJcVv",
+    "BbL3nQgiDsjpxdJLAsxGBe",
+    "BxjdWBsVAH5WsAxbfWQCum",
+    "EmAeEQKteeRCQUcQD78F5J",
+    "GcuFESTRWeEyx6nPHriYnN",
+    "HYPr4gGFTQCXyevVMnQCQ2",
+    "HsokwTTd5exb7yTijh5VVs",
+    "J8Sm2BJJawx2KfWhz4Asfz",
+    "KFYokj8etJ3cSwrajPySFb",
+    "KmeKd4UFE8SLVLUvmixWvp",
+    "Kup3fdXExEPFSRjaksD86H",
+    "L95ED83thdFELYepYhqY35",
+    "LtWbR3CzXDpeULRtNFk9jX",
+    "TR98EKXDbNvKR3Ep9sG9Wu",
+    "c3NyJwAYy9j9bALSnyTPQY",
+    "c517b2ff8fbcc86f9dbb07ccfee13cc9-8",
+    "fc3a1f32406408addcff117b13932d1b-16",
+    "hp9inW35JA7S7d47MwdLKC",
+    "iuCtNefftp2MEzNxz96yMD",
+    "j94aEUk4fYXzooLXqShinX",
+    "kMYJhLT3WfVwCDRT2Gj39A",
+    "nyFLm4hrXGuvE4jpPEaNQj"
+  ],
+  "warning": "Same-model judge failed spot checks; diagnostic estimates only, not validated semantic measurements. Long-context skips and schema errors retained.",
+  "per_arm": {
+    "A0": 31,
+    "A1": 29,
+    "A2": 32,
+    "A3": 32,
+    "A4": 32
+  }
+}

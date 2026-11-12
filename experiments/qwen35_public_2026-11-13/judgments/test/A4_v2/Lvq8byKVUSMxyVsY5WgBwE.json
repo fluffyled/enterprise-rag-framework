@@ -1,0 +1,7 @@
+{
+  "case_id": "Lvq8byKVUSMxyVsY5WgBwE",
+  "arm": "A4_v2",
+  "error": "judge_context_too_long",
+  "input_tokens_without_chat_template": 3417,
+  "status": "not_evaluated"
+}

@@ -1,0 +1,102 @@
+{
+  "metrics": {
+    "A0": {
+      "Answer Correctness — 2 MD audit": 0.75,
+      "Faithfulness — 2 MD audit": 1.0,
+      "Unsupported Claim Rate — 2 MD audit": 0.0,
+      "Citation Precision — 2 MD audit": 1.0,
+      "Citation Recall — 2 MD audit": 1.0,
+      "Condition Preservation Rate — 4 MD, 6 units": 0.6666666666666666,
+      "Procedure Completeness — 4 MD, 7 units": 0.8571428571428571,
+      "Unsupported Action Rate — 2 MD audit": 0.0
+    },
+    "A1": {
+      "Answer Correctness — 2 MD audit": 1.0,
+      "Faithfulness — 2 MD audit": 1.0,
+      "Unsupported Claim Rate — 2 MD audit": 0.0,
+      "Citation Precision — 2 MD audit": 1.0,
+      "Citation Recall — 2 MD audit": 1.0,
+      "Condition Preservation Rate — 4 MD, 6 units": 1.0,
+      "Procedure Completeness — 4 MD, 7 units": 1.0,
+      "Unsupported Action Rate — 2 MD audit": 0.0
+    },
+    "A2": {
+      "Answer Correctness — 2 MD audit": 0.5,
+      "Faithfulness — 2 MD audit": 1.0,
+      "Unsupported Claim Rate — 2 MD audit": 0.0,
+      "Citation Precision — 2 MD audit": 1.0,
+      "Citation Recall — 2 MD audit": 1.0,
+      "Condition Preservation Rate — 4 MD, 6 units": 0.3333333333333333,
+      "Procedure Completeness — 4 MD, 7 units": 0.42857142857142855,
+      "Unsupported Action Rate — 2 MD audit": 0.0
+    },
+    "A3": {
+      "Answer Correctness — 2 MD audit": 0.5,
+      "Faithfulness — 2 MD audit": 1.0,
+      "Unsupported Claim Rate — 2 MD audit": 0.0,
+      "Citation Precision — 2 MD audit": 1.0,
+      "Citation Recall — 2 MD audit": 1.0,
+      "Condition Preservation Rate — 4 MD, 6 units": 0.3333333333333333,
+      "Procedure Completeness — 4 MD, 7 units": 0.42857142857142855,
+      "Unsupported Action Rate — 2 MD audit": 0.0
+    },
+    "A4": {
+      "Answer Correctness — 2 MD audit": 0.5,
+      "Faithfulness — 2 MD audit": 0.75,
+      "Unsupported Claim Rate — 2 MD audit": 0.25,
+      "Citation Precision — 2 MD audit": 0.75,
+      "Citation Recall — 2 MD audit": 0.75,
+      "Condition Preservation Rate — 4 MD, 6 units": 0.5,
+      "Procedure Completeness — 4 MD, 7 units": 0.5714285714285714,
+      "Unsupported Action Rate — 2 MD audit": 0.3333333333333333
+    }
+  },
+  "metric_order": [
+    "Answer Correctness — 2 MD audit",
+    "Faithfulness — 2 MD audit",
+    "Unsupported Claim Rate — 2 MD audit",
+    "Citation Precision — 2 MD audit",
+    "Citation Recall — 2 MD audit",
+    "Condition Preservation Rate — 4 MD, 6 units",
+    "Procedure Completeness — 4 MD, 7 units",
+    "Unsupported Action Rate — 2 MD audit"
+  ],
+  "denominators": {
+    "A0": {
+      "facts": 4,
+      "actions": 4,
+      "CPR": 6,
+      "procedure": 7,
+      "correctness_cases": 2
+    },
+    "A1": {
+      "facts": 7,
+      "actions": 6,
+      "CPR": 6,
+      "procedure": 7,
+      "correctness_cases": 2
+    },
+    "A2": {
+      "facts": 2,
+      "actions": 2,
+      "CPR": 6,
+      "procedure": 7,
+      "correctness_cases": 2
+    },
+    "A3": {
+      "facts": 2,
+      "actions": 2,
+      "CPR": 6,
+      "procedure": 7,
+      "correctness_cases": 2
+    },
+    "A4": {
+      "facts": 4,
+      "actions": 3,
+      "CPR": 6,
+      "procedure": 7,
+      "correctness_cases": 2
+    }
+  },
+  "warning": "All manual numbers are source-reviewed by the agent on a small post-hoc subset; no independent human validation and no generalization or significance claim."
+}

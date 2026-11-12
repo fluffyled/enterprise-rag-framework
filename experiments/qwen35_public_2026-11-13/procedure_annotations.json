@@ -1,0 +1,75 @@
+{
+  "annotation_version": "agent-reviewed-exploratory-v1",
+  "annotator": "Codex agent reading the provided source and question; no independent human verification",
+  "created_before_model_test_predictions": true,
+  "scope": "Only explicitly supported question-relevant content units. Not official dataset mandatory-procedure labels. Order is not annotated.",
+  "cases": {
+    "816d879a8571a6a35bd9ad9e6cb898d7-6": {
+      "conditions": [
+        "Withdrawal is available up to 12 months after application."
+      ],
+      "actions": [
+        "Withdraw the application if the applicant changes their mind.",
+        "Repay any benefits already received."
+      ],
+      "support_quotes": [
+        "You have up to 12 months to withdraw your application",
+        "You will be required to repay any benefits"
+      ]
+    },
+    "261383ad88faa4fc4be7b10fcf385b18-15": {
+      "conditions": [
+        "The in-person interview requirement applies when requesting an original Social Security number.",
+        "The requirement applies at age 12 or older."
+      ],
+      "actions": [
+        "Appear in person for an interview."
+      ],
+      "support_quotes": [
+        "Anyone age 12 or older requesting an original Social Security number must appear in person for an interview."
+      ]
+    },
+    "c517b2ff8fbcc86f9dbb07ccfee13cc9-8": {
+      "conditions": [],
+      "actions": [
+        "Explore options for Veterans home loans.",
+        "Apply for a Certificate of Eligibility (COE)."
+      ],
+      "support_quotes": [
+        "Explore options for Veterans home loans",
+        "apply for your Certificate of Eligibility COE"
+      ],
+      "note": "Help with mortgage payment difficulties is conditional and not counted as a mandatory step for a general new-loan question. No mandatory ordering is annotated."
+    },
+    "fc3a1f32406408addcff117b13932d1b-16": {
+      "conditions": [
+        "Financial assistance is conditional on participation in a college or university co-op.",
+        "Assistance is possible, not guaranteed, and covers some costs, not every student expense."
+      ],
+      "actions": [],
+      "support_quotes": [
+        "You may be able to get help paying for some of your costs",
+        "if you re part of a co - op."
+      ]
+    },
+    "9fd9ac67b01535b3e3ee084c54afe47b-8": {
+      "conditions": [
+        "The homelessness assistance instructions apply when homeless or at risk of becoming homeless."
+      ],
+      "actions": [
+        "Visit the VA website to learn about homelessness programs.",
+        "Contact the National Call Center for Homeless Veterans for assistance."
+      ],
+      "support_quotes": [
+        "If you re homeless or at risk of becoming homeless",
+        "Visit our website to learn about VA programs",
+        "Contact the National Call Center for Homeless Veterans"
+      ],
+      "note": "These are required content units of the annotated answer, not proof that a legally mandatory workflow or ordering exists."
+    }
+  },
+  "quality_flags": {
+    "927dafd0dd7632be82744c7bcb858d86-7": "Reference is only ok; not a useful substantive correctness target.",
+    "97b89d77600b3661ce5a2942127643cb-9": "Possible lost heading/negation in source extraction and reference; unsafe to treat as a reliable procedure target. Kept in full slice, excluded from cleaned sensitivity slice."
+  }
+}

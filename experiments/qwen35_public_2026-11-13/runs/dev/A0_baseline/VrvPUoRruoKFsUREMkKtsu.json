@@ -1,0 +1,15 @@
+{
+  "case_id": "VrvPUoRruoKFsUREMkKtsu",
+  "dataset": "grounded_ru",
+  "split": "dev",
+  "arm": "A0_baseline",
+  "group_id": "ru-2032",
+  "code_sha256": "e1859c415f20cd71e3289ae3dc399b1636f833d88c67aa043537a76917c0e65f",
+  "input_sha256": "78e01a9a3decc8ac53f338bfa852184b0219c1550b822b61dfc3cd1250de0d0e",
+  "status": "error",
+  "valid": false,
+  "error": "ValueError('Некорректные источники конфликта')",
+  "claims": [],
+  "actions": [],
+  "seconds": 2.569236000003002
+}

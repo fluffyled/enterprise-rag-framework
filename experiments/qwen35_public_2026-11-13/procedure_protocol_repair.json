@@ -1,0 +1,8 @@
+{
+  "utc": "2026-11-12T23:07:13.993595+00:00",
+  "reason": "Code inspection against the original task: v2 generated claims before actions jointly and was not a strict extraction-then-answer implementation. V3 implements the originally requested protocol, not a hyperparameter search.",
+  "primary_pretest_lock_remains_valid_for": "A0,A1,A2,A4 and joint-A3-v2.",
+  "caveat": "A3-v3 primary test is a disclosed post-hoc protocol repair, not an untouched blind confirmation. Original v2 responses never overwritten. Do not select prompts from its test scores.",
+  "code_sha256": "5695d9803ddf7a947bfb68eccf028eb4b4a7ab2c87c211cbe181fb57496ae45c",
+  "configuration": "same model/runtime/decoding; 3 stages, extraction before final answer; no test-based prompt iterations"
+}

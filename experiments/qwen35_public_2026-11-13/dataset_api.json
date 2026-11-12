@@ -1,0 +1,117 @@
+{
+  "_id": "66b12e00fdf0ffb7791fa540",
+  "id": "Vikhrmodels/Grounded-RAG-RU-v2",
+  "author": "Vikhrmodels",
+  "sha": "7be9767db044c5b3f460557356ccd4cd8e69dfe1",
+  "lastModified": "2024-12-14T01:22:41.000Z",
+  "private": false,
+  "gated": false,
+  "disabled": false,
+  "tags": [
+    "language:ru",
+    "license:apache-2.0",
+    "size_categories:10K<n<100K",
+    "format:parquet",
+    "modality:tabular",
+    "modality:text",
+    "library:datasets",
+    "library:dask",
+    "library:mlcroissant",
+    "library:polars",
+    "region:us"
+  ],
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tДатасет для алайнмента (граундинга) способности LLM отвечать на вопросы по документам (RAG)\n\t\n\nЭтот датасет был собран на основе 13к разных статей из русской Википедии с помошью синтетических вопросов и ответов gpt-4-turbo-1106.\nДатасет содержит 4047 уникальных кластеров, т.е. комбинаций из документов - улосвная симуляция \"найденных результатов\" в Retrieval системе. Подробнее описано в разделе \"Общие этапы сборки этого датасета\".\nОбщий объем датасета - 50210 уникальных диалогов.\nВ… See the full description on the dataset page: https://huggingface.co/datasets/Vikhrmodels/Grounded-RAG-RU-v2.",
+  "downloads": 88,
+  "likes": 22,
+  "cardData": {
+    "language": [
+      "ru"
+    ],
+    "license": "apache-2.0",
+    "dataset_info": {
+      "features": [
+        {
+          "name": "cluster",
+          "dtype": "int64"
+        },
+        {
+          "name": "conversation",
+          "list": [
+            {
+              "name": "content",
+              "dtype": "string"
+            },
+            {
+              "name": "role",
+              "dtype": "string"
+            }
+          ]
+        },
+        {
+          "name": "docs_count",
+          "dtype": "float64"
+        },
+        {
+          "name": "model",
+          "dtype": "string"
+        },
+        {
+          "name": "type",
+          "dtype": "string"
+        },
+        {
+          "name": "id",
+          "dtype": "string"
+        }
+      ],
+      "splits": [
+        {
+          "name": "train",
+          "num_bytes": 892696601,
+          "num_examples": 50010
+        },
+        {
+          "name": "test",
+          "num_bytes": 3750439,
+          "num_examples": 200
+        }
+      ],
+      "download_size": 172603641,
+      "dataset_size": 896447040
+    },
+    "configs": [
+      {
+        "config_name": "default",
+        "data_files": [
+          {
+            "split": "train",
+            "path": "data/train-*"
+          },
+          {
+            "split": "test",
+            "path": "data/test-*"
+          }
+        ]
+      }
+    ]
+  },
+  "siblings": [
+    {
+      "rfilename": ".gitattributes"
+    },
+    {
+      "rfilename": "README.md"
+    },
+    {
+      "rfilename": "data/test-00000-of-00001.parquet"
+    },
+    {
+      "rfilename": "data/train-00000-of-00002.parquet"
+    },
+    {
+      "rfilename": "data/train-00001-of-00002.parquet"
+    }
+  ],
+  "createdAt": "2024-08-05T19:54:40.000Z",
+  "usedStorage": 702234236
+}

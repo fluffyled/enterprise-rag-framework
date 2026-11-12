@@ -8,3 +8,15 @@
 __pycache__/
 .pytest_cache/
 *.log
+
+/.codegraph/
+
+# Keep downloaded corpora and local renderer state on D: only.
+/experiments/*/data/*
+!/experiments/qwen35_public_2026-11-13/data/README.md
+!/experiments/qwen35_public_2026-11-13/data/multidoc2dial_README.md
+/experiments/*/.matplotlib/
+/experiments/*/STOP_MONITOR
+/experiments/*/ALL_RUNS_DONE
+/experiments/*/REPAIR_DONE
+!/experiments/qwen35_public_2026-11-13/frozen/server_startup_excerpt.log

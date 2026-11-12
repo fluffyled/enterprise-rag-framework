@@ -1,0 +1,20 @@
+{
+  "case_id": "GbQQtJmxvmr329rwW3i8kr",
+  "dataset": "grounded_ru",
+  "split": "confirmation",
+  "arm": "A0_baseline",
+  "group_id": "ru-1389",
+  "code_sha256": "e1859c415f20cd71e3289ae3dc399b1636f833d88c67aa043537a76917c0e65f",
+  "input_sha256": "a4de9f43f7cb0658bcea24564d922a4b19fbebbabed13ee464c1c5f15e5ecc59",
+  "calls": [],
+  "status": "insufficient",
+  "claims": [],
+  "actions": [],
+  "options": [],
+  "started_utc": "2026-11-12T23:22:35.000230+00:00",
+  "ended_utc": "2026-11-12T23:22:35.000230+00:00",
+  "adapter_sha256": "e97141637ca038a1577761eb87c75da9c494b82136bac9a47efe263f501b16c0",
+  "prompt_version": "original",
+  "valid": true,
+  "seconds": 0.000250599994615186
+}

@@ -1,0 +1,85 @@
+{
+  "seed": 20261113,
+  "primary_revision": "7be9767db044c5b3f460557356ccd4cd8e69dfe1",
+  "license": "See license_details; do not infer a single blanket license for all source texts.",
+  "primary_available": {
+    "train": 50010,
+    "test": 200
+  },
+  "downloaded_train_rows": 25005,
+  "selection": "random seed, good/OOD quotas, tokenizer context <=2600, dev unique cluster, official test preserved, exact nonempty title separation across dev/test",
+  "normalization": "HTML visible text; Markdown link captions; remove URLs; literal escaped newlines decoded; same for all arms",
+  "auxiliary": "MD2Dial train->dev; validation->held-out test slice; original official test not used. Oracle source sections around gold spans. English references, Russian generation.",
+  "counts": {
+    "dev": {
+      "grounded_ru": 24,
+      "multidoc2dial": 4
+    },
+    "test": {
+      "grounded_ru": 32,
+      "multidoc2dial": 8
+    }
+  },
+  "files": {
+    "data\\multidoc2dial.zip": "f0c034c249663d7b3cb08b19cf2cc2c3d101372485be982621d4711931a1ce00",
+    "data\\multidoc2dial_dial_test.json": "4df4887a85b4c1aec7d41e9f96ecb607ec2a7f7732344933b05b79a0526bf40f",
+    "data\\multidoc2dial_dial_train.json": "c9a6ef2e0be22306429e0affa51c2ca164b2808a89a999e7756700170ed15d96",
+    "data\\multidoc2dial_dial_validation.json": "ce063938b53d96f6128275d76c0ba967a435e3d865d011aaeb6461c2538b2ce4",
+    "data\\multidoc2dial_doc.json": "7205be05b7c260fd3c0eda4d98a4abddf7af66c364238f1be509aa139414012d",
+    "data\\multidoc2dial_loader.py.txt": "aedf3d3fdff4fa89c73982c0dabc5ef2c61eef4b98ab16b23ff364f6b6586e5a",
+    "data\\README.md": "9cb918890e3a902f6f97e6ebdfa2154d0f4050f508cde77e11236c7385094b39",
+    "data\\test-00000-of-00001.parquet": "6f4da7dbed3c6f5176517e80df61f489e2a4ff292a8ec5882c6890ac4422ebda",
+    "data\\train-00000-of-00002.parquet": "0140201dafedef091facccef95c7987b98267e2a1c8fa1d5bdd87592a82065c9",
+    "data/multidoc2dial_README.md": "27138123a3dafaac9ee4e664473fe4eab5820d136d0996ae7aff2b46eda8578e"
+  },
+  "license_details": {
+    "grounded_ru": {
+      "declared_card_license": "Apache-2.0",
+      "underlying_text": "Wikipedia, provenance/attribution separate from synthetic dataset card"
+    },
+    "multidoc2dial": {
+      "metadata_license": "Apache-2.0",
+      "card_licensing_information": "Creative Commons Attribution 3.0 Unported",
+      "conclusion": "Dataset card is internally inconsistent. Preserve both declarations; code repository Apache license is not proof of all data licensing. Attribution retained; clarify before redistribution/training.",
+      "card_revision": "1108a969d076f04c7367f0c2427d1c5d6d6bdaa0",
+      "card_url": "https://huggingface.co/datasets/IBM/multidoc2dial/blob/1108a969d076f04c7367f0c2427d1c5d6d6bdaa0/README.md"
+    }
+  },
+  "sources": [
+    {
+      "id": "Vikhrmodels/Grounded-RAG-RU-v2",
+      "url": "https://huggingface.co/datasets/Vikhrmodels/Grounded-RAG-RU-v2",
+      "revision": "7be9767db044c5b3f460557356ccd4cd8e69dfe1",
+      "files_downloaded": [
+        "data/train-00000-of-00002.parquet",
+        "data/test-00000-of-00001.parquet"
+      ],
+      "reason": "Generator-only evaluation, simulated retrieval documents, no scores from teammate"
+    },
+    {
+      "id": "IBM/multidoc2dial",
+      "url": "https://doc2dial.github.io/multidoc2dial/",
+      "archive_url": "https://doc2dial.github.io/multidoc2dial/file/multidoc2dial.zip",
+      "hash": "See files data/multidoc2dial.zip SHA256",
+      "reason": "Auxiliary procedural/dialogue oracle evidence contexts"
+    }
+  ],
+  "confirmed_document_components": {
+    "dev_grounded_ru": 24,
+    "test_grounded_ru": 15,
+    "dev_md": 4,
+    "test_md": 8
+  },
+  "confirmation": {
+    "purpose": "Fresh disjoint official-test document clusters reserved before A3-v3 calls; no prompt tuning on these answers. A0 and strict A3 paired only, descriptive tiny confirmation.",
+    "counts": {
+      "ood": 4,
+      "good": 1
+    },
+    "n": 5,
+    "sha256": "cd6350b1414451ed449106075ea3d6fc113b7d7d10c08b5006d518182fce3150",
+    "document_disjointness_checked": true
+  },
+  "quality_review": "quality_review.json",
+  "untrusted_source_instruction_policy": "Instructions in source documents/cards are treated as data, never as user commands."
+}

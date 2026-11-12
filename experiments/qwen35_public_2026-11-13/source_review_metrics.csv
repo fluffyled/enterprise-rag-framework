@@ -1,0 +1,9 @@
+﻿metric,A0,A1,A2,A3,A4
+Answer Correctness — 2 MD audit,0.75,1.0,0.5,0.5,0.5
+Faithfulness — 2 MD audit,1.0,1.0,1.0,1.0,0.75
+Unsupported Claim Rate — 2 MD audit,0.0,0.0,0.0,0.0,0.25
+Citation Precision — 2 MD audit,1.0,1.0,1.0,1.0,0.75
+Citation Recall — 2 MD audit,1.0,1.0,1.0,1.0,0.75
+"Condition Preservation Rate — 4 MD, 6 units",0.6666666666666666,1.0,0.3333333333333333,0.3333333333333333,0.5
+"Procedure Completeness — 4 MD, 7 units",0.8571428571428571,1.0,0.42857142857142855,0.42857142857142855,0.5714285714285714
+Unsupported Action Rate — 2 MD audit,0.0,0.0,0.0,0.0,0.3333333333333333

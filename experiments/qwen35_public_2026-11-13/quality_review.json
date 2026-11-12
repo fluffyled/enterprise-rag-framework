@@ -1,0 +1,24 @@
+{
+  "review": "Agent inspection, no independent human adjudication; RU flags identified after predictions, not used to retune prompts or silently exclude primary cases.",
+  "flags": {
+    "Ke8ewPDyaYM7KhhnE6g9EE": {
+      "dataset": "grounded_ru",
+      "issue": "Gold reference falsely connects Stepney (English footballer) and Alter (Nobel physician), different surnames in supplied documents; Alter footballer in source is Brazilian. Refusal is defensible although official type=good.",
+      "effect": "Gold-relative false-refusal and reference-correctness can misclassify a safe refusal."
+    },
+    "iuCtNefftp2MEzNxz96yMD": {
+      "dataset": "grounded_ru",
+      "issue": "Question asks surnames beginning with A; reference and gold IDs include Stepney/Gabin/Lacunza. Some A-surnames do exist.",
+      "effect": "Do not treat reference agreement or all-gold-ID recall as semantic correctness."
+    },
+    "97b89d77600b3661ce5a2942127643cb-9": {
+      "dataset": "multidoc2dial",
+      "issue": "Oracle preparation omitted available span title Do not (span7). text_sec alone loses the negation. Gold response also has a conflicting positive formulation.",
+      "responsibility": "Preparation defect in this experiment, not proof of missing structure in source dataset. Primary inputs/results preserved; future loader repaired separately."
+    },
+    "927dafd0dd7632be82744c7bcb858d86-7": {
+      "dataset": "multidoc2dial",
+      "issue": "Reference ok is not a substantive correctness target."
+    }
+  }
+}

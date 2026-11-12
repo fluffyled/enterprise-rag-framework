@@ -1,0 +1,95 @@
+{
+  "date": "2026-11-12",
+  "scope": "First developer-two smoke release; 4 exploratory cases, no representative accuracy claim.",
+  "model": {
+    "repo": "unsloth/Qwen3.5-4B-GGUF",
+    "revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
+    "filename": "Qwen3.5-4B-Q4_K_M.gguf",
+    "local_dir": "models/answer-llm",
+    "source_model": "Qwen/Qwen3.5-4B",
+    "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+    "bytes": 2740937888
+  },
+  "runtime": {
+    "release": "b12284",
+    "cuda": "12.4",
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "vram_mib": 4096,
+    "driver": "566.07",
+    "gpu_layers_requested": 24,
+    "context": 8192,
+    "torch_build": "2.6.0+cpu",
+    "retrieval_device": "cpu"
+  },
+  "tests_passed": 34,
+  "real_corpus_documents": 20,
+  "zip_hashes_matched": 20,
+  "cases": [
+    {
+      "case": "single",
+      "status": "answered",
+      "answer_citations": 1,
+      "step_citations": 0,
+      "cpu_seconds": 21.593201299998327,
+      "cuda_seconds": 4.827926799996931,
+      "cuda_retrieval_seconds": 2.282587899997452,
+      "exact_citations": 1,
+      "review": "passed"
+    },
+    {
+      "case": "paraphrase",
+      "status": "answered",
+      "answer_citations": 1,
+      "step_citations": 0,
+      "cpu_seconds": 17.51576109999951,
+      "cuda_seconds": 3.414228199999343,
+      "cuda_retrieval_seconds": 1.0028097999966121,
+      "exact_citations": 1,
+      "review": "passed"
+    },
+    {
+      "case": "absent",
+      "status": "insufficient",
+      "answer_citations": 0,
+      "step_citations": 0,
+      "cpu_seconds": 19.774545299998863,
+      "cuda_seconds": 2.5564307999993616,
+      "cuda_retrieval_seconds": 0.9602486999974644,
+      "exact_citations": 0,
+      "review": "passed"
+    },
+    {
+      "case": "steps",
+      "status": "partial",
+      "answer_citations": 2,
+      "step_citations": 2,
+      "cpu_seconds": 21.9305400000012,
+      "cuda_seconds": 3.8949443999990763,
+      "cuda_retrieval_seconds": 1.0047381000003952,
+      "exact_citations": 4,
+      "review": "partial"
+    }
+  ],
+  "latency": {
+    "cpu_mean_seconds": 20.203511924999475,
+    "cuda_mean_seconds": 3.673382549998678,
+    "cuda_min_seconds": 2.5564307999993616,
+    "cuda_max_seconds": 4.827926799996931
+  },
+  "public_page": {
+    "url": "https://mipt.ru/sveden/common/",
+    "loaded_fragments": 387,
+    "all_retrieved_from_requested_page": true,
+    "status": "answered",
+    "seconds_including_fetch_and_index": 15.849766700001055
+  },
+  "limits": [
+    "timing is a small observational comparison; warm/cache effects not separated",
+    "exact quote checks do not establish semantic correctness",
+    "procedure is still incomplete",
+    "approved topic list pending; CSV mechanism tested on 700 synthetic document records",
+    "600-700 real-document RAG throughput not measured",
+    "no gold conflict evaluation",
+    "no new Docker deployment verification"
+  ]
+}

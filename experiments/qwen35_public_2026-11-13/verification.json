@@ -1,0 +1,62 @@
+{
+  "utc": "2026-11-12T23:27:07.255939+00:00",
+  "pretest_hashes_unchanged": true,
+  "a0_source_unchanged": true,
+  "all_5_arms_same_40_inputs": true,
+  "only_expected_model_in_saved_successful_responses": true,
+  "model_sha256_after": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+  "model_weights_unchanged": true,
+  "a3_protocol_repair_disclosed": true,
+  "artifacts_exist": [
+    "dataset_manifest.json",
+    "baseline_results.json",
+    "a1_results.json",
+    "a2_results.json",
+    "a3_results.json",
+    "a4_results.json",
+    "metrics_comparison.csv",
+    "error_analysis.md",
+    "ablation_report.md",
+    "training_feasibility.md",
+    "final_experiment_report.md",
+    "quality_latency.png",
+    "source_review.json"
+  ],
+  "run_counts": {
+    "dev": {
+      "A0_baseline": 28,
+      "A1": 28,
+      "A2": 28,
+      "A2_v2": 28,
+      "A3": 28,
+      "A3_procedure_v3": 28,
+      "A3_v2": 28,
+      "A4": 28,
+      "A4_v2": 28
+    },
+    "test": {
+      "A0_baseline": 40,
+      "A1": 40,
+      "A2_v2": 40,
+      "A3_procedure_v3": 40,
+      "A3_v2": 40,
+      "A4_v2": 40
+    },
+    "confirmation": {
+      "A0_baseline": 5,
+      "A3_procedure_v3": 5
+    }
+  },
+  "known_limitations": [
+    "No independent human semantic ground truth. Same-model judge failed calibration and is diagnostic only.",
+    "A3 v3 protocol repair after original test; fresh confirmation has one substantive good and four empty-context OOD guards.",
+    "Small short-context public slices, dataset/reference noise, no end-to-end MFTI claim.",
+    "One original A0 dev HTTP packet missing; separate replay retained."
+  ],
+  "figure_visually_checked": true,
+  "prepublication_tests": {
+    "command": "python -m pytest tests/test_answering.py tests/test_storage.py tests/test_contracts.py -q",
+    "passed": 35
+  },
+  "publication_branch": "developer-2/answer-generation"
+}

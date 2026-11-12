@@ -1,0 +1,4 @@
+import json,pathlib,hashlib,datetime
+p=pathlib.Path(__file__).parent
+manifest={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'reason':'Code inspection against the original task: v2 generated claims before actions jointly and was not a strict extraction-then-answer implementation. V3 implements the originally requested protocol, not a hyperparameter search.','primary_pretest_lock_remains_valid_for':'A0,A1,A2,A4 and joint-A3-v2.','caveat':'A3-v3 primary test is a disclosed post-hoc protocol repair, not an untouched blind confirmation. Original v2 responses never overwritten. Do not select prompts from its test scores.','code_sha256':hashlib.sha256((p/'procedure_v3.py').read_bytes()).hexdigest(),'configuration':'same model/runtime/decoding; 3 stages, extraction before final answer; no test-based prompt iterations'}
+with (p/'procedure_protocol_repair.json').open('x',encoding='utf8') as f:json.dump(manifest,f,ensure_ascii=False,indent=2)

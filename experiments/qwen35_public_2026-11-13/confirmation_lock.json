@@ -1,0 +1,10 @@
+{
+  "purpose": "Fresh disjoint official-test document clusters reserved before A3-v3 calls; no prompt tuning on these answers. A0 and strict A3 paired only, descriptive tiny confirmation.",
+  "counts": {
+    "ood": 4,
+    "good": 1
+  },
+  "n": 5,
+  "sha256": "cd6350b1414451ed449106075ea3d6fc113b7d7d10c08b5006d518182fce3150",
+  "document_disjointness_checked": true
+}

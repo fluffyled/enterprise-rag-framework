@@ -1,0 +1,24 @@
+{
+  "locked_at_utc": "2026-11-12T22:49:31.924568+00:00",
+  "purpose": "Generation prompts and selections frozen before first held-out model prediction. No tuning on test.",
+  "preferred_dev_candidate": "A2_v2 conservative evidence-first; A4 remains exploratory because of OOD partial answers. Test may invalidate recommendation, never tune its prompts.",
+  "arms": [
+    "A0_baseline",
+    "A1",
+    "A2_v2",
+    "A3_v2",
+    "A4_v2"
+  ],
+  "hashes": {
+    "baseline.py": "e1859c415f20cd71e3289ae3dc399b1636f833d88c67aa043537a76917c0e65f",
+    "variants.py": "a8ee526e698edfc14f558023cb3518911ef1b8e6373070616f27da135dfbeb4b",
+    "run_v2.py": "d5290e9bdd05535949e97699944fe00493885f1434f1db01039267c4599dfd73",
+    "prepare.py": "d2ca04d3968f0f32cdc9e17c6939305ce2fe44b17a86497f1353f72177df2b73",
+    "dev_cases.json": "d94c6f21c550d834d013ae0362dfc8117f72d9fe42a08d6f8e3b418c7ac628ab",
+    "test_cases.json": "8efa9389a6d2744d42053761b8573f5677c1e92b848362d33ae2fb04efd6d398",
+    "procedure_annotations.json": "2a6096e911899d02084309d7f987e07d9655dd5b9402d6ef9aa02751b2018160",
+    "document_groups.json": "8f5f835060d77ee5414bc144dfcb2eb54cfc462a41c41a9efa6026ecbbe9b803",
+    "evaluate_semantic.py": "62dbf35f32baec56bce5a1a44be3997f2765e25aea8d529a1133f3a9bac5b99b"
+  },
+  "note": "Some dev v0/v2 calls overlapped in single-slot server queue. Dev latency is not a controlled speed comparison; test is serial."
+}

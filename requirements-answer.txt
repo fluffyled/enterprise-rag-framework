@@ -1,0 +1,4 @@
+streamlit==1.45.0
+beautifulsoup4==4.13.4
+pypdfium2==4.30.0
+huggingface-hub==0.36.2

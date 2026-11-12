@@ -2,3 +2,6 @@
 *.py text eol=lf
 *.md text eol=lf
 *.ps1 text eol=crlf
+
+# Preserve exact experiment bytes for recorded SHA256 and immutable A0.
+experiments/qwen35_public_2026-11-13/** -text

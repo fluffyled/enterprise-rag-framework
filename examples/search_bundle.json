@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "fragments": [{
+    "id": "synthetic-example-1",
+    "document_id": "synthetic-policy",
+    "text": "Это искусственный пример для проверки интеграции. Заявку в учебном примере подает руководитель подразделения.",
+    "title": "Искусственный пример, не регламент МФТИ",
+    "locator": "пункт 1",
+    "topic_ids": ["example"],
+    "url": null,
+    "date_hint": null,
+    "order": 1
+  }]
+}

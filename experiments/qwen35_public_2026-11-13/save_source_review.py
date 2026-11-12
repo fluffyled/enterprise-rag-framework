@@ -1,0 +1,32 @@
+import json,pathlib,csv
+from metrics import ARMS,read
+p=pathlib.Path(__file__).parent
+W='816d879a8571a6a35bd9ad9e6cb898d7-6';S='261383ad88faa4fc4be7b10fcf385b18-15';C='c517b2ff8fbcc86f9dbb07ccfee13cc9-8';F='fc3a1f32406408addcff117b13932d1b-16';H='9fd9ac67b01535b3e3ee084c54afe47b-8'
+# Agent source review after reading exact source and all five final texts. No target-model judge values copied.
+conditions={W:{a:[True] for a in ARMS},S:{'A0':[True,True],'A1':[True,True],'A2':[False,True],'A3':[False,True],'A4':[False,True]},F:{'A0':[False,False],'A1':[True,True],'A2':[False,False],'A3':[False,False],'A4':[False,False]},H:{'A0':[True],'A1':[True],'A2':[False],'A3':[False],'A4':[True]}}
+procedure={W:{'A0':[True,False],'A1':[True,True],'A2':[True,True],'A3':[True,True],'A4':[True,True]},S:{a:[True] for a in ARMS},C:{'A0':[True,True],'A1':[True,True],'A2':[False,False],'A3':[False,False],'A4':[False,False]},H:{'A0':[True,True],'A1':[True,True],'A2':[False,False],'A3':[False,False],'A4':[False,True]}}
+# Atomic units for the same two MD audit cases W+C, explicit supportedness annotations.
+facts={
+'A0':{W:[('Withdrawal within 12 months if mind changes',True)],C:[('Explore veterans home-loan options',True),('Apply for COE',True),('Seek help if mortgage payment difficulties',True)]},
+'A1':{W:[('Circumstances can change after applying',True),('Withdrawal within 12 months if mind changes',True),('Repay benefits already received',True),('Read the named withdrawal information resource',True)],C:[('Explore veterans home-loan options',True),('Apply for COE',True),('Seek help if mortgage payment difficulties',True)]},
+'A2':{W:[('Withdrawal within 12 months if mind changes',True),('Repay benefits already received',True)],C:[]},
+'A3':{W:[('Withdrawal within 12 months if mind changes',True),('Repay benefits already received',True)],C:[]},
+'A4':{W:[('Withdrawal within 12 months if mind changes',True),('Repay benefits already received',True)],C:[('Obtaining COE is necessary to receive mortgage help',False),('Veterans home-loan benefit options exist',True)]}}
+actions={
+'A0':{W:[('Withdraw',True)],C:[('Explore options',True),('Apply for COE',True),('Seek help conditional on payment trouble',True)]},
+'A1':{W:[('Withdraw',True),('Repay',True),('Read withdrawal information',True)],C:[('Explore options',True),('Apply for COE',True),('Seek help conditional on payment trouble',True)]},
+'A2':{W:[('Withdraw',True),('Repay',True)],C:[]},'A3':{W:[('Withdraw',True),('Repay',True)],C:[]},
+'A4':{W:[('Withdraw',True),('Repay',True)],C:[('Must obtain COE to receive help',False)]}}
+correctness={'A0':{W:.5,C:1.},'A1':{W:1.,C:1.},'A2':{W:1.,C:0.},'A3':{W:1.,C:0.},'A4':{W:1.,C:0.}}
+notes={'scope':'Final textual claims only; intermediate extraction traces are not counted as delivered text. Each normative/action proposition is a factual unit about the supplied document. Refusal has no factual/action denominator, but correctness and condition/procedure coverage remain zero.','W':'A0 omits repayment; A1 includes the adjacent sentence. All emitted claims audited here are source-supported.','S':'Original-SSN applicability missing in A2/A3/A4 final interview claims; age preserved. US-residence condition of school/tax evidence also omitted, discussed qualitatively but not added to pre-annotated CPR denominator.','C':'A4 changes apply for COE into necessary obtaining COE for help, a stronger unsupported prerequisite; correctness zero under critical-unsupported-requirement gate. Its statement that options exist is not an instruction to explore them.','F':'A0 only says Find out if you can get these education benefits, without co-op/possible-partial-cost conditions.','H':'A4 mentions risk of homelessness and a usable phone channel, counted as covering contact content, but omits the website/program step. No legally mandatory ordering inferred.','UAR':'All actions in final claims, including action permissions/recommendations and Learn more, explicitly annotated for W+C. This is not restricted to the actions JSON field. No corpus-wide UAR claim.'}
+ann=read(p/'procedure_annotations.json');cases={c['id']:c for c in read(p/'test_cases.json')};payload={'annotation_type':'Post-hoc Codex agent source review, not independent human ground truth and not the target Qwen self-judge. Exploratory selected cases, not random benchmark estimate.','conditions':conditions,'procedure':procedure,'facts_two_MD_cases':facts,'actions_two_MD_cases':actions,'correctness_two_MD_cases':correctness,'notes':notes,'original_annotations':ann,'source_and_actual_final_text':{i:{'case':cases[i],'outputs':{a:read(p/'runs/test'/aid/(i+'.json')) for a,aid in ARMS.items()}} for i in [W,S,C,F,H]}}
+metrics={}
+for a in ARMS:
+ ff=[v for id in [W,C] for _,v in facts[a][id]];ac=[v for id in [W,C] for _,v in actions[a][id]];cp=[v for id in conditions for v in conditions[id][a]];pr=[v for id in procedure for v in procedure[id][a]];nlinks=sum(len(x['doc_ids']) for i in [W,C] for x in payload['source_and_actual_final_text'][i]['outputs'][a]['claims']);badlinks=1 if a=='A4' else 0
+ metrics[a]={'Answer Correctness — 2 MD audit':sum(correctness[a].values())/2,'Faithfulness — 2 MD audit':sum(ff)/len(ff) if ff else None,'Unsupported Claim Rate — 2 MD audit':sum(not x for x in ff)/len(ff) if ff else None,'Citation Precision — 2 MD audit':(nlinks-badlinks)/nlinks if nlinks else None,'Citation Recall — 2 MD audit':sum(ff)/len(ff) if ff else None,'Condition Preservation Rate — 4 MD, 6 units':sum(cp)/len(cp),'Procedure Completeness — 4 MD, 7 units':sum(pr)/len(pr),'Unsupported Action Rate — 2 MD audit':sum(not x for x in ac)/len(ac) if ac else None}
+meta={'metrics':metrics,'metric_order':list(metrics['A0']),'denominators':{a:{'facts':sum(len(facts[a][i]) for i in [W,C]),'actions':sum(len(actions[a][i]) for i in [W,C]),'CPR':6,'procedure':7,'correctness_cases':2} for a in ARMS},'warning':'All manual numbers are source-reviewed by the agent on a small post-hoc subset; no independent human validation and no generalization or significance claim.'}
+with (p/'source_review.json').open('x',encoding='utf8') as f:json.dump(payload,f,ensure_ascii=False,indent=2)
+with (p/'source_review_metrics.json').open('x',encoding='utf8') as f:json.dump(meta,f,ensure_ascii=False,indent=2)
+with (p/'source_review_metrics.csv').open('w',encoding='utf-8-sig',newline='') as f:
+ w=csv.writer(f);w.writerow(['metric',*ARMS]);w.writerows([[k,*[metrics[a][k] for a in ARMS]] for k in meta['metric_order']])
+print(json.dumps(meta,ensure_ascii=False,indent=2))
