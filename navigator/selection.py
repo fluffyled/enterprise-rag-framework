@@ -111,8 +111,48 @@ def select_coverage(documents, top_k, token_budget, queries, matrix, coverage_la
     return selected
 
 
+def select_protected_coverage(documents, top_k, token_budget, queries, matrix, protected_top_p=2, coverage_alpha=0.5, coverage_beta=0.3, coverage_gamma=0.2, **kwargs):
+    if not documents:
+        return []
+    if not queries or not matrix:
+        raise ValueError("protected_coverage требует queries и matrix")
+    raw = [document.meta.get("rerank_score", document.score or 0) for document in documents]
+    minimum, maximum = min(raw), max(raw)
+    relevance = {document.id: (value - minimum) / (maximum - minimum) if maximum > minimum else 1.0 for document, value in zip(documents, raw)}
+
+    selected = []
+    selected_indices = []
+    remaining = list(enumerate(documents))
+    for index, document in remaining[:max(0, min(protected_top_p, len(remaining)))]:
+        if fits(document, selected, token_budget) and len(selected) < top_k:
+            selected.append(document)
+            selected_indices.append(index)
+    protected_ids = {id(document) for document in selected}
+    remaining = [(index, document) for index, document in remaining if id(document) not in protected_ids]
+    current_coverage = [max((matrix[query][index] for index in selected_indices), default=0.0) for query in queries]
+    while remaining and len(selected) < top_k:
+        best = None
+        best_score = None
+        for index, document in remaining:
+            if not fits(document, selected, token_budget):
+                continue
+            coverage_gain = sum(max(0.0, matrix[query][index] - current_coverage[query_index]) for query_index, query in enumerate(queries)) / len(queries)
+            redundancy = sum(similarity(document, existing) for existing in selected) / max(1, len(selected))
+            score = coverage_alpha * relevance[document.id] + coverage_beta * coverage_gain - coverage_gamma * redundancy
+            if best_score is None or score > best_score:
+                best_score = score
+                best = (index, document)
+        if best is None:
+            break
+        selected.append(best[1])
+        selected_indices.append(best[0])
+        remaining.remove(best)
+        current_coverage = [max(current, matrix[query][best[0]]) for current, query in zip(current_coverage, queries)]
+    return selected
+
+
 def select_context(strategy, documents, top_k, token_budget, **kwargs):
-    selectors = {"top_k": select_top_k, "deduplicated": select_deduplicated, "mmr": select_mmr, "coverage": select_coverage, "coverage_decomposed": select_coverage}
+    selectors = {"top_k": select_top_k, "deduplicated": select_deduplicated, "mmr": select_mmr, "coverage": select_coverage, "coverage_decomposed": select_coverage, "protected_coverage": select_protected_coverage}
     if strategy not in selectors:
         raise ValueError(f"Неизвестная стратегия выбора: {strategy}")
     return selectors[strategy](documents, top_k, token_budget, **kwargs)

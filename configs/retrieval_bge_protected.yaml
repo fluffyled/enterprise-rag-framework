@@ -1,0 +1,16 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "protected_coverage"
+  decomposition_method: "existing"
+  embedding_backend: "bge-m3-sparse"
+  reranker_backend: "mminilm"
+  device: "cuda"
+  bge_sparse_weight: 0.5
+  candidate_top_k: 20
+  output_top_k: 6
+  context_token_budget: 2000
+  protected_top_p: 2
+  coverage_alpha: 0.5
+  coverage_beta: 0.3
+  coverage_gamma: 0.2
+seed: 42

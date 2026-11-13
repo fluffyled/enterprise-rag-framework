@@ -434,8 +434,8 @@ class Retriever:
                 metadata["adaptive"].update({"expanded": bool(queries), "expansion_queries": queries, "final": adaptive_analysis(question, reranked, effective), "candidate_limit_expanded": expanded_limit})
                 stages["adaptive_expansion"] = [document_snapshot(document, index + 1) for index, document in enumerate(reranked)]
         if settings["coverage_aware"]:
-            selection_kwargs = {"mmr_lambda": settings["mmr_lambda"], "coverage_lambda": settings["coverage_lambda"], "coverage_cost_normalization": settings["coverage_cost_normalization"], "coverage_document_diversity": settings["coverage_document_diversity"], "coverage_min_subtask": settings["coverage_min_subtask"]}
-        if settings["coverage_aware"] and settings["selection_strategy"] in ("coverage", "coverage_decomposed"):
+            selection_kwargs = {"mmr_lambda": settings["mmr_lambda"], "coverage_lambda": settings["coverage_lambda"], "coverage_cost_normalization": settings["coverage_cost_normalization"], "coverage_document_diversity": settings["coverage_document_diversity"], "coverage_min_subtask": settings["coverage_min_subtask"], "protected_top_p": settings["protected_top_p"], "coverage_alpha": settings["coverage_alpha"], "coverage_beta": settings["coverage_beta"], "coverage_gamma": settings["coverage_gamma"]}
+        if settings["coverage_aware"] and settings["selection_strategy"] in ("coverage", "coverage_decomposed", "protected_coverage"):
             coverage_started = time.perf_counter()
             matrix_queries = [task.text for task in tasks]
             raw_cache = coverage_raw_cache or {question: [document.meta.get("rerank_score", document.meta.get("rrf_score", 0) or 0) for document in reranked]}

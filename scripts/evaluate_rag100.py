@@ -35,6 +35,8 @@ CONFIGS = {
     "V2_mmr": {"config": "configs/retrieval_cuda_mmr.yaml"},
     "V3F_final": {"config": "configs/retrieval_v3_final.yaml"},
     "BGE_e2": {"config": "configs/retrieval_cuda_bge_e2.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
+    "BGE_coverage": {"config": "configs/retrieval_bge_coverage.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
+    "BGE_protected": {"config": "configs/retrieval_bge_protected.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
 }
 
 ABZ_RE = re.compile(r"^\u0430\u0431\u0437\u0430\u0446 (\d+)")
@@ -123,10 +125,12 @@ def flatten(chunks_in_order, chunk_units):
     return retrieved
 
 
-def run_config(name, config_path, gold, chunk_units, filename_to_did, index_path=None):
+def run_config(name, config_path, gold, chunk_units, filename_to_did, index_path=None, overrides=None):
     import time
 
-    config = load_config(ROOT / config_path)
+    from navigator.config import merge_config
+
+    config = merge_config(load_config(ROOT / config_path), overrides or {})
     retriever = Retriever(config=config, index_path=index_path)
     candidate_rows, selected_rows = [], []
     needle_stats = {"hit": 0, "total": 0, "docs_hit6": 0}
@@ -196,7 +200,7 @@ def main():
     for name in names:
         spec = CONFIGS[name]
         index_path = ROOT / spec["index"] if spec.get("index") else None
-        candidate_rows, selected_rows, needle, latency = run_config(name, spec["config"], gold, chunk_units, filename_to_did, index_path)
+        candidate_rows, selected_rows, needle, latency = run_config(name, spec["config"], gold, chunk_units, filename_to_did, index_path, spec.get("overrides"))
         print(f"{name}: needle Recall@selected = {needle['hit']}/{needle['total']}, doc hit@6 = {needle['docs_hit6']}/{needle['total']}, median = {latency['median']:.3f}s")
         entry = {"needle_selected": needle, "latency": latency, "config": spec["config"]}
         for split in splits:
