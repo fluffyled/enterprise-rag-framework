@@ -21,3 +21,4 @@ __pycache__/
 /experiments/*/ALL_RUNS_DONE
 /experiments/*/REPAIR_DONE
 !/experiments/qwen35_public_2026-11-13/frozen/server_startup_excerpt.log
+/.venv-ui/

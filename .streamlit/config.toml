@@ -1,5 +1,6 @@
 [browser]
 gatherUsageStats = false
 [server]
+maxUploadSize = 20
 address = "127.0.0.1"
 headless = true

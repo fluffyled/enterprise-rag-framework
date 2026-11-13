@@ -89,3 +89,7 @@ docker compose down
 ## Эксперимент генератора Qwen3.5-4B — 13 ноября 2026
 
 [Итоговый технический отчёт](experiments/qwen35_public_2026-11-13/final_experiment_report.md), [данные и воспроизведение](experiments/qwen35_public_2026-11-13/README.md), [реальные ошибки до/после](experiments/qwen35_public_2026-11-13/error_analysis.md). Сохранены A0–A4, 502 case/configuration записи, парные сравнения и ограничения оценки. Универсальное улучшение не доказано; исходный генератор и Retrieval автоматически не переключены. Веса и скачанные полные корпуса остаются локально на D:.
+
+## Универсальный интерфейс
+
+[Запуск и возможности UI](docs/UI_README.md), [архитектура](docs/UI_ARCHITECTURE.md), [демонстрационные сценарии](docs/UI_DEMO_SCENARIOS.md). Запуск: python -m streamlit run app.py --server.port 8503. Demo Mode не требует Qwen и индекса.

@@ -1,0 +1,9 @@
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    ports:
+      - "127.0.0.1:8503:8503"
+    volumes:
+      - ./data/ui:/app/data/ui
