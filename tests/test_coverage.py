@@ -55,3 +55,41 @@ def test_stable_and_baseline_configs_are_distinct():
     assert stable["retrieval"]["selection_strategy"] == "coverage_decomposed"
     assert stable["retrieval"]["embedding_backend"] == "e5-small"
     assert not stable["retrieval"]["hierarchical"] and not stable["retrieval"]["adaptive"]
+
+
+def test_improved_decomposition_preserves_spans_context_and_dependencies():
+    from navigator.query_analysis import decompose_question_improved
+    question = "Какой срок подачи заявки и кто утверждает документ при наличии условия?"
+    tasks = decompose_question_improved(question)
+    assert len(tasks) >= 2
+    for task in tasks:
+        assert question[task.source_span["start"]:task.source_span["end"]] == task.text
+        assert task.context == question
+    assert tasks[-1].depends_on
+
+
+def test_planner_falls_back_to_improved_rules(monkeypatch):
+    import urllib.request
+    from navigator.query_analysis import local_llm_decompose
+    monkeypatch.setattr(urllib.request, "urlopen", lambda *args, **kwargs: (_ for _ in ()).throw(OSError("offline")))
+    question = "Какой срок подачи заявки и кто утверждает документ?"
+    tasks = local_llm_decompose(question)
+    assert len(tasks) >= 2
+    assert all(question[task.source_span["start"]:task.source_span["end"]] == task.text for task in tasks)
+
+
+def test_coverage_optional_strategies_preserve_budget_and_source_metadata():
+    first = document("a", "срок пять дней", 4)
+    first.meta["document_id"] = "doc-a"
+    second = document("b", "срок четыре дня", 3)
+    second.meta["document_id"] = "doc-a"
+    third = document("c", "документ утверждает проректор", 2)
+    third.meta["document_id"] = "doc-c"
+    documents = [first, second, third]
+    queries = ["срок", "кто утверждает"]
+    matrix = {"срок": [1.0, 0.9, 0.0], "кто утверждает": [0.0, 0.0, 1.0]}
+    selected = select_coverage(documents, 2, 200, queries, matrix, coverage_min_subtask=True, coverage_document_diversity=0.05)
+    assert [item.id for item in selected] == ["a", "c"]
+    assert selected[1].meta["document_id"] == "doc-c"
+    without_cost = select_coverage(documents, 2, 200, queries, matrix, coverage_cost_normalization=False, coverage_lambda=0.0)
+    assert len(without_cost) == 2

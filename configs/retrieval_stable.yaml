@@ -8,6 +8,7 @@ retrieval:
   graph_expansion: false
   embedding_backend: "e5-small"
   reranker_backend: "mminilm"
+  device: "cuda"
   candidate_top_k: 20
   output_top_k: 6
   context_token_budget: 2000

@@ -1,0 +1,8 @@
+retrieval:
+  embedding_backend: "bge-m3-sparse"
+  reranker_backend: "mminilm"
+  device: "cuda"
+  bge_sparse_weight: 0.5
+  candidate_top_k: 20
+  output_top_k: 6
+seed: 42

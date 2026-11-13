@@ -1,5 +1,6 @@
 import argparse
 import json
+import statistics
 import sys
 from pathlib import Path
 
@@ -41,7 +42,7 @@ def plot_metric(experiments, metric, output, title):
 
 
 def make_plots(experiments, output):
-    plot_metric(experiments, "document_recall@3", output / "document_recall.png", "Document Recall@3")
+    plot_metric(experiments, "document_recall@5", output / "document_recall.png", "Document Recall@5")
     plot_metric(experiments, "evidence_recall@6", output / "evidence_recall.png", "Evidence Recall@6")
     plot_metric(experiments, "all_evidence_hit@6", output / "all_evidence_hit.png", "All-Evidence Hit@6")
     plot_metric(experiments, "ndcg@10", output / "ndcg.png", "nDCG@10")
@@ -145,19 +146,40 @@ def main():
         lines.append("| " + key + " | " + " | ".join(f"{experiment['metrics'].get(key):.6f}" if isinstance(experiment["metrics"].get(key), float) else str(experiment["metrics"].get(key, "—")) for experiment in experiments) + " |")
     lines.append("| median latency (s) | " + " | ".join(f"{experiment['latency'].get('total', {}).get('median', 0):.6f}" for experiment in experiments) + " |")
     lines.append("| index bytes | " + " | ".join(str(experiment.get("index_bytes", "—")) for experiment in experiments) + " |")
+    distributions = {}
+    for experiment in experiments:
+        distributions[experiment["name"]] = {}
+        for metric in ("document_recall@5", "evidence_recall@6", "all_evidence_hit@6", "mrr@10", "ndcg@10", "gold_span_coverage"):
+            values = [row["metrics"][metric] for row in experiment["per_query"] if row["metrics"].get(metric) is not None]
+            distributions[experiment["name"]][metric] = {"mean": statistics.fmean(values), "median": statistics.median(values), "n": len(values)} if values else {"mean": None, "median": None, "n": 0}
     paired = {}
+    transitions = {}
+    pairwise = {}
     if len(experiments) >= 2:
         left = {row["id"]: row["metrics"] for row in experiments[0]["per_query"]}
-        right = {row["id"]: row["metrics"] for row in experiments[-1]["per_query"]}
-        common = sorted(left.keys() & right.keys())
-        for metric in ("document_recall@5", "evidence_recall@6", "all_evidence_hit@6", "ndcg@10", "gold_span_coverage"):
-            paired[metric] = paired_bootstrap([left[key] for key in common], [right[key] for key in common], metric, iterations=args.bootstrap)
+        for experiment in experiments[1:]:
+            right = {row["id"]: row["metrics"] for row in experiment["per_query"]}
+            common = sorted(left.keys() & right.keys())
+            current_paired = {}
+            current_transitions = {}
+            for metric in ("document_recall@5", "evidence_recall@6", "all_evidence_hit@6", "ndcg@10", "gold_span_coverage"):
+                current_paired[metric] = paired_bootstrap([left[key] for key in common], [right[key] for key in common], metric, iterations=args.bootstrap)
+                values = [(left[key].get(metric), right[key].get(metric)) for key in common]
+                values = [(a, b) for a, b in values if a is not None and b is not None]
+                current_transitions[metric] = {"improved": sum(b > a for a, b in values), "regressed": sum(b < a for a, b in values), "unchanged": sum(b == a for a, b in values), "n": len(values)}
+            pairwise[experiment["name"]] = {"paired_bootstrap": current_paired, "transitions": current_transitions}
+        paired = pairwise[experiments[-1]["name"]]["paired_bootstrap"]
+        transitions = pairwise[experiments[-1]["name"]]["transitions"]
     if paired:
         lines.extend(["", "## Paired bootstrap: last minus baseline", "", "| Metric | Difference | 95% CI | n |", "|---|---:|---|---:|"])
         for metric, result in paired.items():
             lines.append(f"| {metric} | {result.get('difference')} | {result.get('ci95')} | {result['n']} |")
+    if transitions:
+        lines.extend(["", "## Per-query transitions", "", "| Metric | Improved | Regressed | Unchanged |", "|---|---:|---:|---:|"])
+        for metric, result in transitions.items():
+            lines.append(f"| {metric} | {result['improved']} | {result['regressed']} | {result['unchanged']} |")
     (output / "comparison.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    (output / "comparison.json").write_text(json.dumps({"experiments": [{"name": experiment["name"], "metrics": experiment["metrics"], "latency": experiment["latency"]} for experiment in experiments], "paired_bootstrap": paired}, ensure_ascii=False, indent=2), encoding="utf-8")
+    (output / "comparison.json").write_text(json.dumps({"experiments": [{"name": experiment["name"], "metrics": experiment["metrics"], "latency": experiment["latency"]} for experiment in experiments], "paired_bootstrap": paired, "transitions": transitions, "pairwise_vs_baseline": pairwise, "quality_distributions": distributions}, ensure_ascii=False, indent=2), encoding="utf-8")
     (output / "config.json").write_text(json.dumps({experiment["name"]: experiment["config"] for experiment in experiments}, ensure_ascii=False, indent=2), encoding="utf-8")
     (output / "metrics.json").write_text(json.dumps({experiment["name"]: experiment["metrics"] for experiment in experiments}, ensure_ascii=False, indent=2), encoding="utf-8")
     (output / "per_query_results.json").write_text(json.dumps({experiment["name"]: experiment["per_query"] for experiment in experiments}, ensure_ascii=False), encoding="utf-8")

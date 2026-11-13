@@ -1,0 +1,9 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "coverage_decomposed"
+  device: "cuda"
+  coverage_cost_normalization: true
+  coverage_lambda: 0.15
+  coverage_document_diversity: 0.05
+  coverage_min_subtask: false
+seed: 42

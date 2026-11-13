@@ -25,6 +25,7 @@ def parse_args():
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--document-limit", type=int, default=None)
     parser.add_argument("--corpus-limit", type=int, default=500)
+    parser.add_argument("--shard-limit", type=int, default=1)
     parser.add_argument("--full-corpus", action="store_true")
     parser.add_argument("--legal-data-dir")
     parser.add_argument("--repeat", type=int, default=1)
@@ -45,7 +46,7 @@ def load_dataset(args):
         from navigator.evaluation.datasets import load_legalbench
         return load_legalbench(args.legal_data_dir, benchmark_name=args.split or "mini", query_limit=args.limit)
     from navigator.evaluation.datasets import load_miracl
-    return load_miracl(split=args.split or "dev", query_limit=args.limit, corpus_limit=args.corpus_limit, full_corpus=args.full_corpus, seed=42)
+    return load_miracl(split=args.split or "dev", query_limit=args.limit, corpus_limit=args.corpus_limit, full_corpus=args.full_corpus, seed=42, shard_limit=args.shard_limit)
 
 
 def main():

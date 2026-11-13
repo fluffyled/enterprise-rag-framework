@@ -12,6 +12,7 @@ from haystack.components.retrievers.in_memory import InMemoryBM25Retriever, InMe
 from haystack.document_stores.in_memory import InMemoryDocumentStore
 from .adaptive_retrieval import adaptive_analysis, local_query_plan, query_expansion
 from .backends import create_embedding_backend, create_reranking_backend
+from .bm25_fast import FastBM25
 from .config import config_fingerprint, load_config, merge_config
 from .contextual import prepare_contextual_chunks
 from .coverage import relevance_matrix
@@ -50,7 +51,7 @@ def build_index(config=None, chunks_path=None, index_path=None):
         hierarchy = {"nodes": [node for node in nodes if node["type"] != "chunk"], "document_profiles": profile_documents(nodes, "document"), "section_profiles": profile_documents(nodes, "section")}
     graph = build_document_graph(chunks) if config["retrieval"]["graph_expansion"] else None
     prepare_contextual_chunks(chunks, nodes, config)
-    model = create_embedding_backend(config["retrieval"]["embedding_backend"])
+    model = create_embedding_backend(config["retrieval"]["embedding_backend"], device=config["retrieval"]["device"])
     texts = [x["content"] if config["retrieval"]["contextual"] else x["meta"]["name"] + " " + x["content"] for x in chunks]
     encoded = model.encode_documents_full(texts) if hasattr(model, "encode_documents_full") else {"dense_vecs": model.encode_documents(texts)}
     for index, (chunk, vector) in enumerate(zip(chunks, encoded["dense_vecs"])):
@@ -146,11 +147,12 @@ class Retriever:
         if payload["model_lock_sha256"] != _model_lock_digest(self.config["retrieval"]["embedding_backend"]):
             raise RuntimeError("Ревизии моделей изменились: перестройте индекс")
         self.payload = payload
-        self.store = _store([Document(**document) for document in payload["documents"]])
+        documents = [Document(**document) for document in payload["documents"]]
+        self.store = _store(documents)
         self.documents_by_chunk = {document.meta.get("chunk_id") or document.id: document for document in self.store.filter_documents()}
-        self.model = create_embedding_backend(self.config["retrieval"]["embedding_backend"])
+        self.model = create_embedding_backend(self.config["retrieval"]["embedding_backend"], device=self.config["retrieval"]["device"])
         use_reranker = self.config["retrieval"]["rerank"] if rerank is None else rerank
-        self.ranker = create_reranking_backend(self.config["retrieval"]["reranker_backend"]) if use_reranker else None
+        self.ranker = create_reranking_backend(self.config["retrieval"]["reranker_backend"], device=self.config["retrieval"]["device"]) if use_reranker else None
         self.document_store = None
         self.section_store = None
         if payload.get("hierarchy"):
@@ -171,6 +173,8 @@ class Retriever:
         same_backend = index_backend == current["embedding_backend"] or (index_backend.startswith("bge-m3-") and current["embedding_backend"].startswith("bge-m3-"))
         if not same_backend:
             raise RuntimeError("Изменён embedding backend: перестройте индекс")
+        if indexed and indexed.get("device", "cpu") != current["device"]:
+            raise RuntimeError("Изменено вычислительное устройство: перестройте индекс")
         if current["hierarchical"] and not self.payload.get("hierarchy"):
             raise RuntimeError("Индекс не содержит иерархию: перестройте его")
         if current["graph_expansion"] and not self.payload.get("graph"):
@@ -179,6 +183,7 @@ class Retriever:
     def _configure_components(self, config):
         top_k = config["retrieval"]["candidate_top_k"]
         self.bm25 = InMemoryBM25Retriever(self.store, top_k=top_k)
+        self.fast_bm25 = FastBM25(self.store.filter_documents())
         self.dense = InMemoryEmbeddingRetriever(self.store, top_k=top_k)
         self.join = DocumentJoiner(join_mode="reciprocal_rank_fusion", top_k=top_k)
 
@@ -206,7 +211,7 @@ class Retriever:
             timings["bm25"] = 0.0
             timings["bge_sparse"] = time.perf_counter() - started
         else:
-            sparse = self.bm25.run(query=question)["documents"]
+            sparse = self.fast_bm25.search(question, config["retrieval"]["candidate_top_k"])
             timings["bm25"] = time.perf_counter() - started
         started = time.perf_counter()
         dense = self.dense.run(query_embedding=query_embedding)["documents"]
@@ -300,6 +305,22 @@ class Retriever:
             documents.sort(key=lambda document: document.meta["rerank_score"], reverse=True)
         return documents
 
+    def _rerank_with_coverage(self, question, documents, tasks):
+        documents = [replace(document, content=document.meta["original_content"]) if document.meta.get("original_content") is not None else document for document in documents]
+        queries = list(dict.fromkeys([question] + [task.text for task in tasks]))
+        pairs = [(query, document.content) for query in queries for document in documents]
+        scores = self.ranker.predict(pairs)
+        by_query = {}
+        offset = 0
+        for query in queries:
+            by_query[query] = {document.id: float(score) for document, score in zip(documents, scores[offset:offset + len(documents)])}
+            offset += len(documents)
+        for document in documents:
+            document.meta["rerank_score"] = by_query[question][document.id]
+        documents.sort(key=lambda document: document.meta["rerank_score"], reverse=True)
+        raw_cache = {query: [by_query[query][document.id] for document in documents] for query in queries}
+        return documents, raw_cache
+
     def search(self, question, top_k=6, config=None):
         effective = load_config(merge_config(self.config, config or {}))
         self._validate_index_config(effective)
@@ -336,9 +357,10 @@ class Retriever:
         if settings["coverage_aware"]:
             started = time.perf_counter()
             decomposed = settings["selection_strategy"] == "coverage_decomposed"
-            queries, tasks = retrieval_queries(question, decompose=decomposed)
+            queries, tasks = retrieval_queries(question, decompose=decomposed, method=settings["decomposition_method"])
             timings["query_analysis"] = time.perf_counter() - started
-            metadata["subtasks"] = [{"id": task.id, "text": task.text, "source_span": task.source_span} for task in tasks]
+            metadata["subtasks"] = [{"id": task.id, "text": task.text, "source_span": task.source_span, "depends_on": list(task.depends_on)} for task in tasks]
+            metadata["decomposition_method"] = settings["decomposition_method"]
             if decomposed:
                 started = time.perf_counter()
                 known = {document.id for document in merged}
@@ -383,7 +405,11 @@ class Retriever:
         if self.model.supports_sparse:
             stages["bm25"] = []
         started = time.perf_counter()
-        reranked = self._rerank(question, list(merged))
+        coverage_raw_cache = None
+        if settings["coverage_aware"] and settings["batch_cross_encoder"] and not settings["adaptive"] and self.ranker and merged:
+            reranked, coverage_raw_cache = self._rerank_with_coverage(question, list(merged), tasks)
+        else:
+            reranked = self._rerank(question, list(merged))
         timings["reranking"] = time.perf_counter() - started
         if settings["adaptive"]:
             analysis = adaptive_analysis(question, reranked, effective)
@@ -408,11 +434,11 @@ class Retriever:
                 metadata["adaptive"].update({"expanded": bool(queries), "expansion_queries": queries, "final": adaptive_analysis(question, reranked, effective), "candidate_limit_expanded": expanded_limit})
                 stages["adaptive_expansion"] = [document_snapshot(document, index + 1) for index, document in enumerate(reranked)]
         if settings["coverage_aware"]:
-            selection_kwargs = {"mmr_lambda": settings["mmr_lambda"], "coverage_lambda": settings["coverage_lambda"]}
+            selection_kwargs = {"mmr_lambda": settings["mmr_lambda"], "coverage_lambda": settings["coverage_lambda"], "coverage_cost_normalization": settings["coverage_cost_normalization"], "coverage_document_diversity": settings["coverage_document_diversity"], "coverage_min_subtask": settings["coverage_min_subtask"]}
         if settings["coverage_aware"] and settings["selection_strategy"] in ("coverage", "coverage_decomposed"):
             coverage_started = time.perf_counter()
             matrix_queries = [task.text for task in tasks]
-            raw_cache = {question: [document.meta.get("rerank_score", document.meta.get("rrf_score", 0) or 0) for document in reranked]}
+            raw_cache = coverage_raw_cache or {question: [document.meta.get("rerank_score", document.meta.get("rrf_score", 0) or 0) for document in reranked]}
             coverage = relevance_matrix(self.ranker, matrix_queries, reranked, raw_cache=raw_cache)
             selection_kwargs.update({"queries": matrix_queries, "matrix": coverage["normalized_rank"]})
             metadata["coverage_score_semantics"] = coverage["score_semantics"]

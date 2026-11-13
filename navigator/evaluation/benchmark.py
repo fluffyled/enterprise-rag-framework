@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import platform
@@ -61,6 +62,10 @@ def environment_metadata(config, index_fingerprint=None):
         git_sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     except (subprocess.SubprocessError, FileNotFoundError):
         git_sha = "unknown"
+    try:
+        git_dirty = bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True).strip())
+    except (subprocess.SubprocessError, FileNotFoundError):
+        git_dirty = None
     packages = {}
     for package in ("haystack-ai", "sentence-transformers", "transformers", "torch", "numpy"):
         try:
@@ -70,6 +75,7 @@ def environment_metadata(config, index_fingerprint=None):
     models = json.loads((ROOT / "models.lock.json").read_text(encoding="utf-8"))
     return {
         "git_sha": git_sha,
+        "git_dirty": git_dirty,
         "started_utc": datetime.now(timezone.utc).isoformat(),
         "seed": config.get("seed", 42),
         "hardware": {"platform": platform.platform(), "python": platform.python_version(), "processor": platform.processor(), "logical_cpus": os.cpu_count(), "ram_bytes": psutil.virtual_memory().total},
@@ -103,6 +109,8 @@ def _convert_legacy_case(case):
 
 def run_benchmark(retriever, dataset, config=None, top_k=6, repeat=1, warm=True):
     config = load_config(config)
+    query_material = json.dumps([{"id": case["id"], "question": case["question"], "gold_document_ids": case.get("gold_document_ids"), "evidence_groups": case.get("evidence_groups"), "graded_relevance": case.get("graded_relevance")} for case in dataset["queries"]], ensure_ascii=False, sort_keys=True).encode("utf-8")
+    dataset.setdefault("metadata", {})["query_set_sha256"] = hashlib.sha256(query_material).hexdigest()
     rows = []
     errors = []
     with ResourceMonitor() as resources:

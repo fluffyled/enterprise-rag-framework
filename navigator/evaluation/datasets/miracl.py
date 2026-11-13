@@ -11,7 +11,7 @@ def read_tsv(path):
     return [line.rstrip("\n").split("\t") for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def load_miracl(split="dev", query_limit=None, corpus_limit=500, full_corpus=False, seed=42):
+def load_miracl(split="dev", query_limit=None, corpus_limit=500, full_corpus=False, seed=42, shard_limit=1):
     language = "ru"
     prefix = "miracl-v1.0-ru"
     topic_path = public_hf_file("miracl/miracl", f"{prefix}/topics/topics.{prefix}-{split}.tsv")
@@ -32,9 +32,12 @@ def load_miracl(split="dev", query_limit=None, corpus_limit=500, full_corpus=Fal
     known = set()
     rng = random.Random(seed)
     if not full_corpus:
-        path = public_hf_file("miracl/miracl-corpus", shards[0])
-        with gzip.open(path, "rt", encoding="utf-8") as handle:
-            rows = [json.loads(line) for line in handle]
+        selected_shards = shards[:shard_limit]
+        rows = []
+        for shard in selected_shards:
+            path = public_hf_file("miracl/miracl-corpus", shard)
+            with gzip.open(path, "rt", encoding="utf-8") as handle:
+                rows.extend(json.loads(line) for line in handle)
         available = {str(row["docid"]) for row in rows}
         query_ids = sorted(query_id for query_id in query_ids if {document_id for document_id, value in relevance[query_id].items() if value > 0}.issubset(available))
         if query_limit is not None:
@@ -80,5 +83,5 @@ def load_miracl(split="dev", query_limit=None, corpus_limit=500, full_corpus=Fal
         "documents": documents,
         "queries": queries,
         "chunks": [{"id": row["document_id"], "content": row["text"], "meta": {"name": row["title"], "relative_path": row["document_id"], "document_id": row["document_id"], "chunk_id": row["document_id"], "locator": "passage", "source_span": {"document_id": row["document_id"], "start": 0, "end": len(row["text"])}, "original_content": row["text"]}} for row in documents],
-        "metadata": {"official": bool(full_corpus and query_limit is None), "official_corpus": full_corpus, "pilot": not full_corpus, "incomplete_judgments": True, "seed": seed, "shards": shards if full_corpus else shards[:1]},
+        "metadata": {"official": bool(full_corpus and query_limit is None), "official_corpus": full_corpus, "pilot": not full_corpus, "incomplete_judgments": True, "seed": seed, "shards": shards if full_corpus else selected_shards},
     }

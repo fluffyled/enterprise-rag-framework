@@ -1,0 +1,20 @@
+schema_version: 1
+retrieval:
+  hierarchical: false
+  contextual: false
+  coverage_aware: true
+  selection_strategy: "coverage_decomposed"
+  decomposition_method: "planner"
+  adaptive: false
+  graph_expansion: false
+  embedding_backend: "e5-small"
+  reranker_backend: "mminilm"
+  device: "cuda"
+  candidate_top_k: 20
+  output_top_k: 6
+  context_token_budget: 2000
+  coverage_lambda: 0.15
+  batch_cross_encoder: false
+  chunk_words: 110
+  chunk_stride: 90
+seed: 42

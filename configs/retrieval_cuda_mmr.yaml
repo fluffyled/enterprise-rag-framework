@@ -1,0 +1,8 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "mmr"
+  embedding_backend: "e5-small"
+  reranker_backend: "mminilm"
+  device: "cuda"
+  mmr_lambda: 0.7
+seed: 42

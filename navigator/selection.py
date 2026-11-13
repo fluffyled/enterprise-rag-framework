@@ -57,11 +57,23 @@ def select_mmr(documents, top_k, token_budget, mmr_lambda=0.7, **kwargs):
     return selected
 
 
-def select_coverage(documents, top_k, token_budget, queries, matrix, coverage_lambda=0.15, **kwargs):
+def select_coverage(documents, top_k, token_budget, queries, matrix, coverage_lambda=0.15, coverage_cost_normalization=True, coverage_document_diversity=0.0, coverage_min_subtask=False, **kwargs):
     selected = []
     selected_indices = []
     remaining = list(enumerate(documents))
     current_coverage = [0.0] * len(queries)
+    if coverage_min_subtask:
+        for query_index, query in enumerate(queries):
+            feasible = [(index, document) for index, document in remaining if len(selected) < top_k and fits(document, selected, token_budget)]
+            if not feasible:
+                break
+            index, document = max(feasible, key=lambda item: matrix[query][item[0]])
+            if matrix[query][index] <= 0:
+                continue
+            selected.append(document)
+            selected_indices.append(index)
+            current_coverage = [max(current, matrix[queries[item]][index]) for item, current in enumerate(current_coverage)]
+            remaining = [(candidate_index, candidate) for candidate_index, candidate in remaining if candidate_index != index]
     while remaining and len(selected) < top_k:
         best = None
         best_gain = 0.0
@@ -74,8 +86,11 @@ def select_coverage(documents, top_k, token_budget, queries, matrix, coverage_la
                 gains.append(max(current_coverage[query_index], score) - current_coverage[query_index])
             coverage_gain = sum(gains) / len(queries)
             redundancy = sum(similarity(document, selected_document) for selected_document in selected) / max(1, len(selected))
-            cost = max(0.05, token_count(document) / token_budget)
-            gain = (coverage_gain - coverage_lambda * redundancy) / cost
+            document_id = document.meta.get("document_id") or document.meta.get("relative_path") or document.meta.get("name")
+            known_documents = {item.meta.get("document_id") or item.meta.get("relative_path") or item.meta.get("name") for item in selected}
+            diversity_bonus = coverage_document_diversity if document_id not in known_documents else 0.0
+            cost = max(0.05, token_count(document) / token_budget) if coverage_cost_normalization else 1.0
+            gain = (coverage_gain - coverage_lambda * redundancy + diversity_bonus) / cost
             if gain > best_gain:
                 best_gain = gain
                 best = (index, document, gains)

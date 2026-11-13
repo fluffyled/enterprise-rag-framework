@@ -1,4 +1,5 @@
 import json
+import unicodedata
 from pathlib import Path
 
 from .common import chunks_from_documents, download_and_extract_zip
@@ -57,5 +58,12 @@ def load_legalbench(data_dir=None, benchmark_name="mini", query_limit=None):
         if not document_path.exists():
             portable = "/".join("".join("_" if char in '<>:"|?*' else char for char in part) for part in Path(file_path).parts)
             document_path = root / "corpus" / portable
+        if not document_path.exists():
+            parent = document_path.parent
+            normalized_name = unicodedata.normalize("NFC", document_path.name)
+            matches = [candidate for candidate in parent.iterdir() if unicodedata.normalize("NFC", candidate.name) == normalized_name]
+            if len(matches) != 1:
+                raise FileNotFoundError(f"Не удалось однозначно найти документ: {file_path}")
+            document_path = matches[0]
         corpus[file_path] = document_path.read_text(encoding="utf-8")
     return parse_legalbench(benchmark, corpus, benchmark_path.stem, query_limit)

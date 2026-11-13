@@ -1,3 +1,4 @@
+import argparse
 import json
 import sys
 from collections import Counter
@@ -29,7 +30,11 @@ def resolve_group(group, documents):
 
 
 def main():
-    source = json.loads((DATA / "retrieval_eval_source.json").read_text(encoding="utf-8"))
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--source", default="retrieval_eval_source.json")
+    parser.add_argument("--output")
+    args = parser.parse_args()
+    source = json.loads((DATA / args.source).read_text(encoding="utf-8"))
     documents = json.loads((DATA / "source_documents.json").read_text(encoding="utf-8"))
     queries = []
     for row in source:
@@ -48,6 +53,18 @@ def main():
             "semantic_requirements": [group["requirement"] for group in groups],
             "family": row["family"], "split": row["split"], "annotation": {"method": "manual_anchor_review", "review_status": "single_annotator"},
         })
+    if args.output:
+        existing_path = DATA / "retrieval_eval_all.json"
+        if existing_path.exists():
+            existing = json.loads(existing_path.read_text(encoding="utf-8"))["queries"]
+            overlap = {row["id"] for row in existing} & {row["id"] for row in queries}
+            if overlap:
+                raise ValueError(f"ID уже используются в других split: {overlap}")
+        split = queries[0]["split"]
+        payload = {"schema_version": 1, "private": True, "split": split, "queries": queries}
+        (DATA / args.output).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(json.dumps({"questions": len(queries), "split": split, "output": args.output}, ensure_ascii=False))
+        return
     if not 50 <= len(queries) <= 80:
         raise ValueError("Нужно 50–80 вопросов")
     if len({row["id"] for row in queries}) != len(queries):

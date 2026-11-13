@@ -1,0 +1,12 @@
+retrieval:
+  coverage_aware: false
+  selection_strategy: "top_k"
+  embedding_backend: "e5-small"
+  reranker_backend: "mminilm"
+  device: "cuda"
+  candidate_top_k: 20
+  output_top_k: 6
+  context_token_budget: 2000
+  chunk_words: 110
+  chunk_stride: 90
+seed: 42

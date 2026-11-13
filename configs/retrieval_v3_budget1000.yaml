@@ -1,0 +1,10 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "coverage_decomposed"
+  device: "cuda"
+  decomposition_method: "existing"
+  candidate_top_k: 20
+  output_top_k: 6
+  context_token_budget: 1000
+  coverage_lambda: 0.15
+seed: 42
