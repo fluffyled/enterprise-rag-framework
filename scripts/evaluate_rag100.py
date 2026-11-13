@@ -38,6 +38,8 @@ CONFIGS = {
     "BGE_coverage": {"config": "configs/retrieval_bge_coverage.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
     "BGE_protected": {"config": "configs/retrieval_bge_protected.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
     "BGE_adaptive": {"config": "configs/retrieval_bge_adaptive.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
+    "BGE_rerank": {"config": "configs/retrieval_bge_rerank.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
+    "BGE_rerank_protected": {"config": "configs/retrieval_bge_rerank_protected.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
 }
 
 ABZ_RE = re.compile(r"^\u0430\u0431\u0437\u0430\u0446 (\d+)")
