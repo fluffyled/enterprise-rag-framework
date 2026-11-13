@@ -26,6 +26,7 @@ import re
 import sys
 import time
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -188,23 +189,43 @@ def generation_metrics(result, gold_row):
     }
 
 
-def main():
+_RETRIEVER_CACHE = {}
+
+
+def get_retriever(config, index_path):
+    """Кэш Retriever: модели (BGE/reranker) остаются в памяти между прогонами."""
+    key = (str(config), str(index_path))
+    if key not in _RETRIEVER_CACHE:
+        _RETRIEVER_CACHE[key] = Retriever(config=load_config(ROOT / config), index_path=index_path)
+    return _RETRIEVER_CACHE[key]
+
+
+def main(argv=None):
+    args = parse_args(argv)
+    return run(args)
+
+
+def parse_args(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/retrieval_bge_adaptive_rerank.yaml")
     parser.add_argument("--index-path", default=None)
     parser.add_argument("--split", default="all")
     parser.add_argument("--name", required=True)
     parser.add_argument("--llm", action="store_true")
+    parser.add_argument("--generation-mode", choices=("quotes", "verified"), default="quotes")
+    parser.add_argument("--parallel", type=int, default=4, help="параллельных LLM-вызовов (слоты llama-server)")
     parser.add_argument("--oracle", action="store_true")
     parser.add_argument("--endpoint", default="http://127.0.0.1:8080/v1/chat/completions")
-    args = parser.parse_args()
+    return parser.parse_args(argv)
 
+
+def run(args):
     gold_rows = [row for row in load_gold() if args.split == "all" or row["split"] == args.split]
     index_path = args.index_path or str(ROOT / "data/index.json")
     chunk_units = build_indexes(load_gold(), index_path)
 
     config = None if args.oracle else load_config(ROOT / args.config)
-    retriever = None if args.oracle else Retriever(config=config, index_path=args.index_path)
+    retriever = None if args.oracle else get_retriever(args.config, args.index_path)
 
     rows = []
     for gold_row in gold_rows:
@@ -239,16 +260,40 @@ def main():
             "oracle": args.oracle,
         }
         if args.llm:
-            generation_started = time.perf_counter()
-            result = call_llm(gold_row["question"], documents, args.endpoint)
-            row["generation_seconds"] = time.perf_counter() - generation_started
-            row["result"] = {key: value for key, value in result.items() if key != "raw"}
-            row["raw_llm_answer"] = result.get("raw")
-            row["generation"] = generation_metrics(result, gold_row)
-            row["prompt_sha256"] = __import__("hashlib").sha256(PROMPT.encode()).hexdigest()
-            row["context_tokens"] = sum(len(re.findall(r"\w+|[^\w\s]", document.content)) for document in documents)
+            row["_gold_row"] = gold_row
+            row["_documents"] = documents
         rows.append(row)
         print(args.name, gold_row["id"], f"{time.perf_counter() - started:.2f}s", flush=True)
+
+    if args.llm and rows:
+        # генерация — параллельно через слоты llama-server (--parallel)
+        def generate(row):
+            gold_row = row["_gold_row"]
+            documents = row["_documents"]
+            generation_started = time.perf_counter()
+            if args.generation_mode == "verified":
+                from navigator.verified_answer import verified_answer
+                result = verified_answer(gold_row["question"], documents, args.endpoint)
+                raw = result.pop("raw", None)
+                result["raw"] = raw
+            else:
+                result = call_llm(gold_row["question"], documents, args.endpoint)
+            row["generation_seconds"] = time.perf_counter() - generation_started
+            row["result"] = {key: value for key, value in result.items() if key not in ("raw", "plan")}
+            row["plan"] = result.get("plan")
+            row["raw_llm_answer"] = result.get("raw")
+            row["generation"] = generation_metrics(result, gold_row)
+            row["generation"]["missing_count"] = len(result.get("missing") or [])
+            row["context_tokens"] = sum(len(re.findall(r"\w+|[^\w\s]", document.content)) for document in documents)
+            del row["_gold_row"], row["_documents"]
+            return row
+
+        workers = max(1, args.parallel)
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            rows = list(executor.map(generate, rows))
+        import hashlib
+        for row in rows:
+            row["prompt_sha256"] = hashlib.sha256(PROMPT.encode()).hexdigest()
 
     output = OUT_ROOT / args.name
     output.mkdir(parents=True, exist_ok=True)
@@ -276,6 +321,7 @@ def main():
         }
     (output / "metrics.json").write_text(json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(metrics, ensure_ascii=False, indent=2))
+    return metrics
 
 
 if __name__ == "__main__":

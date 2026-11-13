@@ -95,7 +95,7 @@ def local_llm_decompose(question, endpoint=None, timeout=90, with_status=False):
         raise ValueError("Planner разрешён только на локальном endpoint")
     item_schema = {"type": "object", "properties": {"text": {"type": "string"}, "start": {"type": "integer"}, "end": {"type": "integer"}}, "required": ["text", "start", "end"], "additionalProperties": False}
     schema = {"type": "object", "properties": {"subtasks": {"type": "array", "items": item_schema, "maxItems": 4}}, "required": ["subtasks"], "additionalProperties": False}
-    payload = {"messages": [{"role": "system", "content": "Split the question into at most four independently retrievable requirements. Return exact character spans from the original question. Do not paraphrase, answer or add facts. Return original whole question as one subtask when decomposition is unnecessary."}, {"role": "user", "content": question}], "temperature": 0, "max_tokens": 300, "response_format": {"type": "json_object", "schema": schema}}
+    payload = {"messages": [{"role": "system", "content": "Split the question into at most four independently retrievable requirements. Return exact character spans from the original question. Do not paraphrase, answer or add facts. Return original whole question as one subtask when decomposition is unnecessary."}, {"role": "user", "content": question}], "temperature": 0, "max_tokens": 150, "response_format": {"type": "json_object", "schema": schema}}
     try:
         request = urllib.request.Request(endpoint, data=json.dumps(payload).encode(), headers={"Content-Type": "application/json"})
         with urllib.request.urlopen(request, timeout=timeout) as response:
@@ -104,9 +104,13 @@ def local_llm_decompose(question, endpoint=None, timeout=90, with_status=False):
         tasks = []
         for index, row in enumerate(rows[:4]):
             start, end = row["start"], row["end"]
-            if type(start) is not int or type(end) is not int or not 0 <= start < end <= len(question) or question[start:end] != row["text"]:
-                raise ValueError("Planner вернул неextractive span")
-            tasks.append(Subtask(f"q{index}", row["text"], {"start": start, "end": end}, context=question))
+            text = row["text"]
+            if type(start) is not int or type(end) is not int or not 0 <= start < end <= len(question) or question[start:end] != text:
+                found = question.find(text)
+                if found < 0:
+                    raise ValueError("Planner вернул неextractive span")
+                start, end = found, found + len(text)
+            tasks.append(Subtask(f"q{index}", question[start:end], {"start": start, "end": end}, context=question))
         if not tasks:
             raise ValueError("Пустой planner result")
         return (tasks, "planner") if with_status else tasks
