@@ -37,6 +37,7 @@ CONFIGS = {
     "BGE_e2": {"config": "configs/retrieval_cuda_bge_e2.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
     "BGE_coverage": {"config": "configs/retrieval_bge_coverage.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
     "BGE_protected": {"config": "configs/retrieval_bge_protected.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
+    "BGE_adaptive": {"config": "configs/retrieval_bge_adaptive.yaml", "index": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json"},
 }
 
 ABZ_RE = re.compile(r"^\u0430\u0431\u0437\u0430\u0446 (\d+)")

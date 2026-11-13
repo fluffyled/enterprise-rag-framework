@@ -17,5 +17,10 @@
     "revision": "7dabda4d13d513e3e842b20f0d435c732f172cbe",
     "file": "qwen2.5-3b-instruct-q4_k_m.gguf",
     "local_dir": "llm3"
+  },
+  "reranker_bge_v2_m3": {
+    "repo": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "local_dir": "reranker_bge_v2_m3"
   }
 }

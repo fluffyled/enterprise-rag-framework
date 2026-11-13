@@ -104,6 +104,12 @@ class MiniLMRerankingBackend(RerankingBackend):
         return sorted(candidates, key=lambda candidate: candidate.meta["rerank_score"], reverse=True)
 
 
+class BgeV2M3RerankingBackend(MiniLMRerankingBackend):
+    def __init__(self, device="cpu"):
+        self.device = resolve_device(device)
+        self.model = CrossEncoder(str(MODELS / "reranker_bge_v2_m3"), device=self.device, local_files_only=True, trust_remote_code=True)
+
+
 def create_embedding_backend(name, device="cpu"):
     if name == "e5-small":
         return E5SmallBackend(device=device)
@@ -115,4 +121,6 @@ def create_embedding_backend(name, device="cpu"):
 def create_reranking_backend(name, device="cpu"):
     if name == "mminilm":
         return MiniLMRerankingBackend(device=device)
+    if name == "bge-reranker-v2-m3":
+        return BgeV2M3RerankingBackend(device=device)
     raise ValueError(f"Неизвестный reranker backend: {name}")

@@ -1,0 +1,11 @@
+retrieval:
+  coverage_aware: false
+  selection_strategy: "top_k"
+  embedding_backend: "bge-m3-sparse"
+  reranker_backend: "bge-reranker-v2-m3"
+  device: "cuda"
+  bge_sparse_weight: 0.5
+  candidate_top_k: 20
+  output_top_k: 6
+  context_token_budget: 2000
+seed: 42

@@ -11,6 +11,7 @@ from haystack.components.joiners import DocumentJoiner
 from haystack.components.retrievers.in_memory import InMemoryBM25Retriever, InMemoryEmbeddingRetriever
 from haystack.document_stores.in_memory import InMemoryDocumentStore
 from .adaptive_retrieval import adaptive_analysis, local_query_plan, query_expansion
+from .adaptive_strategy import choose_strategy
 from .backends import create_embedding_backend, create_reranking_backend
 from .bm25_fast import FastBM25
 from .config import config_fingerprint, load_config, merge_config
@@ -356,8 +357,9 @@ class Retriever:
         tasks = []
         if settings["coverage_aware"]:
             started = time.perf_counter()
+            adaptive_strategy = settings["selection_strategy"] == "adaptive_strategy"
             decomposed = settings["selection_strategy"] == "coverage_decomposed"
-            queries, tasks = retrieval_queries(question, decompose=decomposed, method=settings["decomposition_method"])
+            queries, tasks = retrieval_queries(question, decompose=decomposed or adaptive_strategy, method=settings["decomposition_method"])
             timings["query_analysis"] = time.perf_counter() - started
             metadata["subtasks"] = [{"id": task.id, "text": task.text, "source_span": task.source_span, "depends_on": list(task.depends_on)} for task in tasks]
             metadata["decomposition_method"] = settings["decomposition_method"]
@@ -446,7 +448,17 @@ class Retriever:
             timings["reranking"] += time.perf_counter() - coverage_started
         stages["cross_encoder"] = [document_snapshot(document, index + 1) for index, document in enumerate(reranked)]
         started = time.perf_counter()
-        selected = select_context(settings["selection_strategy"], reranked, top_k, settings["context_token_budget"], **selection_kwargs) if settings["coverage_aware"] else reranked[:top_k]
+        strategy = settings["selection_strategy"]
+        if strategy == "adaptive_strategy":
+            decision = choose_strategy(question, tasks)
+            strategy = decision["strategy"]
+            metadata["adaptive_strategy"] = {**decision, "chosen_strategy": strategy}
+            if strategy in ("coverage", "protected_coverage"):
+                matrix_queries = [task.text for task in tasks]
+                raw_cache = coverage_raw_cache or {question: [document.meta.get("rerank_score", document.meta.get("rrf_score", 0) or 0) for document in reranked]}
+                coverage = relevance_matrix(self.ranker, matrix_queries, reranked, raw_cache=raw_cache)
+                selection_kwargs.update({"queries": matrix_queries, "matrix": coverage["normalized_rank"]})
+        selected = select_context(strategy, reranked, top_k, settings["context_token_budget"], **selection_kwargs) if settings["coverage_aware"] else reranked[:top_k]
         timings["context_selection"] = time.perf_counter() - started
         for index, document in enumerate(selected, 1):
             document.meta["final_position"] = index
