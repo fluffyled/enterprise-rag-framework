@@ -54,6 +54,9 @@ def find_in_original(document_text, needle):
     return offsets[position], offsets[last] + 1
 
 
+REF_RE = re.compile(r"(?:п\.|пп\.|пункт(?:а|е|у|ы)?|раздел(?:а|е)?)\s*(\d+(?:\.\d+)*)", re.IGNORECASE)
+
+
 def parse_clauses(document_id, sha256, text):
     matches = list(CLAUSE_RE.finditer(text))
     clauses = []
@@ -78,6 +81,9 @@ def parse_clauses(document_id, sha256, text):
             "start": start,
             "end": start + len(body),
         })
+    by_number = {}
+    for clause in clauses:
+        by_number.setdefault(clause["number"], clause)
     for index, clause in enumerate(clauses):
         parent = None
         for earlier in reversed(clauses[:index]):
@@ -85,6 +91,15 @@ def parse_clauses(document_id, sha256, text):
                 parent = earlier["clause_id"]
                 break
         clause["parent_id"] = parent
+        clause["previous_id"] = clauses[index - 1]["clause_id"] if index > 0 else None
+        clause["next_id"] = clauses[index + 1]["clause_id"] if index + 1 < len(clauses) else None
+        # явные текстовые ссылки на другие пункты того же документа
+        references = []
+        for match in REF_RE.finditer(clause["full_text"]):
+            target = by_number.get(match.group(1))
+            if target and target["clause_id"] != clause["clause_id"]:
+                references.append(target["clause_id"])
+        clause["references"] = sorted(set(references))
     return clauses
 
 

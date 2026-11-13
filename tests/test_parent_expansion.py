@@ -58,3 +58,17 @@ def test_store_loads():
     store = load_clause_store()
     assert isinstance(store, dict)
     assert all("clauses" in entry for entry in store.values())
+
+
+def test_related_clauses_add_referenced_clause():
+    store = make_store()
+    store["sha1"]["clauses"][1]["references"] = ["c3"]
+    result = expand_parents([make_chunk(25)], store, token_budget=1000, related_clauses=True)
+    assert [document.meta["clause_id"] for document in result] == ["c1", "c2", "c3"]
+
+
+def test_related_clauses_off_by_default():
+    store = make_store()
+    store["sha1"]["clauses"][1]["references"] = ["c3"]
+    result = expand_parents([make_chunk(25)], store, token_budget=1000)
+    assert [document.meta["clause_id"] for document in result] == ["c1", "c2"]

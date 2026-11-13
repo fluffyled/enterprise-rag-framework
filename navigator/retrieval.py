@@ -448,6 +448,14 @@ class Retriever:
             metadata["raw_subtask_scores"] = coverage["raw_cross_encoder"]
             timings["reranking"] += time.perf_counter() - coverage_started
         stages["cross_encoder"] = [document_snapshot(document, index + 1) for index, document in enumerate(reranked)]
+        if settings.get("multi_hop"):
+            from .multi_hop import multi_hop_search
+            selected = multi_hop_search(self, question, effective, metadata, timings)
+            stages["multi_hop_context"] = [document_snapshot(document, index + 1) for index, document in enumerate(selected)]
+            for index, document in enumerate(selected, 1):
+                document.meta["final_position"] = index
+            timings["total"] = time.perf_counter() - total_started
+            return SearchResults(selected, stages, timings, metadata)
         started = time.perf_counter()
         strategy = settings["selection_strategy"]
         if strategy == "adaptive_strategy":
@@ -463,7 +471,7 @@ class Retriever:
         if settings.get("parent_expansion"):
             if not hasattr(self, "_clause_store"):
                 self._clause_store = load_clause_store()
-            selected = expand_parents(selected, self._clause_store, settings["context_token_budget"])
+            selected = expand_parents(selected, self._clause_store, settings["context_token_budget"], related_clauses=settings.get("related_clauses", False))
             metadata["parent_expansion"] = True
         timings["context_selection"] = time.perf_counter() - started
         for index, document in enumerate(selected, 1):
