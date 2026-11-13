@@ -1,5 +1,16 @@
 # Retrieval V3 — итоговый отчёт
 
+> **Дополнение 2026-11-13 (вечер): этапы 1–7 нового плана завершены.**
+> Были проверены и реализованы: аудит оценки и fixed baseline (08),
+> BGE-M3 + protected coverage (09), адаптивный выбор стратегии (10),
+> bge-reranker-v2-m3 (11), end-to-end с judge и ручной проверкой (12),
+> единый error-analysis (13), финальный выбор Fast/Quality/Balanced (14).
+>
+> Итоговые конфигурации: **Fast** = E5 baseline (`retrieval_cuda_baseline.yaml`),
+> **Quality** = `retrieval_bge_adaptive_rerank.yaml` (CUAD 0.4571, mdb 0.7300,
+> E2E 0.870), **Balanced** = `retrieval_bge_adaptive.yaml` (CUAD 0.3566,
+> rag100 без регрессий, 0.41 с). Подробности — `reports/retrieval_v3/08…14`.
+
 Дата: 2026-11-13. Ветка `sevsese` (v3-изменения в рабочем дереве, см. «Состояние репозитория»).
 База: `RETRIEVAL_RESEARCH_REPORT.md`, стабильная архитектура V2
 (BM25 + E5-small → RRF → mMiniLM → rule-based decomposition → coverage selection).
