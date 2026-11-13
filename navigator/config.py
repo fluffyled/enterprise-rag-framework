@@ -39,6 +39,7 @@ DEFAULT_CONFIG = {
         "coverage_cost_normalization": True,
         "coverage_document_diversity": 0.0,
         "coverage_min_subtask": False,
+        "parent_expansion": False,
         "protected_top_p": 2,
         "coverage_alpha": 0.5,
         "coverage_beta": 0.3,

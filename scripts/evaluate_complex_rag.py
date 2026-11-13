@@ -62,14 +62,11 @@ def build_indexes(gold, index_path):
     index = json.loads(Path(index_path).read_text(encoding="utf-8"))
     chunks = index["documents"]
     code_by_filename = {}
-    needles_by_doc = {}
     for row in gold:
         for evidence in row["gold_evidence"]:
             code_by_filename[evidence["document_filename"]] = evidence["document_code"]
-            needles_by_doc.setdefault(evidence["document_code"], []).append((evidence["evidence_id"], norm(evidence["evidence_needle"])))
 
     chunk_units = {}
-    chunk_clauses = {}
     for chunk in chunks:
         meta = chunk["meta"]
         code = code_by_filename.get(meta["name"])
@@ -81,54 +78,38 @@ def build_indexes(gold, index_path):
             if page and str(page).isdigit():
                 units.append(f"{code}::pdf_page::{int(page)}")
         chunk_units[meta["chunk_id"]] = units
-        content_norm = norm(chunk["content"])
-        clauses = [eid for eid, needle in needles_by_doc.get(code, []) if needle and needle in content_norm]
-        if clauses:
-            chunk_clauses[meta["chunk_id"]] = clauses
-    chunk_texts = {chunk["meta"]["chunk_id"]: chunk["content"] for chunk in chunks}
-    return chunk_units, chunk_clauses, chunk_texts
+    return chunk_units
 
 
-def build_evidence_lookup(gold):
-    """(code, normalized needle/quote) → (evidence_id, unit_id) для loose-покрытия."""
-    lookup = {}
-    for row in gold:
-        for evidence in row["gold_evidence"]:
-            tokens = frozenset(re.findall(r"\w+", norm(evidence["evidence_quote"]).lower()))
-            lookup[(evidence["document_code"], evidence["evidence_id"])] = {
-                "unit_id": evidence["source_unit_id"],
-                "quote_tokens": tokens,
-                "filename": evidence["document_filename"],
-            }
-    return lookup
-
-
-def stage_coverage(documents, gold_row, chunk_units, chunk_clauses, evidence_lookup, chunk_texts):
+def stage_coverage(items, gold_row, chunk_units):
+    """Покрытие gold стадией. items — список (chunk_id, content); покрытие
+    определяется по содержимому: needle ⊆ content (strict) или пересечение
+    токенов с evidence_quote ≥ 0.5 (loose). Работает для обычных чанков,
+    clause-expanded и oracle-документов одинаково."""
     gold_docs = {e["document_filename"] for e in gold_row["gold_evidence"]}
     gold_units = {e["source_unit_id"] for e in gold_row["gold_evidence"]}
     gold_clauses = {e["evidence_id"] for e in gold_row["gold_evidence"]}
     covered_units = set()
     covered_clauses = set()
-    for chunk_id in documents:
+    filename_by_code = {e["document_code"]: e["document_filename"] for e in gold_row["gold_evidence"]}
+    for chunk_id, content in items:
         covered_units.update(chunk_units.get(chunk_id, []))
-        covered_clauses.update(chunk_clauses.get(chunk_id, []))
-    # loose-покрытие: чанк пересекается с evidence_quote по токенам ≥ 0.5
-    for chunk_id in documents:
-        text_tokens = set(re.findall(r"\w+", norm(chunk_texts.get(chunk_id, "")).lower()))
-        if not text_tokens:
-            continue
-        for (code, evidence_id), info in evidence_lookup.items():
+        content_norm = norm(content)
+        content_tokens = set(re.findall(r"\w+", content_norm.lower()))
+        for evidence in gold_row["gold_evidence"]:
+            evidence_id = evidence["evidence_id"]
             if evidence_id in covered_clauses:
                 continue
-            quote_tokens = info["quote_tokens"]
-            if quote_tokens and len(text_tokens & quote_tokens) / len(quote_tokens) >= 0.5:
+            needle = norm(evidence["evidence_needle"])
+            if needle and needle in content_norm:
                 covered_clauses.add(evidence_id)
-                covered_units.add(info["unit_id"])
-    for chunk_id in documents:
-        for evidence in gold_row["gold_evidence"]:
-            if evidence["evidence_id"] in chunk_clauses.get(chunk_id, []):
                 covered_units.add(evidence["source_unit_id"])
-    doc_hit = {info["filename"] for info in evidence_lookup.values() if info["unit_id"] in covered_units}
+                continue
+            quote_tokens = set(re.findall(r"\w+", norm(evidence["evidence_quote"]).lower()))
+            if quote_tokens and len(content_tokens & quote_tokens) / len(quote_tokens) >= 0.5:
+                covered_clauses.add(evidence_id)
+                covered_units.add(evidence["source_unit_id"])
+    doc_hit = {filename_by_code.get(unit.split("::")[0]) for unit in covered_units}
     fact_covered = sum(
         1 for fact in gold_row["required_facts"]
         if all(eid in covered_clauses for eid in fact["evidence_ids"])
@@ -220,14 +201,7 @@ def main():
 
     gold_rows = [row for row in load_gold() if args.split == "all" or row["split"] == args.split]
     index_path = args.index_path or str(ROOT / "data/index.json")
-    chunk_units, chunk_clauses, chunk_texts = build_indexes(load_gold(), index_path)
-    evidence_lookup = build_evidence_lookup(load_gold())
-    if args.oracle:
-        for row in load_gold():
-            for evidence in row["gold_evidence"]:
-                chunk_units[evidence["evidence_id"]] = [evidence["source_unit_id"]]
-                chunk_clauses[evidence["evidence_id"]] = [evidence["evidence_id"]]
-                chunk_texts[evidence["evidence_id"]] = evidence["evidence_quote"]
+    chunk_units = build_indexes(load_gold(), index_path)
 
     config = None if args.oracle else load_config(ROOT / args.config)
     retriever = None if args.oracle else Retriever(config=config, index_path=args.index_path)
@@ -239,7 +213,7 @@ def main():
         retrieval_seconds = 0.0
         if args.oracle:
             documents = [Document(content=e["evidence_quote"], meta={"document_id": e["document_filename"], "name": e["document_filename"], "chunk_id": e["evidence_id"]}) for e in gold_row["gold_evidence"]]
-            stage_chunks = {"oracle": [d.meta["chunk_id"] for d in documents]}
+            stage_chunks = {"oracle": [(e["evidence_id"], e["evidence_quote"]) for e in gold_row["gold_evidence"]]}
         else:
             retrieval_started = time.perf_counter()
             search = retriever.search(gold_row["question"], config=config)
@@ -247,13 +221,13 @@ def main():
             trace = search.to_dict()
             documents = list(search)
             stage_chunks = {
-                "rrf": [item["meta"].get("chunk_id") for item in trace["stages"].get("rrf", [])],
-                "reranked": [item["meta"].get("chunk_id") for item in trace["stages"].get("cross_encoder", [])],
-                "selected": [item["meta"].get("chunk_id") for item in trace["results"]],
+                "rrf": [(item["meta"].get("chunk_id"), item["content"]) for item in trace["stages"].get("rrf", [])],
+                "reranked": [(item["meta"].get("chunk_id"), item["content"]) for item in trace["stages"].get("cross_encoder", [])],
+                "selected": [(item["meta"].get("chunk_id"), item["content"]) for item in trace["results"]],
             }
         stages = {}
-        for stage_name, chunk_ids in stage_chunks.items():
-            stages[stage_name] = stage_coverage(chunk_ids, gold_row, chunk_units, chunk_clauses, evidence_lookup, chunk_texts)
+        for stage_name, items in stage_chunks.items():
+            stages[stage_name] = stage_coverage(items, gold_row, chunk_units)
         row = {
             "id": gold_row["id"],
             "split": gold_row["split"],

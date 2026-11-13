@@ -18,6 +18,7 @@ from .config import config_fingerprint, load_config, merge_config
 from .contextual import prepare_contextual_chunks
 from .coverage import relevance_matrix
 from .graph import build_document_graph, expand_documents
+from .parent_expansion import expand_parents, load_clause_store
 from .query_analysis import retrieval_queries
 from .selection import select_context
 from .settings import DATA, INDEX, MODELS, ROOT
@@ -459,6 +460,11 @@ class Retriever:
                 coverage = relevance_matrix(self.ranker, matrix_queries, reranked, raw_cache=raw_cache)
                 selection_kwargs.update({"queries": matrix_queries, "matrix": coverage["normalized_rank"]})
         selected = select_context(strategy, reranked, top_k, settings["context_token_budget"], **selection_kwargs) if settings["coverage_aware"] else reranked[:top_k]
+        if settings.get("parent_expansion"):
+            if not hasattr(self, "_clause_store"):
+                self._clause_store = load_clause_store()
+            selected = expand_parents(selected, self._clause_store, settings["context_token_budget"])
+            metadata["parent_expansion"] = True
         timings["context_selection"] = time.perf_counter() - started
         for index, document in enumerate(selected, 1):
             document.meta["final_position"] = index
