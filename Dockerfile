@@ -1,4 +1,4 @@
-FROM python:3.11.12-slim
+FROM python:3.13-slim
 ENV PYTHONUNBUFFERED=1 HAYSTACK_TELEMETRY_ENABLED=False HF_HUB_DISABLE_TELEMETRY=1
 RUN apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-rus tesseract-ocr-eng libgomp1 && rm -rf /var/lib/apt/lists/*
 WORKDIR /app

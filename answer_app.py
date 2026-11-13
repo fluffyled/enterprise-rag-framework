@@ -6,6 +6,7 @@ import streamlit as st
 from answering.catalog import DATA, topics, assignments, validate_topics, read_assignments, csv_text
 from answering.contracts import read_bundle
 from answering.core import generate
+from answering.grounded import grounded_answer
 from answering.bridge import BaselineSearch, documents, external_sources, save_external
 from answering.web import load_url
 
@@ -79,7 +80,8 @@ with qa:
             except Exception as exc:st.error(f"Неверный контракт: {exc}")
     selected=st.multiselect("Темы — необязательно",list(topic_names),format_func=lambda x:topic_names[x])
     question=st.text_input("Ваш вопрос",placeholder="Кто инициирует подбор сотрудника?",max_chars=2000)
-    fingerprint = json.dumps({"q":question,"mode":mode,"topics":selected,"bundle":[f.to_dict() for f in (bundle or [])],
+    grounded = st.checkbox("Связный ответ с проверкой утверждений (эксперимент)")
+    fingerprint = json.dumps({"q":question,"grounded":grounded,"mode":mode,"topics":selected,"bundle":[f.to_dict() for f in (bundle or [])],
         "index":(DATA/"index.json").stat().st_mtime_ns if (DATA/"index.json").exists() else 0,
         "external":(DATA/"external_sources.json").stat().st_mtime_ns if (DATA/"external_sources.json").exists() else 0,
         "mapping":mapping},ensure_ascii=False,sort_keys=True)
@@ -97,13 +99,30 @@ with qa:
                         if not index.exists():raise ValueError("Подключите поисковый индекс первой части либо выберите JSON-режим")
                         search=get_search(index.stat().st_mtime_ns,external.stat().st_mtime_ns if external.exists() else 0)
                         evidence=search.search(question,selected,mapping)
-                    result=generate(question,evidence)
+                    result = grounded_answer(question, evidence) if grounded else generate(question, evidence)
                 st.session_state["last_answer"]=result
                 st.session_state["last_answer_key"]=request_key
             except Exception as exc:st.error(str(exc));st.session_state.pop("last_answer",None)
     result=st.session_state.get("last_answer")
     if result and st.session_state.get("last_answer_key")==request_key:
-        if result["status"]=="error":st.error(result["error"])
+        if result.get("fallback"):
+            st.caption("Показаны исходные цитаты после проверки черновика.")
+        if grounded and "missing" in result:
+            if result["status"] == "insufficient":
+                st.warning("Подтверждённых сведений для ответа не найдено.")
+            elif result["status"] == "partial":
+                st.warning("Часть вопроса осталась без подтверждённого ответа.")
+            for index, item in enumerate(result["answer"]):
+                st.text(item["text"])
+                source = next(e for e in item["sources"] if e["id"] == item["review"]["evidence_id"])
+                st.caption(f"{source['title']} · {source['locator']}")
+                with st.expander("Подтверждающая цитата"):
+                    st.text(item["review"]["quote"])
+                    if source["url"]:
+                        st.link_button(f"Открыть источник {index + 1}", source["url"])
+            for requirement in dict.fromkeys(result["missing"]):
+                st.text(f"Нет подтверждения — {requirement}")
+        elif result["status"]=="error":st.error(result["error"])
         elif result["status"]=="insufficient":st.warning("В найденных документах недостаточно сведений для подтверждённого ответа.")
         else:
             if result["status"]=="partial":st.warning("Найден только частичный ответ.")

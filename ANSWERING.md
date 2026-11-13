@@ -33,10 +33,11 @@ CUDA включена по умолчанию: llama.cpp b12284 CUDA 12.4, 24 GP
 ## Установка на другой Windows-компьютер
 
 ```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-answer.txt
-.\.venv\Scripts\python.exe scripts/download_answer_model.py
-.\.venv\Scripts\python.exe scripts/download_answer_runtime.py
+uv python install 3.13 --no-bin
+uv venv --python 3.13 .venv313 --seed
+.\.venv313\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv313\Scripts\python.exe scripts/download_answer_model.py
+.\.venv313\Scripts\python.exe scripts/download_answer_runtime.py
 .\start-answer.ps1
 ```
 
@@ -63,7 +64,7 @@ py -3.11 -m venv .venv
 Пример синтетического входа, не содержащий регламентов: examples/search_bundle.json. Сам контракт и проверка: answering/contracts.py.
 
 ```powershell
-.\.venv\Scripts\python.exe -m answering examples/search_bundle.json "Кто подает заявку в учебном примере?"
+.\.venv313\Scripts\python.exe -m answering examples/search_bundle.json "Кто подает заявку в учебном примере?"
 ```
 
 Выход: schema_version, status (answered/partial/insufficient/conflict/error), answer, steps, conflicts, warnings. Каждая цитата содержит fragment_id, document_id, quote, title, locator, url, topic_ids. ID сохраняются, UI не связывает источники только по изменяемым позиционным номерам. Код ошибки отдельно от отсутствия ответа.
@@ -105,8 +106,8 @@ LoRA/QLoRA — возможный следующий этап для испра�
 ## Проверка и следующие итерации
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe scripts/check_answering_real.py
+.\.venv313\Scripts\python.exe -m pytest -q
+.\.venv313\Scripts\python.exe scripts/check_answering_real.py
 ```
 
 Реальные контрольные вопросы находятся в локальном data/answer_cases.json (id, question), подробные ответы — в reports/answering_real.json. В Git их нет. Метрики первого этапа — ANSWERING_RESULTS.md и metrics/answering_v1.json. Дальше отдельно улучшаем полноту процедур, измеряем качество на большем holdout, проверяем реальные конфликты и применение редакций. В этом релизе нет полноценного entailment-verifier, автоматического назначения тем, обучения модели или доказанной безошибочности ответов.
@@ -114,16 +115,16 @@ LoRA/QLoRA — возможный следующий этап для испра�
 
 ## Хранение только на D:
 
-Проект Windows должен находиться на D:. Модели — models/, CUDA и OCR — tools/, окружение — .venv/, индексы — data/, отчеты — reports/. Кэши pip, Hugging Face, PyTorch и sentence-transformers, а также временные файлы приложения направлены в .cache/ внутри проекта. Обе команды запуска подключают project-env.ps1; модуль answering и загрузчики также устанавливают эти пути до импорта модельных библиотек. Запись новых Python bytecode-кэшей отключена.
+Проект Windows должен находиться на D:. Модели — models/, CUDA и OCR — tools/, окружение — .venv313/, индексы — data/, отчеты — reports/. Кэши pip, Hugging Face, PyTorch и sentence-transformers, а также временные файлы приложения направлены в .cache/ внутри проекта. Обе команды запуска подключают project-env.ps1; модуль answering и загрузчики также устанавливают эти пути до импорта модельных библиотек. Запись новых Python bytecode-кэшей отключена.
 
 Перед ручной установкой пакетов или запуском инструментов в PowerShell:
 
 ```powershell
 Set-Location D:\хакатон
 . .\project-env.ps1
-.\.venv\Scripts\python.exe -m pip install -r requirements-answer.txt
+.\.venv313\Scripts\python.exe -m pip install -r requirements-lock.txt
 ```
 
 На этом компьютере пути библиотечных кэшей дополнительно сохранены в пользовательских переменных среды (`project-env.ps1 -PersistCaches`); новые приложения получают их после обновления окружения/перезапуска. Системные TEMP/TMP, расположение существующих Python, VS Code и Codex не менялись. TEMP/TMP перенаправляются только для процессов проекта. gdown не используется новыми загрузчиками; при разовом повторном запуске gdown отключайте cookies (`--no-cookies`), поскольку его собственный путь cookies жестко привязан к профилю пользователя.
 
-Проверка путей: `.\.venv\Scripts\python.exe -m pytest tests/test_storage.py -q`. Кэш и данные исключены из Git. Небольшие системные журналы, настройки сторонних программ и файл подкачки Windows не контролируются проектом.
+Проверка путей: `.\.venv313\Scripts\python.exe -m pytest tests/test_storage.py -q`. Кэш и данные исключены из Git. Небольшие системные журналы, настройки сторонних программ и файл подкачки Windows не контролируются проектом.

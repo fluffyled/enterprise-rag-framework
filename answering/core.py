@@ -13,10 +13,13 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
         raise ValueError("Перенаправление локального LLM запрещено")
 
 
-def sentence_options(fragments, char_budget=10000):
+def sentence_options(fragments, char_budget=10000, *, whole_clauses=False):
     options, seen, used = [], set(), 0
     for fragment in fragments:
-        for text in re.split(r"(?<=[.!?;])\s+(?=[А-ЯЁA-Z])|\n+", fragment.text):
+        texts = [fragment.text] if whole_clauses and fragment.complete else re.split(
+            r"(?<=[.!?;])\s+(?=[А-ЯЁA-Z])|\n+", fragment.text
+        )
+        for text in texts:
             text = re.sub(r"(?<=[.!?;])\s+\d+(?:\.\d+)+\.?$", "", text.strip())
             full_block = fragment.complete and text == fragment.text.strip()
             if not 30 <= len(text) <= 900 or (not full_block and not text.endswith((".", ";", "!", "?"))): continue
@@ -63,15 +66,13 @@ def validate_selection(selection, options):
     return result
 
 
-def generate(question, fragments, endpoint=None):
+def generate(question, fragments, endpoint=None, *, whole_clauses=False):
     if not isinstance(question, str) or len(question.strip()) > 2000: raise ValueError("Вопрос должен быть короче 2000 символов")
     if len(fragments) > 100 or any(not isinstance(f, Fragment) for f in fragments): raise ValueError("Нужны фрагменты общего контракта")
     if len({f.id for f in fragments}) != len(fragments): raise ValueError("Повторяются ID фрагментов")
     endpoint = endpoint or os.environ.get("ANSWER_LLM_ENDPOINT", "http://127.0.0.1:8081/v1/chat/completions")
-    u = urlsplit(endpoint)
-    if u.scheme != "http" or u.hostname not in {"localhost", "127.0.0.1", "::1", "llm"} or u.username or u.password or u.query:
-        raise ValueError("Документы можно передавать только локальному LLM")
-    options = sentence_options(fragments)
+    check_endpoint(endpoint)
+    options = sentence_options(fragments, whole_clauses=whole_clauses)
     if not question.strip() or not options: return validate_selection({"status": "insufficient"}, [])
     ids = {"type": "integer", "enum": [o["id"] for o in options]}
     schema = {"type": "object", "properties": {"status": {"type": "string", "enum": ["answered", "partial", "insufficient", "conflict"]},
@@ -84,13 +85,27 @@ def generate(question, fragments, endpoint=None):
     payload = {"messages": [{"role": "system", "content": PROMPT}, {"role": "user", "content": json.dumps({"question": question, "evidence": evidence}, ensure_ascii=False)}],
                "temperature": 0, "seed": 42, "max_tokens": 300, "chat_template_kwargs": {"enable_thinking": False},
                "response_format": {"type": "json_object", "schema": schema}}
-    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
-    req = urllib.request.Request(endpoint, data=json.dumps(payload).encode(), headers={"Content-Type": "application/json"})
     try:
-        with opener.open(req, timeout=150) as response: packet = json.loads(response.read(200000))
-        choice = packet["choices"][0]
-        if choice.get("finish_reason") == "length": raise ValueError("Ответ модели обрезан")
-        return validate_selection(json.loads(choice["message"]["content"]), options)
+        return validate_selection(request_selection(endpoint, payload), options)
     except Exception as exc:
         return {"schema_version": 1, "status": "error", "answer": [], "steps": [], "conflicts": [], "warnings": [],
                 "error": f"Не удалось получить проверяемый ответ локальной модели: {type(exc).__name__}"}
+
+
+def check_endpoint(endpoint):
+    u = urlsplit(endpoint)
+    if u.scheme != "http" or u.hostname not in {"localhost", "127.0.0.1", "::1", "llm"} or u.username or u.password or u.query:
+        raise ValueError("Документы можно передавать только локальному LLM")
+
+
+def request_selection(endpoint, payload):
+    check_endpoint(endpoint)
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
+    request = urllib.request.Request(endpoint, data=json.dumps(payload).encode(),
+                                     headers={"Content-Type": "application/json"})
+    with opener.open(request, timeout=150) as response:
+        packet = json.loads(response.read(200000))
+    choice = packet["choices"][0]
+    if choice.get("finish_reason") == "length":
+        raise ValueError("Ответ модели обрезан")
+    return json.loads(choice["message"]["content"])

@@ -2,7 +2,7 @@
 Set-Location -LiteralPath $PSScriptRoot
 . (Join-Path $PSScriptRoot 'project-env.ps1')
 if (Test-Path -LiteralPath 'data/processes.json') { throw 'Уже есть processes.json. Выполните stop.ps1 перед повторным запуском.' }
-$pythonExe = Join-Path $PSScriptRoot '.venv/Scripts/python.exe'
+$pythonExe = Join-Path $PSScriptRoot '.venv313/Scripts/python.exe'
 $llamaExe = Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'tools/llama') -Recurse -Filter 'llama-server.exe' | Select-Object -First 1
 if (-not $llamaExe) { throw 'Не найден llama-server.exe' }
 New-Item -ItemType Directory -Path 'reports' -Force | Out-Null

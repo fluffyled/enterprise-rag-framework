@@ -12,7 +12,7 @@
 [PROJECT_REPORT.md](PROJECT_REPORT.md): выполненная работа, все сохраненные метрики, ограничения, варианты алгоритмов и инструкции замены компонентов. Обезличенная сводка: [metrics/baseline_summary.json](metrics/baseline_summary.json). Новые алгоритмы пока не внедрены.
 
 ## Оборудование
-Проверенный компьютер: 16 ГБ RAM, RTX 3050 Laptop 4 ГБ VRAM. Retrieval и reranker работают на CPU. LLM — Qwen2.5-3B-Instruct Q4_K_M через CPU llama.cpp. GPU не требуется. Модель 3B распространяется по Qwen Research License; коммерческая пригодность не заявляется. Требуется Python 3.11, около 8–12 ГБ диска под окружение/модели/инструменты; точные задержки и ограничения см. TEST_RESULTS.md.
+Проверенный компьютер: 16 ГБ RAM, RTX 3050 Laptop 4 ГБ VRAM. Retrieval и reranker работают на CPU. LLM — Qwen2.5-3B-Instruct Q4_K_M через CPU llama.cpp. GPU не требуется. Модель 3B распространяется по Qwen Research License; коммерческая пригодность не заявляется. Требуется Python 3.13, около 8–12 ГБ диска под окружение/модели/инструменты; точные задержки и ограничения см. TEST_RESULTS.md.
 
 ## Быстрый запуск Windows
 Откройте PowerShell в папке проекта. На подготовленном компьютере окружение, инструменты, модели и данные уже созданы.
@@ -26,10 +26,11 @@
 
 ## Установка с нуля
 ```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe scripts/download_data.py
-.\.venv\Scripts\python.exe scripts/download_models.py
+uv python install 3.13 --no-bin
+uv venv --python 3.13 .venv313 --seed
+.\.venv313\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv313\Scripts\python.exe scripts/download_data.py
+.\.venv313\Scripts\python.exe scripts/download_models.py
 ```
 models.lock.json хранит SHA ревизий весов; downloader использует существующие SHA. Не удаляйте lock для воспроизводимого запуска. requirements-lock.txt фиксирует фактическое Windows окружение; для Linux используйте requirements.txt (платформенные пакеты различаются).
 
@@ -39,8 +40,8 @@ models.lock.json хранит SHA ревизий весов; downloader испо
 
 ## Подготовка документов
 ```powershell
-.\.venv\Scripts\python.exe -m navigator.cli ingest
-.\.venv\Scripts\python.exe -m navigator.cli index
+.\.venv313\Scripts\python.exe -m navigator.cli ingest
+.\.venv313\Scripts\python.exe -m navigator.cli index
 ```
 Для добавления/удаления документов измените data/raw и повторите оба шага. Индекс перестраивается целиком; OCR страниц кэшируется по SHA256. Ошибка любого файла блокирует замену chunks.json. Не используйте предыдущий индекс после неудачной перестройки. Неподдерживаемые форматы сообщаются как ошибки.
 
@@ -52,18 +53,18 @@ PDF сохраняет номера страниц, DOCX — абзацы и с�
 Ручной запуск (две консоли):
 ```powershell
 .\tools\llama\llama-server.exe -m .\models\llm3\qwen2.5-3b-instruct-q4_k_m.gguf --host 127.0.0.1 --port 8080 -c 8192 -t 4
-.\.venv\Scripts\python.exe -m streamlit run app.py
+.\.venv313\Scripts\python.exe -m streamlit run app.py
 ```
 ```powershell
-.\.venv\Scripts\python.exe -m navigator.cli ask "Кто инициирует поиск сотрудника?"
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe scripts/evaluate.py
+.\.venv313\Scripts\python.exe -m navigator.cli ask "Кто инициирует поиск сотрудника?"
+.\.venv313\Scripts\python.exe -m pytest -q
+.\.venv313\Scripts\python.exe scripts/evaluate.py
 ```
 
 ## Приватность и GitHub
 Никаких ключей API не требуется. Документы, индексы и запросы обрабатываются локально. Подготовка скачивает пакеты из PyPI/PyTorch, веса Hugging Face, инструменты GitHub и документы Google Drive. Ответы используют только локальный HTTP сервер. Телеметрия Haystack/HF/Streamlit отключена. Нет обязательных переменных окружения; опционально TESSERACT_CMD, TESSDATA_PREFIX.
 
-.gitignore исключает data, reports (содержат выдержки), models, tools, .venv, .env. Не публикуйте оригиналы и производные данные без разрешения владельца, даже если Drive доступен по ссылке. Перед push выполните `git status` и `git diff --cached`. Репозиторий: https://github.com/fluffyled/enterprise-rag-framework (публичный; первоначально создан приватным). В GitHub отправляются код, документация и конфигурация. Git имя в настройках не подтверждает аутентификацию аккаунта.
+.gitignore исключает data, reports (содержат выдержки), models, tools, .venv313, .env. Не публикуйте оригиналы и производные данные без разрешения владельца, даже если Drive доступен по ссылке. Перед push выполните `git status` и `git diff --cached`. Репозиторий: https://github.com/fluffyled/enterprise-rag-framework (публичный; первоначально создан приватным). В GitHub отправляются код, документация и конфигурация. Git имя в настройках не подтверждает аутентификацию аккаунта.
 
 ## Docker
 Docker на этом компьютере не обнаружен. Конфигурация подготовлена, но её сборка здесь не проверена.

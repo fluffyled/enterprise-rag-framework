@@ -1,4 +1,4 @@
-# Dot-source before installing packages or running project tools.
+﻿# Dot-source before installing packages or running project tools.
 param([switch]$PersistCaches)
 $cacheRoot = Join-Path $PSScriptRoot '.cache'
 if ([System.IO.Path]::GetPathRoot($cacheRoot) -ne 'D:\') { throw 'Project storage must stay on drive D:' }
@@ -31,3 +31,8 @@ if ((Test-Path -LiteralPath $cudaBin) -and ($env:PATH -split ';' -notcontains $c
 $env:CUDA_CACHE_PATH = Join-Path $cacheRoot 'cuda'
 $env:TORCH_EXTENSIONS_DIR = Join-Path $cacheRoot 'torch-extensions'
 $env:TRITON_CACHE_DIR = Join-Path $cacheRoot 'triton'
+
+# Keep uv-managed Python and all project downloads on D:.
+$env:UV_CACHE_DIR = Join-Path $cacheRoot 'uv'
+$env:UV_PYTHON_INSTALL_DIR = Join-Path $PSScriptRoot 'tools/python'
+$env:UV_PYTHON_BIN_DIR = Join-Path $PSScriptRoot 'tools/python-bin'

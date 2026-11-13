@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
 . (Join-Path $PSScriptRoot 'project-env.ps1')
-$pythonExe = Join-Path $PSScriptRoot '.venv/Scripts/python.exe'
+$pythonExe = Join-Path $PSScriptRoot '.venv313/Scripts/python.exe'
 $modelLock = Get-Content -LiteralPath 'answer-model.lock.json' -Raw | ConvertFrom-Json
 $modelFile = Join-Path $PSScriptRoot ($modelLock.local_dir + '/' + $modelLock.filename)
 if ($Cpu) {

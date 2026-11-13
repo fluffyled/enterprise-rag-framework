@@ -3,6 +3,7 @@ models
 tools
 reports
 .venv
+.venv313
 .git
 .env
 __pycache__
