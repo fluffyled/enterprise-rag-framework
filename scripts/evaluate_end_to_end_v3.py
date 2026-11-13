@@ -37,8 +37,11 @@ def all_groups_covered(results, case):
 
 def run_experiment(name, config_path, cases, endpoint, output_root):
     oracle = config_path == "oracle"
+    index_path = None
+    if not oracle and "|" in config_path:
+        config_path, index_path = config_path.split("|", 1)
     config = load_config(None if oracle else config_path)
-    retriever = None if oracle else Retriever(config=config)
+    retriever = None if oracle else Retriever(config=config, index_path=index_path)
     rows = []
     output = output_root / name
     output.mkdir(parents=True, exist_ok=True)
