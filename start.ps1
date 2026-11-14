@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$Python = 'python',
     [string]$Server = '',
     [ValidateRange(0, 99)][int]$GpuLayers = 24

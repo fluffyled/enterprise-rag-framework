@@ -1,36 +1,41 @@
 """Reusable response presentation; source text is never executed as HTML."""
 import html
-import json
 import re
 from pathlib import Path
 import streamlit as st
-import streamlit.components.v1 as components
 from navigator.corpus import fingerprint
 from navigator.settings import DATA
 from ui.storage import STORE, valid_url
 
 LABELS = {"answered": "Ответ по документам", "partial": "Частичный ответ", "insufficient": "Недостаточно информации", "conflict": "Возможное противоречие", "error": "Техническая ошибка"}
+PDF_BULLETS = str.maketrans({"\uf02d": "•", "\uf0b7": "•"})
+
+
+def additional_answer(result):
+    """Keep summary information that is absent from the displayed steps."""
+    if not result["steps"]:
+        return result["answer"]
+    steps = [step.split(" · ") for step in result["steps"]]
+    return "\n\n".join(part for part in result["answer"].split("\n\n")
+                      if part.strip() and not any(part.strip() == segment.strip()
+                                                  for step in steps for segment in step))
 
 
 def export_text(question, result):
-    lines = [f"# {question}", "", f"Режим: {result['metadata'].get('mode', '')}", f"Статус: {LABELS[result['status']]}", "", result["answer"]]
+    lines = [f"# {question}", "", f"Режим: {result['metadata'].get('mode', '')}", f"Статус: {LABELS[result['status']]}", ""]
     lines += [f"{i}. {step}" for i, step in enumerate(result["steps"], 1)]
+    if extra := additional_answer(result):
+        lines += ["", extra]
     lines += result["conflicts"] + result["missing_information"]
     if result.get("error"):
         lines.append(result["error"])
     for i, s in enumerate(result["sources"], 1):
         lines += ["", f"[{i}] {s['document_title']} — {s.get('locator', '')}", s["excerpt"]]
-    return "\n".join(lines)
-
-
-def copy_button(text, label="Скопировать ответ"):
-    payload = json.dumps(text, ensure_ascii=True).replace("<", "\\u003c")
-    components.html('''<button style="padding:9px 14px;border:1px solid #888;border-radius:8px;background:#f0f2f8;color:#30394f;cursor:pointer" onclick="copyText()">''' + html.escape(label) + '''</button><span id="status" role="status"></span>
-<script>async function copyText(){const t=''' + payload + ''';try{await navigator.clipboard.writeText(t);document.getElementById('status').textContent=' Скопировано';}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();const ok=document.execCommand('copy');a.remove();document.getElementById('status').textContent=ok?' Скопировано':' Используйте экспорт';}}</script>'''.replace('\n+', '\n'), height=45)
+    return "\n".join(lines).translate(PDF_BULLETS)
 
 
 def linked_text(text, result, prefix):
-    escaped = html.escape(text)
+    escaped = html.escape(text.translate(PDF_BULLETS))
     def link(match):
         number = int(match.group(1))
         if 1 <= number <= len(result["sources"]):
@@ -68,16 +73,16 @@ def answer_view(turn, settings):
         st.error(result.get("error", "Ошибка сервиса"))
     elif status == "insufficient":
         st.info("В доступных документах недостаточно информации для подтвержденного ответа.")
-    elif status == "partial":
-        st.warning("Ответ может быть неполным. Проверьте условия и исключения в источниках.")
-    elif status == "conflict":
-        st.warning("Возможное противоречие. Требуется проверка связанных источников.")
-    if result["answer"]:
-        linked_text(result["answer"], result, key)
     if result["steps"]:
         st.markdown("#### Действия и варианты")
         for i, step in enumerate(result["steps"], 1):
             linked_text(f"{i}. {step}", result, key)
+    if extra := additional_answer(result):
+        linked_text(extra, result, key)
+    if status == "partial":
+        st.warning("Ответ может быть неполным. Проверьте условия и исключения в источниках.")
+    elif status == "conflict":
+        st.warning("Возможное противоречие. Требуется проверка связанных источников.")
     for message in result["conflicts"]:
         linked_text(message, result, key)
     for message in result["missing_information"]:
@@ -90,12 +95,11 @@ def answer_view(turn, settings):
         st.markdown(f'<div id="{key}-s{i}"></div>', unsafe_allow_html=True)
         with st.expander(f"[{i}] {source['document_title']}", expanded=settings["sources_open"]):
             st.caption(source.get("locator") or "Локатор не передан")
-            st.text(source["excerpt"])
+            st.code(source["excerpt"], language=None, wrap_lines=True)
             if source.get("quotes"):
                 st.caption("Цитаты в ответе")
                 for quote in source["quotes"]:
-                    st.text(quote)
-            copy_button(source["excerpt"], "Скопировать цитату")
+                    st.code(quote, language=None, wrap_lines=True)
             if settings["advanced"]:
                 metadata = {k: v for k, v in source.items() if k != "excerpt" and v is not None}
                 st.json(metadata, expanded=False)
@@ -109,16 +113,20 @@ def answer_view(turn, settings):
                                            key=f"{key}-download{i}")
                 else:
                     st.caption("Оригинал этой редакции недоступен.")
-    text = export_text(turn["question"], result)
-    a, b, c = st.columns(3)
-    with a:
-        copy_button(text)
-    with b:
-        st.download_button("Экспорт Markdown", text, "answer.md", "text/markdown", key="md"+key)
-    with c:
-        st.download_button("Экспорт TXT", text, "answer.txt", "text/plain", key="txt"+key)
+    if status != "error":
+        with st.expander("Экспорт ответа"):
+            text = export_text(turn["question"], result)
+            st.download_button("Скачать Markdown", text, "answer.md", "text/markdown", key="md"+key)
+            st.download_button("Скачать TXT", text, "answer.txt", "text/plain", key="txt"+key)
     if settings["advanced"]:
         meta = result["metadata"]
-        st.caption(f"Время запроса {meta.get('latency_ms', '—')} мс · Поиск {meta.get('retrieval_ms', '—')} мс · Генерация {meta.get('generation_ms', '—')} мс")
+        timings = [f"{label} {meta[field] / 1000:.2f} с" for field, label in
+                   (("latency_ms", "Всего"), ("retrieval_ms", "Поиск"), ("generation_ms", "Генерация"))
+                   if isinstance(meta.get(field), (int, float))]
+        if timings:
+            st.caption(" · ".join(timings))
+        if meta.get("transport_detail") or (status == "error" and meta.get("review_issues")):
+            with st.expander("Подробности ошибки"):
+                st.text(meta.get("transport_detail") or str(meta["review_issues"][-1]))
         if meta.get("model"):
             st.caption(f"Модель {meta['model']}")

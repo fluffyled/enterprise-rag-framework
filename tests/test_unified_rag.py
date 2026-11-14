@@ -179,6 +179,32 @@ def test_adaptive_strategy_counts_distinct_full_years():
     assert result["signals"]["years"] == ["2024", "2025"]
 
 
+def test_late_review_connection_error_keeps_verified_facts():
+    from answering.v2.contracts import AnswerInputV1, Evidence
+
+    evidence = [Evidence(id=f"E{i}", document_id="rules", full_text=f"Правило {i}. " + "а" * 125)
+                for i in (1, 2)]
+
+    def client(endpoint, payload, trace):
+        data = json.loads(payload["messages"][1]["content"])
+        row = data["evidence"][0]
+        if "facts" in data:
+            if row["id"] == "E2":
+                raise TimeoutError("connection lost")
+            return {"verdicts": [{"id": data["facts"][0]["id"], "verdict": "supported"}],
+                    "missing": [], "conflict_evidence_ids": []}
+        quote = row["text"].split(".")[0]
+        return {"facts": [{"text": quote, "kind": "other", "requirement_ids": ["R1"],
+                           "citations": [{"evidence_id": row["id"], "quote": quote}]}]}
+
+    request = AnswerInputV1(question="Какое правило?", evidence=evidence)
+    settings = pipeline.Settings(input_chars=250, scoped_summary=True, repair_attempts=0, fail_on_batch_error=True)
+    result = pipeline.generate_v2(request, settings=settings, client=client)
+    assert result.status == "partial"
+    assert result.summary.text == "Правило 1"
+    assert result.trace["transport_error"]
+
+
 def test_missing_or_empty_documents(tmp_path):
     assert rag_service.ask("Вопрос", snapshot=tmp_path).status == "error"
     (tmp_path / "snapshot.json").write_text('{"empty":true}')

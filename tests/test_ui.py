@@ -55,8 +55,47 @@ def test_ui_flow():
     app.radio(key='page').set_value('Документы').run()
     assert not app.exception
     app.radio(key='page').set_value('Настройки').run()
-    button(app,'Сменить тему').click().run()
-    assert app.session_state.settings['theme']=='Темная'
+    app.selectbox[0].set_value("Подключённый")
+    app.selectbox[1].set_value("quality")
+    app.selectbox[2].set_value("g2")
+    button(app, "Сохранить настройки").click().run()
+    assert app.session_state.mode == "Подключённый"
+    assert app.session_state.settings["retrieval"] == "quality"
+    assert app.session_state.settings["generation"] == "g2"
+    assert not app.exception
+
+
+@pytest.mark.parametrize("operation", ["answer", "index"])
+def test_navigation_during_background_work(monkeypatch, tmp_path, operation):
+    from concurrent.futures import Future
+    from ui import app as ui_app
+    from ui.services import failure
+
+    future = Future()
+    monkeypatch.setattr(ui_app, "workers", lambda: type("Worker", (), {"submit": lambda self, *args: future})())
+    path = Path(__file__).resolve().parents[1] / "app.py"
+    app = AppTest.from_file(path, default_timeout=15).run()
+    if operation == "answer":
+        app.session_state.mode = "Подключённый"
+        app.text_area(key="question").set_value("Вопрос в фоне")
+        button(app, "Получить ответ").click().run()
+        job_key = "answer_job"
+    else:
+        app.radio(key="page").set_value("Документы").run()
+        button(app, "Построить или обновить базу").click().run()
+        job_key = "index_job"
+    assert app.session_state[job_key]["future"] is future
+    app.radio(key="page").set_value("Настройки").run()
+    assert app.title[0].value == "Настройки"
+    assert app.session_state[job_key]["future"] is future
+    future.set_result(failure("Модель недоступна") if operation == "answer" else tmp_path)
+    app.run()
+    assert job_key not in app.session_state
+    if operation == "answer":
+        turns = app.session_state.chats[app.session_state.active]["turns"]
+        assert len(turns) == 1 and turns[0]["question"] == "Вопрос в фоне"
+    else:
+        assert app.session_state.snapshot == str(tmp_path)
     assert not app.exception
 
 
@@ -81,6 +120,20 @@ def test_document_number_does_not_become_a_citation(monkeypatch):
     }, "turn")
     assert "Пункт [1] <a" in rendered[0]
     assert rendered[0].count('href="#turn-s1"') == 1
+
+
+def test_steps_precede_extra_summary_and_sources_without_repeating_rule():
+    from ui.views import export_text
+
+    rule = "Запрет действует после утверждения регламента:\n\uf02d кроме конкурсных договоров. [источник 1]"
+    result = {"status": "partial", "answer": rule + "\n\nДополнительное условие.",
+              "steps": ["Запрещено · " + rule + " · Условие — после утверждения"],
+              "sources": [{"document_title": "Регламент", "excerpt": "Текст источника"}],
+              "metadata": {}, "conflicts": [], "missing_information": []}
+    exported = export_text("Выдадут ли заём?", result)
+    assert exported.count("Запрет действует") == 1
+    assert exported.index("1. Запрещено") < exported.index("Дополнительное условие.") < exported.index("Текст источника")
+    assert "• кроме конкурсных договоров." in exported
 
 
 

@@ -66,8 +66,12 @@ def load_workspace(path, defaults):
     rebuild_required = saved.get("rebuild_required", bool(files))
     if type(rebuild_required) is not bool:
         raise ValueError("Некорректное состояние индекса")
+    mode = saved.get("mode")
+    if mode is not None and mode not in ("Подключённый", "Демонстрационный"):
+        raise ValueError("Некорректный источник ответов")
     return dict(settings={**defaults, **settings}, chats=chats, active=active,
-                files=files, owner=owner, snapshot=snapshot, rebuild_required=rebuild_required)
+                files=files, owner=owner, snapshot=snapshot, rebuild_required=rebuild_required,
+                **({"mode": mode} if mode is not None else {}))
 
 
 def stage_file(name, content, owner):

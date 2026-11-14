@@ -44,3 +44,35 @@ def test_failed_retries_are_technical_error():
     response = generate_v2(request, client=client, settings=Settings(verify=False))
     assert response.status == "error"
     assert len(response.trace["calls"]) == 2
+
+
+def test_model_reuses_http_connection(monkeypatch):
+    from answering import core
+    from io import BytesIO
+    from types import SimpleNamespace
+
+    created = []
+
+    class Connection:
+        def __init__(self, host, port, timeout):
+            self.host, self.port = host, port
+            self.calls = []
+            created.append(self)
+
+        def request(self, method, path, **kwargs):
+            self.calls.append((method, path))
+
+        def getresponse(self):
+            response = BytesIO(b'{"choices":[{"message":{"content":"{}"}}]}')
+            response.status = 200
+            return response
+
+        def close(self):
+            pass
+
+    monkeypatch.setattr(core, "_connection", SimpleNamespace())
+    monkeypatch.setattr(core, "LocalModelConnection", Connection)
+    endpoint = "http://127.0.0.1:8080/v1/chat/completions"
+    assert core.request_selection(endpoint, {}) == core.request_selection(endpoint, {}) == {}
+    assert len(created) == 1
+    assert created[0].calls == [("POST", "/v1/chat/completions")] * 2

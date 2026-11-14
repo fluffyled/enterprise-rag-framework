@@ -74,12 +74,17 @@ class GenerationService:
             result = generate_v2(AnswerInputV1(question=question, evidence=evidence), settings=G2_SETTINGS)
             response.diagnostics["trace"] = result.trace
             response.diagnostics["review_issues"] = result.verification.issues
+            if detail := result.trace.get("transport_detail"):
+                response.diagnostics["transport_detail"] = detail
             if result.status == "error":
                 response.status = "error"
                 response.error = "LLM: генерация или проверка ответа завершилась ошибкой."
                 if result.trace.get("transport_error"):
                     response.diagnostics["transport_error"] = True
                 return response
+            if result.trace.get("transport_error"):
+                response.warnings.append("Локальная модель стала недоступна во время обработки вопроса. "
+                                         "Показана часть ответа, которую удалось сверить с источниками.")
             # Quote provenance and review by the same model cannot establish completeness.
             response.status = "partial" if result.status == "answered" else result.status
             facts = {fact.id: fact for fact in result.claims}

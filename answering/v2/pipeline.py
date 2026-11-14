@@ -206,6 +206,7 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                 if attempt > settings.technical_retries:
                     if connection_failed(exc):
                         trace["transport_error"] = True
+                        trace["transport_detail"] = record["error"]
                     raise
                 payload["messages"][0]["content"] += (
                     " Сократи формулировки без потери условий. Верни компактный JSON без отступов."
@@ -345,7 +346,8 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
             local = [f for f in facts if {c.evidence_id for c in f.citations} <= ids
                      and all(any(row["id"] == c.evidence_id and c.quote in row["text"] for row in batch)
                              for c in f.citations)]
-            # Review omissions even when no facts were extracted from this batch.
+            if settings.scoped_summary and not local:
+                continue
             try:
                 schema = REVIEW_SCHEMA
                 if local:
@@ -370,9 +372,12 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                 if len(conflict) >= 2 and conflict <= ids and "contradicted" in verdicts.values():
                     conflicts.update(conflict)
             except (KeyError, TypeError, ValueError, OSError, IndexError) as exc:
-                if not optional and (settings.fail_on_batch_error or trace.get("transport_error")):
+                recoverable = settings.scoped_summary and trace.get("transport_error") and bool(checked - rejected)
+                if not optional and not recoverable and (settings.fail_on_batch_error or trace.get("transport_error")):
                     raise
                 issues.append(f"Verification failed: {type(exc).__name__}")
+                if trace.get("transport_error"):
+                    break
         for fact in facts:
             if fact.id not in checked:
                 rejected.add(fact.id)
@@ -426,7 +431,7 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                        for old in kept):
                     kept, missing = candidates, add_uncovered(candidates, revised_gaps)
             facts = kept
-        if settings.scoped_summary:
+        if settings.scoped_summary and not trace.get("transport_error"):
             omissions = list(scope_review(extracted))
             if omissions:
                 citations = [citation for fact in omissions for citation in fact.citations]
@@ -439,7 +444,7 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                     if settings.verify:
                         repairs, _, _ = review(repairs, [batch], optional=True)
                     facts = [*facts, *repairs]
-        if settings.scoped_summary and settings.verify:
+        if settings.scoped_summary and settings.verify and not trace.get("transport_error"):
             # Synthesize only when the checked evidence for a requirement spans batches.
             for requirement in requirements[:4]:
                 supporting = [fact for fact in facts if requirement.id in fact.requirement_ids]
