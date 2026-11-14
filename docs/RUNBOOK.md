@@ -1,6 +1,6 @@
 # Локальный запуск Enterprise RAG
 
-[Быстрый старт для Windows и Docker Compose](README.md#запуск).
+[Быстрый старт для Windows и Docker Compose](../README.md#быстрый-запуск).
 
 1. Активируйте окружение Python 3.13 и установите `python -m pip install -r requirements-cuda.txt`. Этот список фиксирует основные версии проверенного CUDA-окружения.
 2. Выполните `python scripts/download_models.py --bge` и `python scripts/download_answer_model.py`. Разместите совместимую CUDA-сборку [llama.cpp b12284](https://github.com/ggml-org/llama.cpp/releases/tag/b12284) в `tools/llama-cuda`.

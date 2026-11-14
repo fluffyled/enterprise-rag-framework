@@ -1,17 +1,3 @@
-# Архитектура Enterprise RAG
-
-```text
-Streamlit → rag_service → Retriever Fast / Quality
-                     → Evidence Adapter → GenerationService Legacy / G2
-                     → AnswerResponse → отображение цитат и источников
-```
-
-Профили приложения загружаются из `configs/application.yaml`. Fast использует адаптивный поиск BGE-M3, Quality добавляет Parent Expansion. Экземпляр Retriever один на активный снимок индекса, обращения к GPU сериализуются. Evidence Adapter валидирует символьные координаты по извлечённому документу и сохраняет версию и хеш источника. Legacy извлекает цитаты, G2 выделяет атомарные факты и проверяет их дополнительным вызовом. Оба режима повторно проверяют все цитаты перед сборкой ответа.
-
-Рабочее пространство собирает снимки из `data/raw` и файлов staging. Новый снимок включает индекс BGE, исходные тексты, Clause Store и манифест. После успешной сборки приложение переключает активный снимок. При удалении загруженного документа приложение сбрасывает связанные ответы в истории сессии и требует обновления базы.
-
-## Историческая архитектура baseline
-
 # Архитектура
 
 ```mermaid
@@ -43,4 +29,4 @@ flowchart LR
 
 ## Retrieval research
 
-`configs/retrieval_stable.yaml` добавляет к baseline правиловую декомпозицию и coverage-aware greedy selection при неизменных E5/mMiniLM и бюджете контекста. `Retriever.search` сохраняет снимки BM25, dense, RRF, reranker и выбранного контекста, оценки и время этапов без вызова Qwen. Экспериментальные иерархия, contextual indexing, adaptive expansion, graph и BGE-M3 управляются независимыми YAML и по умолчанию выключены. Индекс проверяет модель, chunking, search representation и вычислительное устройство. Метрики, абляции и научные ссылки: [RETRIEVAL_RESEARCH_REPORT.md](docs/research/RETRIEVAL_RESEARCH_REPORT.md).
+`configs/retrieval_stable.yaml` добавляет к baseline правиловую декомпозицию и coverage-aware greedy selection при неизменных E5/mMiniLM и бюджете контекста. `Retriever.search` сохраняет снимки BM25, dense, RRF, reranker и выбранного контекста, оценки и время этапов без вызова Qwen. Экспериментальные иерархия, contextual indexing, adaptive expansion, graph и BGE-M3 управляются независимыми YAML и по умолчанию выключены. Индекс проверяет модель, chunking, search representation и вычислительное устройство. Метрики, абляции и научные ссылки: [RETRIEVAL_RESEARCH_REPORT.md](research/RETRIEVAL_RESEARCH_REPORT.md).

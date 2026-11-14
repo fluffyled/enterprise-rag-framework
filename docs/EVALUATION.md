@@ -51,7 +51,7 @@ Quality (H1) на тех же 50 вопросах воспроизвёл выб�
 
 H4 на тех же 50 вопросах воспроизвёл выбранные фрагменты по ID и тексту и все итоговые метрики при повторном использовании сохранённых планов поиска. Document-aware clause recall 0,909048, strict recall 0,844714. Повторное получение планов от LLM в этом сравнении не проверялось.
 
-Исторические показатели retrieval и Oracle доступны в [RETRIEVAL_FREEZE_REPORT.md](docs/research/RETRIEVAL_FREEZE_REPORT.md) и [GENERATION_150_REPORT.md](docs/research/GENERATION_150_REPORT.md). Историческое лексическое покрытие Oracle не используется как оценка смыслового качества интеграции.
+Исторические показатели retrieval и Oracle доступны в [RETRIEVAL_FREEZE_REPORT.md](research/RETRIEVAL_FREEZE_REPORT.md) и [GENERATION_150_REPORT.md](research/GENERATION_150_REPORT.md). Историческое лексическое покрытие Oracle не используется как оценка смыслового качества интеграции.
 
 Контроль HQ004 на Oracle вновь выявил пропуски передачи результата автору и закрытия без обратной связи. Исследовательский генератор выставил `answered`. Application Service понижает такой статус до `partial` для любого вопроса.
 

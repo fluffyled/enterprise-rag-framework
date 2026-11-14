@@ -71,7 +71,7 @@ pypdf не прочитал часть PDF из-за `Odd-length string`; исп
 | Runtime | llama.cpp CPU b12284, 4 потока, заданный context 8192 | Скрипты запуска и Dockerfile.llm |
 | OCR | Tesseract 5.5.3 rus+eng; rus из tessdata_fast 4.1.0 | SHA256 в runtime-checksums.json |
 
-E5 использует query:/passage: и normalized cosine. Лицензии: [THIRD_PARTY.md](../../THIRD_PARTY.md). Qwen3B имеет **Qwen Research License**; коммерческая пригодность не утверждается. Контрольные суммы: [runtime-checksums.json](../../runtime-checksums.json).
+E5 использует query:/passage: и normalized cosine. Лицензии: [THIRD_PARTY.md](../THIRD_PARTY.md). Qwen3B имеет **Qwen Research License**; коммерческая пригодность не утверждается. Контрольные суммы: [runtime-checksums.json](../../runtime-checksums.json).
 
 Git, VS Code и Python уже были установлены. Создана `.venv` на Python 3.11.9. Установлены Haystack 2.13.1, sentence-transformers 3.4.1, transformers 4.49.0, torch 2.6.0+cpu, Streamlit 1.45.0, PDFium 4.30.0, python-docx 1.1.2, openpyxl 3.1.5, pytesseract 0.3.13, Pillow 11.2.1, gdown 5.2.0 и pytest 8.3.5. Для аудита также ставились pypdf и BeautifulSoup. Полный Windows lock: [requirements-lock.txt](../../requirements-lock.txt), 89 пакетов. Docker и Ollama не устанавливались. Обучения и fine-tuning не было.
 
