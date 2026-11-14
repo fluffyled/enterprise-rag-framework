@@ -58,6 +58,20 @@ def multi_hop_search(retriever, question, effective, metadata, timings):
 
     run_round([question] + [subtask for subtask in subtasks if subtask != question], 0)
 
+    if settings.get("enrichment_search"):
+        from .enrichment_search import EnrichmentIndex, clause_documents
+        if not hasattr(retriever, "_enrichment_index"):
+            retriever._enrichment_index = EnrichmentIndex(model=retriever.model)
+        clause_ids = retriever._enrichment_index.search(question, top_k=8, include_facts=settings.get("enrichment_facts", False))
+        enrich_docs = clause_documents(retriever, clause_ids)
+        for document in enrich_docs:
+            key = _candidate_key(document)
+            if key not in merged:
+                document.meta["rerank_score"] = -1.0
+                merged[key] = document
+            origin.setdefault(key, set()).add("enrichment")
+        diagnostics["enrichment_clauses"] = len(enrich_docs)
+
     ordered = sorted(merged.values(), key=lambda document: document.meta.get("rerank_score", 0.0), reverse=True)
     coverage = []
     for subtask in subtasks:

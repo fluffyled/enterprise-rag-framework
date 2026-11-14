@@ -43,6 +43,8 @@ DEFAULT_CONFIG = {
         "related_clauses": False,
         "multi_hop": False,
         "multi_hop_rounds": 1,
+        "enrichment_search": False,
+        "enrichment_facts": False,
         "protected_top_p": 2,
         "coverage_alpha": 0.5,
         "coverage_beta": 0.3,

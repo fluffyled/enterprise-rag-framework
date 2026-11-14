@@ -1,0 +1,23 @@
+retrieval:
+  coverage_aware: true
+  selection_strategy: "adaptive_strategy"
+  decomposition_method: "existing"
+  embedding_backend: "bge-m3-sparse"
+  reranker_backend: "bge-reranker-v2-m3"
+  device: "cuda"
+  bge_sparse_weight: 0.5
+  candidate_top_k: 20
+  output_top_k: 6
+  context_token_budget: 4000
+  batch_cross_encoder: true
+  protected_top_p: 2
+  coverage_alpha: 0.5
+  coverage_beta: 0.3
+  coverage_gamma: 0.2
+  parent_expansion: true
+  related_clauses: true
+  multi_hop: true
+  multi_hop_rounds: 1
+  enrichment_search: true
+  enrichment_facts: true
+seed: 42
