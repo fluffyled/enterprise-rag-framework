@@ -35,8 +35,12 @@ def main():
         models = json.load(response)["data"]
     if len(models) != 1 or "qwen3.5-4b-q4_k_m" not in models[0]["id"].casefold():
         parser.error("Only the local Qwen3.5-4B-Q4_K_M is allowed")
-    with ZipFile(args.dataset) as archive:
-        cases = [json.loads(line) for line in archive.read("hierarchical_complex_qa_50.jsonl").splitlines()]
+    if args.dataset.suffix == ".jsonl":
+        rows = args.dataset.read_text(encoding="utf-8-sig").splitlines()
+    else:
+        with ZipFile(args.dataset) as archive:
+            rows = archive.read("hierarchical_complex_qa_50.jsonl").splitlines()
+    cases = [json.loads(line) for line in rows if line.strip()]
     cases = [case for case in cases if case["split"] == args.split
              and (not args.case or case["id"] in args.case)][:args.limit]
     if not cases:

@@ -15,3 +15,5 @@
 При сбое модели проверьте `reports/llm.stderr.log`. Launcher использует 24 слоя на GPU, один слот и 8192 токена контекста. При нехватке VRAM его можно перезапустить с меньшим `-GpuLayers`. Настройки поиска от этого не меняются.
 
 Для воспроизводимости сохраните SHA кода, моделей, профилей и индекса командой `python -m scripts.build_release_manifest --index <индекс> --output reports/release-manifest.json`.
+
+Oracle на 150 вопросах запускается командой `python -m scripts.run_selected_generation --output reports/generation-research/oracle150.jsonl` при доступном локальном llama-server на порту 8091. Каталог вывода создаётся заранее. Для продолжения прогона укажите тот же путь и `--resume`, для итоговых метрик используйте `--summary`. Данные бенчмарка берутся из `data/hrag50` и `data/rag100`. Парное сравнение запускается через `python -m scripts.run_generation_research --dataset data/hrag50/hierarchical_complex_qa_50.jsonl --modes G0 G1 G2 --output reports/generation-research/paired.jsonl`.
