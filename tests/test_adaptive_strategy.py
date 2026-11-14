@@ -39,3 +39,33 @@ def test_confidence_and_diagnostics_present():
 
 def test_strategy_map_complete():
     assert set(STRATEGY_BY_TYPE) == {"single_fact", "multi_requirement", "multi_document", "uncertain"}
+
+
+def test_planner_recovers_sloppy_offsets():
+    import json
+    import navigator.query_analysis as qa
+
+    question = "Как оформить командировку и что сделать после возвращения?"
+    fake = json.dumps({"subtasks": [{"text": "Как оформить командировку", "start": 0, "end": 14}]})
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self):
+            return json.dumps({"choices": [{"message": {"content": fake}}]}).encode()
+
+    import urllib.request
+
+    original = urllib.request.urlopen
+    urllib.request.urlopen = lambda *args, **kwargs: FakeResponse()
+    try:
+        tasks, status = qa.local_llm_decompose(question, with_status=True)
+    finally:
+        urllib.request.urlopen = original
+    assert status == "planner"
+    assert tasks[0].text == "Как оформить командировку"
+    assert question[tasks[0].source_span["start"]:tasks[0].source_span["end"]] == tasks[0].text
