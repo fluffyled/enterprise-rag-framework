@@ -1,0 +1,24 @@
+{
+  "metrics": {
+    "questions": 3,
+    "answer_correctness_proxy": null,
+    "procedure_completeness": null,
+    "citation_precision_proxy": null,
+    "citation_recall_proxy": null,
+    "unsupported_quote_count": 0,
+    "abstention_precision": 1.0,
+    "abstention_recall": 1.0,
+    "false_abstentions": 0,
+    "missed_abstentions": 0,
+    "end_to_end_success_rate": 1.0,
+    "manual_review_required": true,
+    "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+  },
+  "failure_categories": {},
+  "resources": {
+    "peak_rss_bytes": 1797083136,
+    "rss_growth_bytes": 262144,
+    "peak_vram_bytes": 1098951168,
+    "sampler_interval_seconds": 0.05
+  }
+}

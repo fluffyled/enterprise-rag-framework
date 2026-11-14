@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "name": "demo.docx",
+      "relative_path": ".uploads/fb1c3491327e58c5afbd39efa271a6dbf6a8ca24f7cfdfbaf2c129bc3d282d82/demo.docx",
+      "document_id": ".uploads/fb1c3491327e58c5afbd39efa271a6dbf6a8ca24f7cfdfbaf2c129bc3d282d82/demo.docx",
+      "document_version_id": "fb1c3491327e58c5afbd39efa271a6dbf6a8ca24f7cfdfbaf2c129bc3d282d82",
+      "sha256": "fb1c3491327e58c5afbd39efa271a6dbf6a8ca24f7cfdfbaf2c129bc3d282d82",
+      "date_hint": null,
+      "validity": "не подтверждена",
+      "chunks": 1
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,33 @@
+{
+  "git_sha": "263d2b876f6aee7faed5cea8baeea34253ade7c4",
+  "application": {
+    "retrieval": "fast",
+    "generation": "legacy"
+  },
+  "models": {
+    "bge_m3": {
+      "repo": "BAAI/bge-m3",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "local_dir": "bge-m3"
+    },
+    "reranker_bge_v2_m3": {
+      "repo": "BAAI/bge-reranker-v2-m3",
+      "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+      "local_dir": "reranker_bge_v2_m3"
+    },
+    "llm": {
+      "repo": "unsloth/Qwen3.5-4B-GGUF",
+      "revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
+      "filename": "Qwen3.5-4B-Q4_K_M.gguf",
+      "local_dir": "models/answer-llm",
+      "source_model": "Qwen/Qwen3.5-4B",
+      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "bytes": 2740937888
+    }
+  },
+  "profiles_sha256": {
+    "fast": "aafb5f0dfd5259231a6a000f9a16d2765353111b35968c33a5fe9cefd551d6b3",
+    "quality": "c1a68cbbdc03f8a249b3f5056b33a3d513fe9da11340ddcbc03a3e6f551e78ea"
+  },
+  "index_sha256": "2976c914f9c9b587c824264fad3ba5e5b799009601ab1e80157eab10d2c67a0f"
+}

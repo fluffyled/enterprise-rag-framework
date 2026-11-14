@@ -1,0 +1,1949 @@
+{
+  "questions": [
+    {
+      "question_id": "holdout-001",
+      "question": "На какие годы утверждается финансовая структура приказом 3614-1?",
+      "answerable": true,
+      "question_type": "simple_fact",
+      "baseline_recall": 0.0,
+      "stable_recall": 0.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-001-requirement-1",
+          "category": "Fusion Error",
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 0.0,
+            "rrf": 0.0,
+            "cross_encoder": 0.0,
+            "selected_context": 0.0
+          },
+          "available_chunks": [
+            "b97d3d2c5bcf1b354f116b52"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+              "start": 684,
+              "end": 730,
+              "characters": 46
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "На какие годы утверждается финансовая структура приказом 3614-1?",
+          "source_span": {
+            "start": 0,
+            "end": 64
+          }
+        }
+      ],
+      "selected_tokens": 72,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-002",
+      "question": "Сопоставьте приказ о финансовой структуре с приложением: какой код присвоен управлению информационных технологий?",
+      "answerable": true,
+      "question_type": "multi_document",
+      "baseline_recall": 0.5,
+      "stable_recall": 0.5,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-002-requirement-1",
+          "category": "Candidate Retrieval Error",
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 0.0,
+            "rrf": 0.0,
+            "cross_encoder": 0.0,
+            "selected_context": 0.0
+          },
+          "available_chunks": [
+            "b97d3d2c5bcf1b354f116b52"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+              "start": 617,
+              "end": 652,
+              "characters": 35
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-002-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "3340019b257d4a039b76aa34"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+              "start": 1496,
+              "end": 1538,
+              "characters": 42
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Сопоставьте приказ о финансовой структуре с приложением: какой код присвоен управлению информационных технологий?",
+          "source_span": {
+            "start": 0,
+            "end": 113
+          }
+        }
+      ],
+      "selected_tokens": 188,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-003",
+      "question": "Какой штраф за изменение финансовой структуры установлен приказом 3614-1?",
+      "answerable": false,
+      "question_type": "unanswerable",
+      "baseline_recall": null,
+      "stable_recall": null,
+      "delta": null,
+      "groups": [],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какой штраф за изменение финансовой структуры установлен приказом 3614-1?",
+          "source_span": {
+            "start": 0,
+            "end": 73
+          }
+        }
+      ],
+      "selected_tokens": 43,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-004",
+      "question": "До какой даты проректоры подают сведения о планируемых поступлениях на 2026 год?",
+      "answerable": true,
+      "question_type": "deadline_responsible",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-004-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "2c6fc3c4fd28025ec4e3cdcf"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 615,
+              "end": 661,
+              "characters": 46
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "До какой даты проректоры подают сведения о планируемых поступлениях на 2026 год?",
+          "source_span": {
+            "start": 0,
+            "end": 80
+          }
+        }
+      ],
+      "selected_tokens": 167,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-005",
+      "question": "Какие нормативы суточных и найма жилья по России заложены при планировании бюджета 2026?",
+      "answerable": true,
+      "question_type": "multi_condition",
+      "baseline_recall": 0.0,
+      "stable_recall": 0.3333333333333333,
+      "delta": 0.3333333333333333,
+      "groups": [
+        {
+          "group_id": "holdout-005-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 0.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "cde7cdb97e08c9e2cee1d33b"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 10433,
+              "end": 10476,
+              "characters": 43
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-005-requirement-2",
+          "category": "Candidate Retrieval Error",
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 0.0,
+            "rrf": 0.0,
+            "cross_encoder": 0.0,
+            "selected_context": 0.0
+          },
+          "available_chunks": [
+            "9ad9ebc219de75ba183c2c37"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 10640,
+              "end": 10659,
+              "characters": 19
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-005-requirement-3",
+          "category": "Candidate Retrieval Error",
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 0.0,
+            "rrf": 0.0,
+            "cross_encoder": 0.0,
+            "selected_context": 0.0
+          },
+          "available_chunks": [
+            "9ad9ebc219de75ba183c2c37"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 10677,
+              "end": 10725,
+              "characters": 48
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какие нормативы суточных",
+          "source_span": {
+            "start": 0,
+            "end": 24
+          }
+        },
+        {
+          "id": "q1",
+          "text": "найма жилья по России заложены при планировании бюджета 2026",
+          "source_span": {
+            "start": 27,
+            "end": 87
+          }
+        }
+      ],
+      "selected_tokens": 166,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-006",
+      "question": "Как рассчитывается сумма договора без НДС 20% в приложении о распределении доходов?",
+      "answerable": true,
+      "question_type": "procedure",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-006-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "637e9b762b7056968c0a830d"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 35182,
+              "end": 35217,
+              "characters": 35
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Как рассчитывается сумма договора без НДС 20% в приложении о распределении доходов?",
+          "source_span": {
+            "start": 0,
+            "end": 83
+          }
+        }
+      ],
+      "selected_tokens": 119,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-007",
+      "question": "Какой код имеет лаборатория алгебры, геометрии, логики и теории чисел имени Манина?",
+      "answerable": true,
+      "question_type": "table_attachment",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-007-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "780f9fc0b800a8079cfc5577"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+              "start": 2505,
+              "end": 2564,
+              "characters": 59
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какой код имеет лаборатория алгебры, геометрии, логики",
+          "source_span": {
+            "start": 0,
+            "end": 54
+          }
+        },
+        {
+          "id": "q1",
+          "text": "теории чисел имени Манина",
+          "source_span": {
+            "start": 57,
+            "end": 82
+          }
+        }
+      ],
+      "selected_tokens": 180,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-008",
+      "question": "На какую дату заявлена актуальность финансовой структуры в приложении XLSX?",
+      "answerable": true,
+      "question_type": "table_attachment",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-008-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "69ab9927b07fd2ec47806d5e"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+              "start": 94,
+              "end": 122,
+              "characters": 28
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "На какую дату заявлена актуальность финансовой структуры в приложении XLSX?",
+          "source_span": {
+            "start": 0,
+            "end": 75
+          }
+        }
+      ],
+      "selected_tokens": 88,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-009",
+      "question": "Какой код указан у отдела координации поисковых исследований?",
+      "answerable": true,
+      "question_type": "table_attachment",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-009-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "5fbd3ca5c0064fd796b905ea"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+              "start": 3212,
+              "end": 3258,
+              "characters": 46
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какой код указан у отдела координации поисковых исследований?",
+          "source_span": {
+            "start": 0,
+            "end": 61
+          }
+        }
+      ],
+      "selected_tokens": 63,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-010",
+      "question": "Какой КФО указан для субсидии на капитальный ремонт?",
+      "answerable": true,
+      "question_type": "table_attachment",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-010-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "9aa441775a7c047deb1a88f8"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 1614,
+              "end": 1695,
+              "characters": 81
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какой КФО указан для субсидии на капитальный ремонт?",
+          "source_span": {
+            "start": 0,
+            "end": 52
+          }
+        }
+      ],
+      "selected_tokens": 96,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-011",
+      "question": "Какие сведения паспорта проекта относятся к срокам и общей стоимости?",
+      "answerable": true,
+      "question_type": "table_attachment",
+      "baseline_recall": 0.0,
+      "stable_recall": 0.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-011-requirement-1",
+          "category": "Candidate Retrieval Error",
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 0.0,
+            "rrf": 0.0,
+            "cross_encoder": 0.0,
+            "selected_context": 0.0
+          },
+          "available_chunks": [
+            "cb1dac4f5fa73ac667d6c2ee"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 10754,
+              "end": 10780,
+              "characters": 26
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-011-requirement-2",
+          "category": "Fusion Error",
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 1.0,
+            "rrf": 0.0,
+            "cross_encoder": 0.0,
+            "selected_context": 0.0
+          },
+          "available_chunks": [
+            "23ba16ff911f916692fde8c5"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 11097,
+              "end": 11120,
+              "characters": 23
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какие сведения паспорта проекта относятся к срокам и общей стоимости?",
+          "source_span": {
+            "start": 0,
+            "end": 69
+          }
+        }
+      ],
+      "selected_tokens": 75,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-012",
+      "question": "Какая фактическая стоимость проекта вписана в пустой шаблон паспорта проекта?",
+      "answerable": false,
+      "question_type": "unanswerable",
+      "baseline_recall": null,
+      "stable_recall": null,
+      "delta": null,
+      "groups": [],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какая фактическая стоимость проекта вписана в пустой шаблон паспорта проекта?",
+          "source_span": {
+            "start": 0,
+            "end": 77
+          }
+        }
+      ],
+      "selected_tokens": 112,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-013",
+      "question": "Какой прежний приказ о внутреннем заимствовании утратил силу с введением регламента 5990-1?",
+      "answerable": true,
+      "question_type": "version_change",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-013-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "c1f4069200a0f5f5ab6464d0"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 513,
+              "end": 566,
+              "characters": 53
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какой прежний приказ о внутреннем заимствовании утратил силу с введением регламента 5990-1?",
+          "source_span": {
+            "start": 0,
+            "end": 91
+          }
+        }
+      ],
+      "selected_tokens": 660,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-014",
+      "question": "Каковы максимальная доля заимствования и допустимый срок займа?",
+      "answerable": true,
+      "question_type": "multi_condition",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-014-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "aca921b853e6e1bf364508c5",
+            "5c97293c0061c2fd4a03f8c9"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 2082,
+              "end": 2115,
+              "characters": 33
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-014-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "5c97293c0061c2fd4a03f8c9"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 2659,
+              "end": 2712,
+              "characters": 53
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Каковы максимальная доля заимствования",
+          "source_span": {
+            "start": 0,
+            "end": 38
+          }
+        },
+        {
+          "id": "q1",
+          "text": "допустимый срок займа",
+          "source_span": {
+            "start": 41,
+            "end": 62
+          }
+        }
+      ],
+      "selected_tokens": 473,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-015",
+      "question": "До каких чисел подаётся заявка и утверждается распоряжение о внутреннем заимствовании?",
+      "answerable": true,
+      "question_type": "procedure",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-015-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "a15e69c4d671bf31726cddaf"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 4581,
+              "end": 4586,
+              "characters": 5
+            }
+          ],
+          "annotation_warning": true
+        },
+        {
+          "group_id": "holdout-015-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "26ad8286fe3a41c3c36a95fd"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 4971,
+              "end": 4983,
+              "characters": 12
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-015-requirement-3",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "26ad8286fe3a41c3c36a95fd"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 5005,
+              "end": 5023,
+              "characters": 18
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "До каких чисел подаётся заявка",
+          "source_span": {
+            "start": 0,
+            "end": 30
+          }
+        },
+        {
+          "id": "q1",
+          "text": "утверждается распоряжение о внутреннем заимствовании",
+          "source_span": {
+            "start": 33,
+            "end": 85
+          }
+        }
+      ],
+      "selected_tokens": 563,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-016",
+      "question": "Какие категории работников нельзя направлять в служебную командировку?",
+      "answerable": true,
+      "question_type": "multi_condition",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-016-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "755e72657b0afe855bf9e2c1"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 4867,
+              "end": 4890,
+              "characters": 23
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-016-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "755e72657b0afe855bf9e2c1"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 4914,
+              "end": 4932,
+              "characters": 18
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какие категории работников нельзя направлять в служебную командировку?",
+          "source_span": {
+            "start": 0,
+            "end": 70
+          }
+        }
+      ],
+      "selected_tokens": 609,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-017",
+      "question": "Назовите сроки передачи решения перед командировкой, отчёта после возвращения и окончательного расчёта.",
+      "answerable": true,
+      "question_type": "procedure",
+      "baseline_recall": 0.0,
+      "stable_recall": 1.0,
+      "delta": 1.0,
+      "groups": [
+        {
+          "group_id": "holdout-017-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 0.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "11b10efe40d70b7f8c0a87be",
+            "e7420b7f6a21c8fab280d875"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 37512,
+              "end": 37560,
+              "characters": 48
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-017-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 0.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "19e5881904ac5478b8a2916b"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 41416,
+              "end": 41459,
+              "characters": 43
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-017-requirement-3",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 0.0,
+            "dense": 0.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "eb6e53898f7289b102a799a8"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 44661,
+              "end": 44717,
+              "characters": 56
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Назовите сроки передачи решения перед командировкой, отчёта после возвращения",
+          "source_span": {
+            "start": 0,
+            "end": 77
+          }
+        },
+        {
+          "id": "q1",
+          "text": "окончательного расчёта.",
+          "source_span": {
+            "start": 80,
+            "end": 103
+          }
+        }
+      ],
+      "selected_tokens": 560,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-018",
+      "question": "Установлен ли предельный срок служебной командировки?",
+      "answerable": true,
+      "question_type": "paraphrase",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-018-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "ac2d52bf5c6b8c32780ad899",
+            "0c309529669ebe17db2ecdfb"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 7542,
+              "end": 7587,
+              "characters": 45
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Установлен ли предельный срок служебной командировки?",
+          "source_span": {
+            "start": 0,
+            "end": 53
+          }
+        }
+      ],
+      "selected_tokens": 599,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-019",
+      "question": "Какие одновременные условия должен выполнять сотрудник для получения места по общему правилу поселения?",
+      "answerable": true,
+      "question_type": "multi_condition",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-019-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "850c148eddc232c1404c470f"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 1093,
+              "end": 1136,
+              "characters": 43
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-019-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "850c148eddc232c1404c470f"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 1141,
+              "end": 1175,
+              "characters": 34
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-019-requirement-3",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "850c148eddc232c1404c470f"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 1180,
+              "end": 1245,
+              "characters": 65
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-019-requirement-4",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "850c148eddc232c1404c470f"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 1271,
+              "end": 1319,
+              "characters": 48
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какие одновременные условия должен выполнять сотрудник для получения места по общему правилу поселения?",
+          "source_span": {
+            "start": 0,
+            "end": 103
+          }
+        }
+      ],
+      "selected_tokens": 645,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-020",
+      "question": "В какой срок нужно заключить договор найма и что произойдёт после его истечения?",
+      "answerable": true,
+      "question_type": "procedure",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-020-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "be0342d3c3fa1a88bda661aa",
+            "ca1f2454d256ebdfc897f2e0"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 4212,
+              "end": 4256,
+              "characters": 44
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-020-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "ca1f2454d256ebdfc897f2e0"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 4339,
+              "end": 4390,
+              "characters": 51
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "В какой срок нужно заключить договор найма",
+          "source_span": {
+            "start": 0,
+            "end": 42
+          }
+        },
+        {
+          "id": "q1",
+          "text": "что произойдёт после его истечения",
+          "source_span": {
+            "start": 45,
+            "end": 79
+          }
+        }
+      ],
+      "selected_tokens": 412,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-021",
+      "question": "За сколько дней после расторжения договора сотрудник должен освободить жилое помещение?",
+      "answerable": true,
+      "question_type": "paraphrase",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-021-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "752f61e4412e7523a5234ff0"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 5200,
+              "end": 5226,
+              "characters": 26
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "За сколько дней после расторжения договора сотрудник должен освободить жилое помещение?",
+          "source_span": {
+            "start": 0,
+            "end": 87
+          }
+        }
+      ],
+      "selected_tokens": 615,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-022",
+      "question": "Какой срок отведён на согласование соглашения в Электронном бюджете при наличии замечаний?",
+      "answerable": true,
+      "question_type": "deadline_responsible",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-022-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "f96bc7cd499c01e13465ed62"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 3897,
+              "end": 3942,
+              "characters": 45
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какой срок отведён на согласование соглашения в Электронном бюджете при наличии замечаний?",
+          "source_span": {
+            "start": 0,
+            "end": 90
+          }
+        }
+      ],
+      "selected_tokens": 468,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-023",
+      "question": "Когда размещаются сведения об операциях с целевыми субсидиями?",
+      "answerable": true,
+      "question_type": "deadline_responsible",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-023-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "382996fe9eb490cc98b5d87d",
+            "a01c2a488816817e7284a138"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 5731,
+              "end": 5785,
+              "characters": 54
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Когда размещаются сведения об операциях с целевыми субсидиями?",
+          "source_span": {
+            "start": 0,
+            "end": 62
+          }
+        }
+      ],
+      "selected_tokens": 319,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-024",
+      "question": "Кто отвечает за техническое сопровождение и организационный контроль размещения информации в Электронном бюджете?",
+      "answerable": true,
+      "question_type": "multi_condition",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-024-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "83baba3e864105fa41d047a1"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 2247,
+              "end": 2298,
+              "characters": 51
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-024-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "83baba3e864105fa41d047a1"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 2327,
+              "end": 2376,
+              "characters": 49
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-024-requirement-3",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "83baba3e864105fa41d047a1"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 2401,
+              "end": 2456,
+              "characters": 55
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-024-requirement-4",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "83baba3e864105fa41d047a1",
+            "36984dbe8998ea31bbfb6b4e"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 2509,
+              "end": 2556,
+              "characters": 47
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Кто отвечает за техническое сопровождение",
+          "source_span": {
+            "start": 0,
+            "end": 41
+          }
+        },
+        {
+          "id": "q1",
+          "text": "организационный контроль размещения информации в Электронном бюджете",
+          "source_span": {
+            "start": 44,
+            "end": 112
+          }
+        }
+      ],
+      "selected_tokens": 539,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-025",
+      "question": "Как долго хранятся ежесуточные резервные копии виртуальных серверов ЦОД?",
+      "answerable": true,
+      "question_type": "simple_fact",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-025-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "d8ccd0a224fefdd3b27e7e88",
+            "21e5c580f0bc23d2dd83af26"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 1472,
+              "end": 1476,
+              "characters": 4
+            },
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3003,
+              "end": 3007,
+              "characters": 4
+            }
+          ],
+          "annotation_warning": true
+        },
+        {
+          "group_id": "holdout-025-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "d8ccd0a224fefdd3b27e7e88"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 1477,
+              "end": 1523,
+              "characters": 46
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Как долго хранятся ежесуточные резервные копии виртуальных серверов ЦОД?",
+          "source_span": {
+            "start": 0,
+            "end": 72
+          }
+        }
+      ],
+      "selected_tokens": 511,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-026",
+      "question": "Какие предельные сроки выделения виртуального сервера и размещения нового оборудования указаны в регламенте ЦОД?",
+      "answerable": true,
+      "question_type": "multi_condition",
+      "baseline_recall": 1.0,
+      "stable_recall": 1.0,
+      "delta": 0.0,
+      "groups": [
+        {
+          "group_id": "holdout-026-requirement-1",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "21e5c580f0bc23d2dd83af26",
+            "c2b1cb993f9c713a0aec56b2"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3027,
+              "end": 3077,
+              "characters": 50
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-026-requirement-2",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "21e5c580f0bc23d2dd83af26",
+            "c2b1cb993f9c713a0aec56b2",
+            "b1655a360f76bacab9aa0513"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 2741,
+              "end": 2753,
+              "characters": 12
+            },
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3080,
+              "end": 3092,
+              "characters": 12
+            },
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 6443,
+              "end": 6455,
+              "characters": 12
+            }
+          ],
+          "annotation_warning": false
+        },
+        {
+          "group_id": "holdout-026-requirement-3",
+          "category": null,
+          "coverage_by_stage": {
+            "bm25": 1.0,
+            "dense": 1.0,
+            "rrf": 1.0,
+            "cross_encoder": 1.0,
+            "selected_context": 1.0
+          },
+          "available_chunks": [
+            "21e5c580f0bc23d2dd83af26",
+            "c2b1cb993f9c713a0aec56b2"
+          ],
+          "gold_spans": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3093,
+              "end": 3152,
+              "characters": 59
+            }
+          ],
+          "annotation_warning": false
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какие предельные сроки выделения виртуального сервера",
+          "source_span": {
+            "start": 0,
+            "end": 53
+          }
+        },
+        {
+          "id": "q1",
+          "text": "размещения нового оборудования указаны в регламенте ЦОД",
+          "source_span": {
+            "start": 56,
+            "end": 111
+          }
+        }
+      ],
+      "selected_tokens": 606,
+      "token_budget": 2000
+    },
+    {
+      "question_id": "holdout-027",
+      "question": "Какое максимальное число виртуальных серверов может получить одно подразделение по регламенту ЦОД?",
+      "answerable": false,
+      "question_type": "unanswerable",
+      "baseline_recall": null,
+      "stable_recall": null,
+      "delta": null,
+      "groups": [],
+      "subtasks": [
+        {
+          "id": "q0",
+          "text": "Какое максимальное число виртуальных серверов может получить одно подразделение по регламенту ЦОД?",
+          "source_span": {
+            "start": 0,
+            "end": 98
+          }
+        }
+      ],
+      "selected_tokens": 458,
+      "token_budget": 2000
+    }
+  ],
+  "errors": [
+    {
+      "group_id": "holdout-001-requirement-1",
+      "category": "Fusion Error",
+      "coverage_by_stage": {
+        "bm25": 1.0,
+        "dense": 0.0,
+        "rrf": 0.0,
+        "cross_encoder": 0.0,
+        "selected_context": 0.0
+      },
+      "available_chunks": [
+        "b97d3d2c5bcf1b354f116b52"
+      ],
+      "gold_spans": [
+        {
+          "document_id": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+          "start": 684,
+          "end": 730,
+          "characters": 46
+        }
+      ],
+      "annotation_warning": false
+    },
+    {
+      "group_id": "holdout-002-requirement-1",
+      "category": "Candidate Retrieval Error",
+      "coverage_by_stage": {
+        "bm25": 0.0,
+        "dense": 0.0,
+        "rrf": 0.0,
+        "cross_encoder": 0.0,
+        "selected_context": 0.0
+      },
+      "available_chunks": [
+        "b97d3d2c5bcf1b354f116b52"
+      ],
+      "gold_spans": [
+        {
+          "document_id": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+          "start": 617,
+          "end": 652,
+          "characters": 35
+        }
+      ],
+      "annotation_warning": false
+    },
+    {
+      "group_id": "holdout-005-requirement-2",
+      "category": "Candidate Retrieval Error",
+      "coverage_by_stage": {
+        "bm25": 0.0,
+        "dense": 0.0,
+        "rrf": 0.0,
+        "cross_encoder": 0.0,
+        "selected_context": 0.0
+      },
+      "available_chunks": [
+        "9ad9ebc219de75ba183c2c37"
+      ],
+      "gold_spans": [
+        {
+          "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+          "start": 10640,
+          "end": 10659,
+          "characters": 19
+        }
+      ],
+      "annotation_warning": false
+    },
+    {
+      "group_id": "holdout-005-requirement-3",
+      "category": "Candidate Retrieval Error",
+      "coverage_by_stage": {
+        "bm25": 0.0,
+        "dense": 0.0,
+        "rrf": 0.0,
+        "cross_encoder": 0.0,
+        "selected_context": 0.0
+      },
+      "available_chunks": [
+        "9ad9ebc219de75ba183c2c37"
+      ],
+      "gold_spans": [
+        {
+          "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+          "start": 10677,
+          "end": 10725,
+          "characters": 48
+        }
+      ],
+      "annotation_warning": false
+    },
+    {
+      "group_id": "holdout-011-requirement-1",
+      "category": "Candidate Retrieval Error",
+      "coverage_by_stage": {
+        "bm25": 0.0,
+        "dense": 0.0,
+        "rrf": 0.0,
+        "cross_encoder": 0.0,
+        "selected_context": 0.0
+      },
+      "available_chunks": [
+        "cb1dac4f5fa73ac667d6c2ee"
+      ],
+      "gold_spans": [
+        {
+          "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+          "start": 10754,
+          "end": 10780,
+          "characters": 26
+        }
+      ],
+      "annotation_warning": false
+    },
+    {
+      "group_id": "holdout-011-requirement-2",
+      "category": "Fusion Error",
+      "coverage_by_stage": {
+        "bm25": 0.0,
+        "dense": 1.0,
+        "rrf": 0.0,
+        "cross_encoder": 0.0,
+        "selected_context": 0.0
+      },
+      "available_chunks": [
+        "23ba16ff911f916692fde8c5"
+      ],
+      "gold_spans": [
+        {
+          "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+          "start": 11097,
+          "end": 11120,
+          "characters": 23
+        }
+      ],
+      "annotation_warning": false
+    }
+  ],
+  "category_counts": {
+    "Fusion Error": 2,
+    "Candidate Retrieval Error": 4
+  },
+  "stable_regressions": [],
+  "oracle": {
+    "baseline": {
+      "oracle_a_bm25_dense": {
+        "n": 24,
+        "min": 0.0,
+        "median": 1.0,
+        "mean": 0.8888888888888888,
+        "p95": 1.0,
+        "max": 1.0,
+        "all_evidence_hit": 0.8333333333333334
+      },
+      "oracle_b_rrf": {
+        "n": 24,
+        "min": 0.0,
+        "median": 1.0,
+        "mean": 0.8125,
+        "p95": 1.0,
+        "max": 1.0,
+        "all_evidence_hit": 0.7916666666666666
+      },
+      "oracle_c_reranked": {
+        "n": 24,
+        "min": 0.0,
+        "median": 1.0,
+        "mean": 0.8125,
+        "p95": 1.0,
+        "max": 1.0,
+        "all_evidence_hit": 0.7916666666666666
+      }
+    },
+    "stable": {
+      "oracle_a_bm25_dense": {
+        "n": 24,
+        "min": 0.0,
+        "median": 1.0,
+        "mean": 0.8888888888888888,
+        "p95": 1.0,
+        "max": 1.0,
+        "all_evidence_hit": 0.8333333333333334
+      },
+      "oracle_b_rrf": {
+        "n": 24,
+        "min": 0.0,
+        "median": 1.0,
+        "mean": 0.8680555555555555,
+        "p95": 1.0,
+        "max": 1.0,
+        "all_evidence_hit": 0.8333333333333334
+      },
+      "oracle_c_reranked": {
+        "n": 24,
+        "min": 0.0,
+        "median": 1.0,
+        "mean": 0.8680555555555555,
+        "p95": 1.0,
+        "max": 1.0,
+        "all_evidence_hit": 0.8333333333333334
+      }
+    },
+    "oracle_d_direct_gold": {
+      "n": 24,
+      "min": 1.0,
+      "median": 1.0,
+      "mean": 1.0,
+      "p95": 1.0,
+      "max": 1.0,
+      "all_evidence_hit": 1.0
+    }
+  },
+  "token_budget": 2000,
+  "metrics_audit": {
+    "fragment_mrr_ndcg": "reranked candidates before final context selector",
+    "evidence_recall_at_6": "final selected context",
+    "document_metrics": "deduplicated document ranking of candidates",
+    "overlap_rule": "any positive character overlap counts as evidence hit; coverage separately measures fraction",
+    "gold_used_online": false
+  }
+}

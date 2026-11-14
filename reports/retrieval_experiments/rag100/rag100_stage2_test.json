@@ -1,0 +1,162 @@
+{
+  "environment": {
+    "git_sha": "ac7665c335f71c1519ed6c326db9fddcadcf3106",
+    "models_lock": {
+      "embedding": {
+        "repo": "intfloat/multilingual-e5-small",
+        "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+      },
+      "reranker": {
+        "repo": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+        "revision": "1427fd652930e4ba29e8149678df786c240d8825"
+      },
+      "bge_m3": {
+        "repo": "BAAI/bge-m3",
+        "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+        "local_dir": "bge-m3"
+      },
+      "llm": {
+        "repo": "Qwen/Qwen2.5-3B-Instruct-GGUF",
+        "revision": "7dabda4d13d513e3e842b20f0d435c732f172cbe",
+        "file": "qwen2.5-3b-instruct-q4_k_m.gguf",
+        "local_dir": "llm3"
+      }
+    }
+  },
+  "coverage": {
+    "chunks_mapped": 889,
+    "docx": {
+      "linked": 632,
+      "orphan": 26
+    },
+    "gold_units": 55,
+    "gold_units_covered_by_chunks": 55,
+    "gold_units_missed": []
+  },
+  "summary": {
+    "BGE_coverage": {
+      "needle_selected": {
+        "hit": 86,
+        "total": 92,
+        "docs_hit6": 92
+      },
+      "latency": {
+        "n": 100,
+        "median": 0.4644018999824766,
+        "p95": 1.2032712000072934,
+        "mean": 0.5861599020007998
+      },
+      "config": "configs/retrieval_bge_coverage.yaml",
+      "test_candidates": {
+        "samples": 80,
+        "answerable": 74,
+        "unanswerable": 6,
+        "document": {
+          "Hit@1": 0.9459,
+          "Hit@3": 0.9865,
+          "Hit@5": 1.0,
+          "Hit@10": 1.0,
+          "MRR@10": 0.9696
+        },
+        "source_unit": {
+          "Hit@1": 0.7973,
+          "Hit@3": 0.9189,
+          "Hit@5": 0.9595,
+          "Hit@10": 0.973,
+          "MRR@10": 0.8676
+        },
+        "abstention": {
+          "specificity_on_answerable": 1.0,
+          "recall_on_unanswerable": 0.0,
+          "overall_accuracy": 0.925
+        }
+      },
+      "test_selected": {
+        "samples": 80,
+        "answerable": 74,
+        "unanswerable": 6,
+        "document": {
+          "Hit@1": 0.7838,
+          "Hit@3": 0.9865,
+          "Hit@5": 1.0,
+          "Hit@10": 1.0,
+          "MRR@10": 0.8863
+        },
+        "source_unit": {
+          "Hit@1": 0.527,
+          "Hit@3": 0.9189,
+          "Hit@5": 0.9459,
+          "Hit@10": 0.9595,
+          "MRR@10": 0.7252
+        },
+        "abstention": {
+          "specificity_on_answerable": 1.0,
+          "recall_on_unanswerable": 0.0,
+          "overall_accuracy": 0.925
+        }
+      }
+    },
+    "BGE_protected": {
+      "needle_selected": {
+        "hit": 86,
+        "total": 92,
+        "docs_hit6": 92
+      },
+      "latency": {
+        "n": 100,
+        "median": 0.4352567000023555,
+        "p95": 1.0143388000142295,
+        "mean": 0.5393547669990221
+      },
+      "config": "configs/retrieval_bge_protected.yaml",
+      "test_candidates": {
+        "samples": 80,
+        "answerable": 74,
+        "unanswerable": 6,
+        "document": {
+          "Hit@1": 0.9459,
+          "Hit@3": 0.9865,
+          "Hit@5": 1.0,
+          "Hit@10": 1.0,
+          "MRR@10": 0.9696
+        },
+        "source_unit": {
+          "Hit@1": 0.7973,
+          "Hit@3": 0.9054,
+          "Hit@5": 0.9459,
+          "Hit@10": 0.9595,
+          "MRR@10": 0.8608
+        },
+        "abstention": {
+          "specificity_on_answerable": 1.0,
+          "recall_on_unanswerable": 0.0,
+          "overall_accuracy": 0.925
+        }
+      },
+      "test_selected": {
+        "samples": 80,
+        "answerable": 74,
+        "unanswerable": 6,
+        "document": {
+          "Hit@1": 0.9459,
+          "Hit@3": 0.9865,
+          "Hit@5": 1.0,
+          "Hit@10": 1.0,
+          "MRR@10": 0.9696
+        },
+        "source_unit": {
+          "Hit@1": 0.7973,
+          "Hit@3": 0.9189,
+          "Hit@5": 0.9595,
+          "Hit@10": 0.9595,
+          "MRR@10": 0.8631
+        },
+        "abstention": {
+          "specificity_on_answerable": 1.0,
+          "recall_on_unanswerable": 0.0,
+          "overall_accuracy": 0.925
+        }
+      }
+    }
+  }
+}

@@ -140,7 +140,8 @@ def _weighted_rank_fusion(dense, sparse, sparse_weight, top_k):
 
 
 class Retriever:
-    def __init__(self, rerank=None, config=None, index_path=None):
+    def __init__(self, rerank=None, config=None, index_path=None, *, clause_store_path=None,
+                 manifest_path=None, require_manifest=False):
         self.config = load_config(config)
         self.index_path = Path(index_path) if index_path else INDEX
         payload = json.loads(self.index_path.read_text(encoding="utf-8"))
@@ -149,6 +150,12 @@ class Retriever:
         if payload["model_lock_sha256"] != _model_lock_digest(self.config["retrieval"]["embedding_backend"]):
             raise RuntimeError("Ревизии моделей изменились: перестройте индекс")
         self.payload = payload
+        from .manifest import validate as validate_manifest
+        config_file = config if isinstance(config, (str, Path)) else None
+        self.clause_store_path = clause_store_path
+        validate_manifest(config_path=config_file, index_path=self.index_path, strict=True,
+                          manifest_path=manifest_path, require_manifest=require_manifest)
+        self._validate_index_config(self.config)
         documents = [Document(**document) for document in payload["documents"]]
         self.store = _store(documents)
         self.documents_by_chunk = {document.meta.get("chunk_id") or document.id: document for document in self.store.filter_documents()}
@@ -160,14 +167,6 @@ class Retriever:
         if payload.get("hierarchy"):
             self.document_store = _store([Document(**document) for document in payload["hierarchy"]["document_profiles"]])
             self.section_store = _store([Document(**document) for document in payload["hierarchy"]["section_profiles"]])
-        from .manifest import validate as validate_manifest
-        config_file = None
-        if isinstance(config, (str, Path)):
-            config_file = config
-        elif isinstance(self.config, dict):
-            config_file = None
-        validate_manifest(config_path=config_file, index_path=self.index_path, strict=True)
-        self._validate_index_config(self.config)
         self._configure_components(self.config)
 
     def _validate_index_config(self, config):
@@ -182,6 +181,11 @@ class Retriever:
         same_backend = index_backend == current["embedding_backend"] or (index_backend.startswith("bge-m3-") and current["embedding_backend"].startswith("bge-m3-"))
         if not same_backend:
             raise RuntimeError("Изменён embedding backend: перестройте индекс")
+        if current["embedding_backend"] in {"bge-m3-sparse", "bge-m3-full"} and not all(
+            isinstance(document.get("meta", {}).get("bge_sparse"), dict)
+            for document in self.payload["documents"]
+        ):
+            raise RuntimeError("В индексе отсутствуют sparse-веса BGE: перестройте индекс")
         if indexed and indexed.get("device", "cpu") != current["device"]:
             raise RuntimeError("Изменено вычислительное устройство: перестройте индекс")
         if current["hierarchical"] and not self.payload.get("hierarchy"):
@@ -191,10 +195,13 @@ class Retriever:
 
     def _configure_components(self, config):
         top_k = config["retrieval"]["candidate_top_k"]
+        if getattr(self, "_components_top_k", None) == top_k:
+            return
         self.bm25 = InMemoryBM25Retriever(self.store, top_k=top_k)
         self.fast_bm25 = FastBM25(self.store.filter_documents())
         self.dense = InMemoryEmbeddingRetriever(self.store, top_k=top_k)
         self.join = DocumentJoiner(join_mode="reciprocal_rank_fusion", top_k=top_k)
+        self._components_top_k = top_k
 
     def _bge_sparse_search(self, lexical_weights, top_k):
         documents = []
@@ -330,11 +337,13 @@ class Retriever:
         raw_cache = {query: [by_query[query][document.id] for document in documents] for query in queries}
         return documents, raw_cache
 
-    def search(self, question, top_k=6, config=None):
+    def search(self, question, top_k=None, config=None):
         effective = load_config(merge_config(self.config, config or {}))
         self._validate_index_config(effective)
         self._configure_components(effective)
         settings = effective["retrieval"]
+        if top_k is None:
+            top_k = settings["output_top_k"]
         total_started = time.perf_counter()
         extra_stages = {}
         if settings["hierarchical"]:
@@ -477,7 +486,7 @@ class Retriever:
         selected = select_context(strategy, reranked, top_k, settings["context_token_budget"], **selection_kwargs) if settings["coverage_aware"] else reranked[:top_k]
         if settings.get("parent_expansion"):
             if not hasattr(self, "_clause_store"):
-                self._clause_store = load_clause_store()
+                self._clause_store = load_clause_store(self.clause_store_path)
             selected, expansion_diag = expand_parents(selected, self._clause_store, settings["context_token_budget"], related_clauses=settings.get("related_clauses", False))
             metadata["parent_expansion"] = expansion_diag
         timings["context_selection"] = time.perf_counter() - started

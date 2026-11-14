@@ -4,6 +4,7 @@ import os
 import re
 import shutil
 from pathlib import Path
+from zipfile import ZipFile
 import pypdfium2 as pdfium
 from docx import Document as WordDocument
 from docx.table import Table
@@ -11,9 +12,22 @@ from docx.text.paragraph import Paragraph
 from openpyxl import load_workbook
 from .settings import ROOT, DATA
 
+FORMATS = {".pdf", ".docx", ".xlsx"}
 
-def units(path):
+
+def input_files(raw):
+    return sorted(path for path in raw.rglob("*") if path.is_file()
+                  and path.name.lower() not in {".ds_store", "thumbs.db", "desktop.ini"}
+                  and not path.name.startswith("~$"))
+
+
+def units(path, *, digest=None):
     """Yield content and exact source locator, in original order."""
+    if path.suffix.lower() in {".docx", ".xlsx"}:
+        with ZipFile(path) as archive:
+            entries = archive.infolist()
+            if len(entries) > 10000 or sum(item.file_size for item in entries) > 256 * 1024**2:
+                raise ValueError("Превышен лимит распаковки документа")
     if path.suffix.lower() == ".pdf":
         import pytesseract
         exe = os.environ.get("TESSERACT_CMD") or shutil.which("tesseract")
@@ -25,12 +39,15 @@ def units(path):
         if exe: pytesseract.pytesseract.tesseract_cmd = exe
         doc = pdfium.PdfDocument(path)
         try:
+            if len(doc) > 1500:
+                raise ValueError("PDF содержит больше 1500 страниц")
             for i, page in enumerate(doc):
                 text = page.get_textpage().get_text_bounded()
                 ocr = len(text.strip()) < 80
                 if ocr:
                     if not exe: raise RuntimeError(f"Для страницы {i+1} нужен Tesseract rus+eng")
-                    cache = DATA / "ocr" / (hashlib.sha256(path.read_bytes()).hexdigest() + f"-{i+1}.txt")
+                    digest = digest or hashlib.sha256(path.read_bytes()).hexdigest()
+                    cache = DATA / "ocr" / (digest + f"-{i+1}.txt")
                     cache.parent.mkdir(parents=True, exist_ok=True)
                     if cache.exists(): text = cache.read_text(encoding="utf-8")
                     else:
@@ -53,34 +70,41 @@ def units(path):
             elif child.tag.endswith("}tbl"):
                 table = Table(child, doc)
                 for j, row in enumerate(table.rows):
-                    text = " | ".join(dict.fromkeys(c.text for c in row.cells))
+                    text = " | ".join(cell.text for cell in row.cells)
                     yield text, {"locator": f"таблица в блоке {i+1}, строка {j+1}", "parent_id": f"table-{i+1}"}
     elif path.suffix.lower() == ".xlsx":
         book = load_workbook(path, data_only=False)
-        values = load_workbook(path, data_only=True)
-        for sheet in book:
-            for row in sheet:
-                cells = []
-                for cell in row:
-                    if cell.value is None: continue
-                    v = cell.value
-                    if cell.data_type == "f":
-                        cached = values[sheet.title][cell.coordinate].value
-                        v = f"формула {v}; сохранённое значение: {cached if cached is not None else 'не вычислено'}"
-                    cells.append(f"{cell.coordinate}: {v}")
-                if cells:
-                    yield " | ".join(cells), {"locator": f"лист {sheet.title}, строка {row[0].row}", "sheet": sheet.title, "parent_id": f"sheet-{sheet.title}-row-{row[0].row}", "merged_ranges": [str(r) for r in sheet.merged_cells.ranges if r.min_row <= row[0].row <= r.max_row]}
-        book.close(); values.close()
+        values = None
+        try:
+            if sum(sheet.max_row * sheet.max_column for sheet in book) > 2_000_000:
+                raise ValueError("Превышен лимит области ячеек XLSX")
+            values = load_workbook(path, data_only=True)
+            for sheet in book:
+                for row in sheet:
+                    cells = []
+                    for cell in row:
+                        if cell.value is None: continue
+                        v = cell.value
+                        if cell.data_type == "f":
+                            cached = values[sheet.title][cell.coordinate].value
+                            v = f"формула {v}; сохранённое значение: {cached if cached is not None else 'не вычислено'}"
+                        cells.append(f"{cell.coordinate}: {v}")
+                    if cells:
+                        yield " | ".join(cells), {"locator": f"лист {sheet.title}, строка {row[0].row}", "sheet": sheet.title, "parent_id": f"sheet-{sheet.title}-row-{row[0].row}", "merged_ranges": [str(r) for r in sheet.merged_cells.ranges if r.min_row <= row[0].row <= r.max_row]}
+        finally:
+            book.close()
+            if values is not None:
+                values.close()
     else:
         raise ValueError(f"Неподдерживаемый формат: {path.suffix}")
 
 
-def ingest():
+def ingest(raw=None, output=None):
     docs, manifest, errors, source_documents = [], [], [], []
-    raw = DATA / "raw"
+    raw = Path(raw) if raw is not None else DATA / "raw"
+    output = Path(output) if output is not None else DATA
     if not raw.exists(): raise RuntimeError("Нет data/raw. Сначала скачайте документы.")
-    for path in sorted(raw.rglob("*")):
-        if not path.is_file(): continue
+    for path in input_files(raw):
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         date = re.search(r"\b\d{2}\.\d{2}\.\d{4}\b", path.name)
         relative_path = path.relative_to(raw).as_posix()
@@ -90,8 +114,10 @@ def ingest():
         source_parts = []
         source_offset = 0
         try:
+            if path.suffix.lower() not in FORMATS:
+                raise ValueError(f"Неподдерживаемый формат: {path.suffix or 'без расширения'}")
             pending = []
-            for text, meta in units(path):
+            for text, meta in units(path, digest=digest):
                 text = re.sub(r"[ \t]+", " ", text).strip()
                 if not text: continue
                 unit_start = source_offset
@@ -117,7 +143,8 @@ def ingest():
                     char_end = unit_start + selected[-1].end()
                     span = {"document_id": relative_path, "start": char_start, "end": char_end}
                     m = dict(base, **meta, section=section, word_start=start, chunk_id=None, source_span=span, unit_source_span={"start": unit_start, "end": unit_end}, original_content=content)
-                    cid = hashlib.sha256(json.dumps([digest, meta["locator"], start], ensure_ascii=False).encode()).hexdigest()[:24]
+                    identity = [digest, meta["locator"], start, relative_path]
+                    cid = hashlib.sha256(json.dumps(identity, ensure_ascii=False).encode()).hexdigest()[:24]
                     m["chunk_id"] = cid
                     pending.append({"id": cid, "content": content, "meta": m})
             docs.extend(pending); count = len(pending)
@@ -126,15 +153,16 @@ def ingest():
             errors.append({"name": path.name, "error": str(exc)})
         manifest.append(dict(base, chunks=count))
         print(path.name, count, flush=True)
-    DATA.mkdir(exist_ok=True)
-    (DATA / "manifest.json").write_text(json.dumps({"files": manifest, "errors": errors}, ensure_ascii=False, indent=2), encoding="utf-8")
+    output.mkdir(parents=True, exist_ok=True)
+    (output / "manifest.json").write_text(json.dumps({"files": manifest, "errors": errors}, ensure_ascii=False, indent=2), encoding="utf-8")
     if errors:
-        raise RuntimeError("Индекс не заменён: ошибки обработки. См. data/manifest.json")
+        first = errors[0]
+        raise RuntimeError(f"Ошибка обработки {first['name']}: {first['error']}")
     if not docs: raise RuntimeError("Нет извлечённого текста")
-    tmp = DATA / "chunks.tmp"
+    tmp = output / "chunks.tmp"
     tmp.write_text(json.dumps(docs, ensure_ascii=False), encoding="utf-8")
-    tmp.replace(DATA / "chunks.json")
-    tmp = DATA / "source_documents.tmp"
+    tmp.replace(output / "chunks.json")
+    tmp = output / "source_documents.tmp"
     tmp.write_text(json.dumps(source_documents, ensure_ascii=False), encoding="utf-8")
-    tmp.replace(DATA / "source_documents.json")
+    tmp.replace(output / "source_documents.json")
     return docs

@@ -1,0 +1,3166 @@
+{
+  "schema_version": 1,
+  "private": true,
+  "split": "rag100",
+  "queries": [
+    {
+      "id": "Q001",
+      "question": "Как правильно отправить заявку в ИТ-поддержку МФТИ?",
+      "question_type": "easy",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q001-requirement-1",
+          "requirement": "приоритетный канал",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 2562,
+              "end": 2580,
+              "text": "приоритетный канал"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "приоритетный канал"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Через систему управления обращениями (приоритетный канал) на mipt.ru/it/support или на helpdesk@mipt.ru."
+    },
+    {
+      "id": "Q002",
+      "question": "Можно ли подать заявку первой линии ИТ-поддержки устно или в мессенджере?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q002-requirement-1",
+          "requirement": "мессенджеры, устные поручения",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 2729,
+              "end": 2758,
+              "text": "мессенджеры, устные поручения"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "мессенджеры, устные поручения"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, телефон, мессенджеры и устные поручения не считаются официальными каналами и не обрабатываются."
+    },
+    {
+      "id": "Q003",
+      "question": "Могут ли выпускники МФТИ обращаться на первую линию ИТ-поддержки?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q003-requirement-1",
+          "requirement": "выпускников МФТИ",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 2010,
+              "end": 2026,
+              "text": "выпускников МФТИ"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "выпускников МФТИ"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Да, регламент распространяется на сотрудников, обучающихся и выпускников МФТИ."
+    },
+    {
+      "id": "Q004",
+      "question": "Я ошибся при вводе данных в информационную систему. Это считается сбоем ИТ-инфраструктуры?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q004-requirement-1",
+          "requirement": "не являются сбоем в работе ИТ-инфраструктуры",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 3892,
+              "end": 3936,
+              "text": "не являются сбоем в работе ИТ-инфраструктуры"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не являются сбоем в работе ИТ-инфраструктуры"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет. Ошибки пользователей при вводе данных или создании документов не считаются ИТ-сбоем и не входят в обязанности первой линии."
+    },
+    {
+      "id": "Q005",
+      "question": "Поддержка МФТИ обязана ремонтировать мой личный ноутбук?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q005-requirement-1",
+          "requirement": "не состоящим",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 4053,
+              "end": 4065,
+              "text": "не состоящим"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не состоящим"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, ИТ-поддержка не обрабатывает обращения по оборудованию, не состоящему на балансе МФТИ."
+    },
+    {
+      "id": "Q006",
+      "question": "Какие контактные данные требуется указать в обращении в УИТ?",
+      "question_type": "easy",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q006-requirement-1",
+          "requirement": "ФИО, телефонный номер, адрес корпоративной электронной почты",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 4409,
+              "end": 4469,
+              "text": "ФИО, телефонный номер, адрес корпоративной электронной почты"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "ФИО, телефонный номер, адрес корпоративной электронной почты"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "ФИО, номер телефона и адрес корпоративной электронной почты."
+    },
+    {
+      "id": "Q007",
+      "question": "Какие форматы файлов разрешены для скриншотов ошибок в обращении?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q007-requirement-1",
+          "requirement": "JPG, GIF, PNG, PDF",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 4749,
+              "end": 4767,
+              "text": "JPG, GIF, PNG, PDF"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "JPG, GIF, PNG, PDF"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "JPG, GIF, PNG или PDF."
+    },
+    {
+      "id": "Q008",
+      "question": "За сколько часов первая линия должна впервые обработать обращение?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q008-requirement-1",
+          "requirement": "не более 16 рабочих часов",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 4894,
+              "end": 4919,
+              "text": "не более 16 рабочих часов"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не более 16 рабочих часов"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Не более 16 рабочих часов; это также срок информирования об изменении статуса."
+    },
+    {
+      "id": "Q009",
+      "question": "Что сделают с тикетом, если в нём недостаточно сведений?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q009-requirement-1",
+          "requirement": "обработка  обращения  может  быть",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 5174,
+              "end": 5204,
+              "text": "обработка обращения может быть"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "обработка  обращения  может  быть"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Сотрудник поддержки может запросить дополнительные сведения и приостановить обработку до их получения."
+    },
+    {
+      "id": "Q010",
+      "question": "Что будет, если три рабочих дня не ответить на запрос поддержки об уточнениях?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q010-requirement-1",
+          "requirement": "течение 3 рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 5306,
+              "end": 5328,
+              "text": "течение 3 рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "течение 3 рабочих дней"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "После трёх рабочих дней без ответа обращение считается неактуальным."
+    },
+    {
+      "id": "Q011",
+      "question": "Через сколько дней заявку закроют, если после выполнения работ я не отвечу?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q011-requirement-1",
+          "requirement": "14 календарных дней",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 5526,
+              "end": 5545,
+              "text": "14 календарных дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "14 календарных дней"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Через 14 календарных дней без обратной связи."
+    },
+    {
+      "id": "Q012",
+      "question": "В какие часы работает первая линия технической поддержки?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q012-requirement-1",
+          "requirement": "с 9:00 до 18:00 (МСК)",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 5697,
+              "end": 5718,
+              "text": "с 9:00 до 18:00 (МСК)"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "с 9:00 до 18:00 (МСК)"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В рабочие дни с 09:00 до 18:00 по московскому времени, обед с 12:00 до 13:00."
+    },
+    {
+      "id": "Q013",
+      "question": "Когда зарегистрируют заявку, отправленную ночью?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q013-requirement-1",
+          "requirement": "первый следующий рабочий день",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 5989,
+              "end": 6018,
+              "text": "первый следующий рабочий день"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "первый следующий рабочий день"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В первый следующий рабочий день."
+    },
+    {
+      "id": "Q014",
+      "question": "Принимают ли обращения в выходные и праздничные дни?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D09"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q014-requirement-1",
+          "requirement": "не  принимаются  и  не",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 5815,
+              "end": 5834,
+              "text": "не принимаются и не"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не  принимаются  и  не"
+      ],
+      "family": "ИТ-поддержка",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, в выходные и праздники обращения не принимаются и не обрабатываются."
+    },
+    {
+      "id": "Q015",
+      "question": "На какие категории сотрудников распространяется подбор без конкурса?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q015-requirement-1",
+          "requirement": "без проведения конкурсов",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 1444,
+              "end": 1468,
+              "text": "без проведения конкурсов"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "без проведения конкурсов"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "На УВП, АУП, ИТП, НР (кроме научных сотрудников), СНО и ХОП."
+    },
+    {
+      "id": "Q016",
+      "question": "Для каких сотрудников подбор проводится через конкурс?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q016-requirement-1",
+          "requirement": "профессорско-",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 10691,
+              "end": 10704,
+              "text": "профессорско-"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "профессорско-"
+      ],
+      "family": "Подбор персонала",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Для профессорско-преподавательского состава и научных сотрудников."
+    },
+    {
+      "id": "Q017",
+      "question": "Кто инициирует поиск сотрудника на свободную должность?",
+      "question_type": "easy",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q017-requirement-1",
+          "requirement": "Инициатором поиска и подбора",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 4775,
+              "end": 4803,
+              "text": "Инициатором поиска и подбора"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Инициатором поиска и подбора"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Руководитель подразделения, который заполняет заявку на поиск и подбор."
+    },
+    {
+      "id": "Q018",
+      "question": "Можно ли оставить контактное лицо незаполненным в заявке на подбор персонала?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q018-requirement-1",
+          "requirement": "Все поля заявки",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 5239,
+              "end": 5254,
+              "text": "Все поля заявки"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Все поля заявки"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, все поля заявки, включая контактное лицо с ФИО, корпоративной почтой и телефоном, обязательны."
+    },
+    {
+      "id": "Q019",
+      "question": "Куда направляется служебная записка с заявкой на подбор сотрудника?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q019-requirement-1",
+          "requirement": "директору по общим вопросам",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 5681,
+              "end": 5708,
+              "text": "директору по общим вопросам"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "директору по общим вопросам"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Директору по общим вопросам через 1С:Документооборот, с приложенной заявкой Word."
+    },
+    {
+      "id": "Q020",
+      "question": "Кто согласовывает записку для найма нового сотрудника?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q020-requirement-1",
+          "requirement": "вышестоящим руководителем, а также",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 6060,
+              "end": 6094,
+              "text": "вышестоящим руководителем, а также"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "вышестоящим руководителем, а также"
+      ],
+      "family": "Подбор персонала",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Непосредственный руководитель (если отправляет ответственное лицо), вышестоящий руководитель и курирующий проректор/директор."
+    },
+    {
+      "id": "Q021",
+      "question": "Сколько в среднем длится активный поиск нового работника?",
+      "question_type": "easy",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q021-requirement-1",
+          "requirement": "в среднем 1 месяц",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 6359,
+              "end": 6376,
+              "text": "в среднем 1 месяц"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в среднем 1 месяц"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В среднем один месяц."
+    },
+    {
+      "id": "Q022",
+      "question": "Где размещается объявление о вакансии МФТИ?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q022-requirement-1",
+          "requirement": "единой общероссийской федеральной",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 6519,
+              "end": 6552,
+              "text": "единой общероссийской федеральной"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "единой общероссийской федеральной"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "На HR-портале hr.mipt.ru, «Работа России» (trudvsem.ru) и партнёрских онлайн-платформах."
+    },
+    {
+      "id": "Q023",
+      "question": "Как быстро УРП должно разместить вакансию после получения заявки?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q023-requirement-1",
+          "requirement": "в течение одного рабочего дня",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 6740,
+              "end": 6769,
+              "text": "в течение одного рабочего дня"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в течение одного рабочего дня"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В течение одного рабочего дня."
+    },
+    {
+      "id": "Q024",
+      "question": "Как быстро руководитель должен сообщить УРП решение по кандидату?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q024-requirement-1",
+          "requirement": "в течение двух рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 8045,
+              "end": 8072,
+              "text": "в течение двух рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в течение двух рабочих дней"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В течение двух рабочих дней по каждому кандидату."
+    },
+    {
+      "id": "Q025",
+      "question": "Что делать, если за первые две недели публикации вакансии не пришли подходящие резюме?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q025-requirement-1",
+          "requirement": "первых 14 дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 8657,
+              "end": 8671,
+              "text": "первых 14 дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "первых 14 дней"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Специалист по подбору анализирует причины и предлагает заказчику пересмотреть существенные условия заявки."
+    },
+    {
+      "id": "Q026",
+      "question": "Вправе ли кадровая служба прекратить подбор, если заказчик 15 рабочих дней не отвечает на резюме?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q026-requirement-1",
+          "requirement": "15 рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 9868,
+              "end": 9883,
+              "text": "15 рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "15 рабочих дней"
+      ],
+      "family": "Подбор персонала",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Да, УРП вправе прекратить работу по заявке после предварительного уведомления руководителя подразделения."
+    },
+    {
+      "id": "Q027",
+      "question": "Когда вакансия считается закрытой?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D18"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q027-requirement-1",
+          "requirement": "Вакансия считается закрытой",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 9144,
+              "end": 9171,
+              "text": "Вакансия считается закрытой"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Вакансия считается закрытой"
+      ],
+      "family": "Подбор персонала",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "При трудоустройстве кандидата или при сообщении руководителя о снятии/закрытии вакансии по электронной почте."
+    },
+    {
+      "id": "Q028",
+      "question": "Какую максимальную долю суммы контракта можно получить внутренним займом?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q028-requirement-1",
+          "requirement": "90%",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 2097,
+              "end": 2100,
+              "text": "90%"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "90%"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Не более 90% общей суммы контракта/договора/соглашения за вычетом накладных университета, при наличии свободных средств."
+    },
+    {
+      "id": "Q029",
+      "question": "По каким договорам заявки на внутренний заем имеют приоритет?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q029-requirement-1",
+          "requirement": "Приоритетное право",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 2188,
+              "end": 2206,
+              "text": "Приоритетное право"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Приоритетное право"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Приоритет у договоров с государственными органами, гособоронзаказа, грантов-субсидий, проектов по постановлениям Правительства РФ и договоров, оставляющих права на РИД за МФТИ."
+    },
+    {
+      "id": "Q030",
+      "question": "На какой срок предоставляется внутреннее заимствование по новым правилам?",
+      "question_type": "easy",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q030-requirement-1",
+          "requirement": "от 1 до 4 месяцев",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 2695,
+              "end": 2712,
+              "text": "от 1 до 4 месяцев"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "от 1 до 4 месяцев"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "От одного до четырёх месяцев."
+    },
+    {
+      "id": "Q031",
+      "question": "Можно ли получить внутренний заем по хозяйственному договору со сниженными накладными?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q031-requirement-1",
+          "requirement": "по хозяйственным договорам с пониженным размером накладных",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 2841,
+              "end": 2899,
+              "text": "по хозяйственным договорам с пониженным размером накладных"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "по хозяйственным договорам с пониженным размером накладных"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Как правило, нет; исключение — когда предельный размер накладных установлен государственным заказчиком или грантодателем."
+    },
+    {
+      "id": "Q032",
+      "question": "Дадут ли заем по договору без аванса?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q032-requirement-1",
+          "requirement": "не предусмотрено авансирование проекта",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 3159,
+              "end": 3197,
+              "text": "не предусмотрено авансирование проекта"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не предусмотрено авансирование проекта"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "По хозяйственным договорам без авансирования заем не выдаётся, кроме договоров, заключённых по результатам конкурсов."
+    },
+    {
+      "id": "Q033",
+      "question": "Можно ли указать ФЛС другого подразделения для обеспечения возврата займа?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q033-requirement-1",
+          "requirement": "ФЛС иных структурных подразделений",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 4349,
+              "end": 4383,
+              "text": "ФЛС иных структурных подразделений"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "ФЛС иных структурных подразделений"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Да, при согласовании с руководителями соответствующих подразделений, если у заемщика нет подходящего ФЛС."
+    },
+    {
+      "id": "Q034",
+      "question": "До какого числа нужно подать заявку на внутренний заем?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q034-requirement-1",
+          "requirement": "до 18",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 4581,
+              "end": 4586,
+              "text": "до 18"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "до 18"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "До 18-го числа месяца, в котором требуется заимствование, в финансово-экономическое управление."
+    },
+    {
+      "id": "Q035",
+      "question": "До какого числа утверждают распоряжение о предоставлении внутреннего займа?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q035-requirement-1",
+          "requirement": "до 26 числа",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 5005,
+              "end": 5016,
+              "text": "до 26 числа"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "до 26 числа"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "До 26-го числа месяца выдачи займа; утверждает первый проректор."
+    },
+    {
+      "id": "Q036",
+      "question": "Нужна ли стандартная заявка для займа по субсидии на иные цели?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q036-requirement-1",
+          "requirement": "Заявки  в  этом  случае  не  заполняются",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 5349,
+              "end": 5384,
+              "text": "Заявки в этом случае не заполняются"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Заявки  в  этом  случае  не  заполняются"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет; внутреннее заимствование оформляется приказом ректора, инициированным в 1С:Документооборот."
+    },
+    {
+      "id": "Q037",
+      "question": "Когда автоматически спишут долг с ФЛС-преемника, если заем не вернули?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q037-requirement-1",
+          "requirement": "в течение З (Трех)",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 5871,
+              "end": 5889,
+              "text": "в течение З (Трех)"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в течение З (Трех)"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Если задолженность не погашена в течение трёх месяцев, средства автоматически списываются с ФЛС-преемника."
+    },
+    {
+      "id": "Q038",
+      "question": "Какой штраф предусмотрен при просрочке внутреннего займа более месяца?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q038-requirement-1",
+          "requirement": "0,5% от суммы задолженности",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 6768,
+              "end": 6795,
+              "text": "0,5% от суммы задолженности"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "0,5% от суммы задолженности"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "0,5% от суммы задолженности."
+    },
+    {
+      "id": "Q039",
+      "question": "Кому передают сведения о внутренних займах, просроченных более трёх месяцев?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q039-requirement-1",
+          "requirement": "директору по безопасности",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 7214,
+              "end": 7239,
+              "text": "директору по безопасности"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "директору по безопасности"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Директору по безопасности."
+    },
+    {
+      "id": "Q040",
+      "question": "Нужно ли оформлять заявку на заем по проектам РНФ или госзадания?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D10"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q040-requirement-1",
+          "requirement": "без  оформления  заявки",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 8723,
+              "end": 8744,
+              "text": "без оформления заявки"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "без  оформления  заявки"
+      ],
+      "family": "Внутреннее заимствование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, заем может предоставляться без заявки в пределах плановых расходов, утверждённых в смете за соответствующий месяц."
+    },
+    {
+      "id": "Q041",
+      "question": "Считаются ли разъездные обязанности сотрудника служебной командировкой?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q041-requirement-1",
+          "requirement": "разъездной характер, служебными командировками не",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 4440,
+              "end": 4489,
+              "text": "разъездной характер, служебными командировками не"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "разъездной характер, служебными командировками не"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, постоянная работа в пути или разъездного характера не относится к служебным командировкам."
+    },
+    {
+      "id": "Q042",
+      "question": "Какой документ служит основанием для направления в командировку?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q042-requirement-1",
+          "requirement": "Основанием для направления в командировку является Приказ",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 5617,
+              "end": 5674,
+              "text": "Основанием для направления в командировку является Приказ"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Основанием для направления в командировку является Приказ"
+      ],
+      "family": "Командировки",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Приказ о командировании, выпущенный на основании согласованного решения о командировании."
+    },
+    {
+      "id": "Q043",
+      "question": "Какое подразделение централизованно оформляет служебные командировки МФТИ?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q043-requirement-1",
+          "requirement": "группа",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 6701,
+              "end": 6707,
+              "text": "группа"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "группа"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Группа командирования отдела международных связей (ОМС)."
+    },
+    {
+      "id": "Q044",
+      "question": "Установлена ли максимальная продолжительность служебной командировки?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q044-requirement-1",
+          "requirement": "Ограничений по длительности командирования не",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 7542,
+              "end": 7587,
+              "text": "Ограничений по длительности командирования не"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Ограничений по длительности командирования не"
+      ],
+      "family": "Командировки",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, регламент не предусматривает ограничений по длительности."
+    },
+    {
+      "id": "Q045",
+      "question": "Как подтверждают фактические даты служебной командировки?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q045-requirement-1",
+          "requirement": "определяется по проездным",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 8783,
+              "end": 8808,
+              "text": "определяется по проездным"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "определяется по проездным"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "По проездным документам, которые работник предоставляет после возвращения."
+    },
+    {
+      "id": "Q046",
+      "question": "Сохраняется ли за командированным сотрудником его должность и средний заработок?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q046-requirement-1",
+          "requirement": "места работы (должности) и среднего заработка",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 11043,
+              "end": 11088,
+              "text": "места работы (должности) и среднего заработка"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "места работы (должности) и среднего заработка"
+      ],
+      "family": "Командировки",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Да, гарантируется сохранение должности и среднего заработка."
+    },
+    {
+      "id": "Q047",
+      "question": "Каким классом обычно компенсируют перелёт в командировку?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q047-requirement-1",
+          "requirement": "воздушным транспортом",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 17251,
+              "end": 17272,
+              "text": "воздушным транспортом"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "воздушным транспортом"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Возмещают фактическую стоимость билета, но не выше предусмотренного регламентом класса обслуживания; для авиаперелёта — экономический класс."
+    },
+    {
+      "id": "Q048",
+      "question": "Возмещают ли расходы на гостиницу, если проживание было бесплатным?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q048-requirement-1",
+          "requirement": "предоставляется бесплатное",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 19149,
+              "end": 19175,
+              "text": "предоставляется бесплатное"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "предоставляется бесплатное"
+      ],
+      "family": "Командировки",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет; расходы возмещаются, кроме случаев бесплатного размещения или компенсации принимающей стороной."
+    },
+    {
+      "id": "Q049",
+      "question": "Начисляются ли суточные за выходные, проведённые в командировке?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q049-requirement-1",
+          "requirement": "включая выходные и",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 23081,
+              "end": 23099,
+              "text": "включая выходные и"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "включая выходные и"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Да, суточные положены за каждый день, в том числе за выходные, праздники и время в пути."
+    },
+    {
+      "id": "Q050",
+      "question": "Платят ли суточные, если из места командировки можно каждый день возвращаться домой?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q050-requirement-1",
+          "requirement": "суточные не выплачиваются",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 26226,
+              "end": 26251,
+              "text": "суточные не выплачиваются"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "суточные не выплачиваются"
+      ],
+      "family": "Командировки",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, если есть возможность ежедневно возвращаться к постоянному месту жительства."
+    },
+    {
+      "id": "Q051",
+      "question": "Когда могут возместить такси в командировке?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q051-requirement-1",
+          "requirement": "00.00  до  6.00  часов",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 27415,
+              "end": 27434,
+              "text": "00.00 до 6.00 часов"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "00.00  до  6.00  часов"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В отдельных случаях, например при ночном прибытии или отправлении с 00:00 до 06:00 либо невозможности использования общественного транспорта."
+    },
+    {
+      "id": "Q052",
+      "question": "Возместят ли расходы на поездку, если у сотрудника нет подтверждающих документов?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q052-requirement-1",
+          "requirement": "работнику не возмещаются",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 29843,
+              "end": 29867,
+              "text": "работнику не возмещаются"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "работнику не возмещаются"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Нет, расходы, не подтверждённые документами, не возмещаются."
+    },
+    {
+      "id": "Q053",
+      "question": "За сколько рабочих дней до командировки нужно предоставить решение в ОМС?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q053-requirement-1",
+          "requirement": "за 7 рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 37527,
+              "end": 37544,
+              "text": "за 7 рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "за 7 рабочих дней"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Не позднее чем за семь рабочих дней до командировки."
+    },
+    {
+      "id": "Q054",
+      "question": "За сколько рабочих дней нужно подписать ознакомление с приказом о командировке?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q054-requirement-1",
+          "requirement": "в течение 3-х рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 38826,
+              "end": 38852,
+              "text": "в течение 3-х рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в течение 3-х рабочих дней"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В течение трёх рабочих дней."
+    },
+    {
+      "id": "Q055",
+      "question": "Когда после командировки сдать авансовый отчёт?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D17"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q055-requirement-1",
+          "requirement": "в течение 3-х рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 38826,
+              "end": 38852,
+              "text": "в течение 3-х рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в течение 3-х рабочих дней"
+      ],
+      "family": "Командировки",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В течение трёх рабочих дней после возвращения в группу командирования ОМС."
+    },
+    {
+      "id": "Q056",
+      "question": "Когда вступила в действие редакция регламента открытия ФЛС, утвержденная приказом № 3065-1?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D03"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q056-requirement-1",
+          "requirement": "01.12.2021 г.",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3065-1 от 25.11.2021.docx",
+              "start": 811,
+              "end": 824,
+              "text": "01.12.2021 г."
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "01.12.2021 г."
+      ],
+      "family": "Открытие ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "С 1 декабря 2021 года."
+    },
+    {
+      "id": "Q057",
+      "question": "Что такое финансовый лицевой счёт в регламенте МФТИ?",
+      "question_type": "easy",
+      "answerable": true,
+      "gold_document_ids": [
+        "D03"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q057-requirement-1",
+          "requirement": "Финансовый лицевой счет (ФЛС)",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3065-1 от 25.11.2021.docx",
+              "start": 7239,
+              "end": 7268,
+              "text": "Финансовый лицевой счет (ФЛС)"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Финансовый лицевой счет (ФЛС)"
+      ],
+      "family": "Открытие ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Отдельный счёт для учёта доходов и расходов проекта с внутренним регистрационным номером ФЭУ."
+    },
+    {
+      "id": "Q058",
+      "question": "Какой документ требуется как основание открытия ФЛС для НИОКР?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D03"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q058-requirement-1",
+          "requirement": "Основанием для открытия финансового лицевого счета",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3065-1 от 25.11.2021.docx",
+              "start": 8101,
+              "end": 8151,
+              "text": "Основанием для открытия финансового лицевого счета"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Основанием для открытия финансового лицевого счета"
+      ],
+      "family": "Открытие ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Подписанный сторонами договор, контракт или соглашение на проведение соответствующих работ и услуг."
+    },
+    {
+      "id": "Q059",
+      "question": "Кому направлять карточку фундаментального проекта по РНФ для согласования?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D03"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q059-requirement-1",
+          "requirement": "отдела координации поисковых исследований",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3065-1 от 25.11.2021.docx",
+              "start": 8807,
+              "end": 8848,
+              "text": "отдела координации поисковых исследований"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "отдела координации поисковых исследований"
+      ],
+      "family": "Открытие ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Сотруднику отдела координации поисковых исследований, вместе со скан-копией договора."
+    },
+    {
+      "id": "Q060",
+      "question": "Кто согласовывает карточку проекта по прикладным исследованиям и разработкам?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D03"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q060-requirement-1",
+          "requirement": "руководителю центра трансфера технологий",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3065-1 от 25.11.2021.docx",
+              "start": 9096,
+              "end": 9136,
+              "text": "руководителю центра трансфера технологий"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "руководителю центра трансфера технологий"
+      ],
+      "family": "Открытие ФЛС",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Руководитель Центра трансфера технологий."
+    },
+    {
+      "id": "Q061",
+      "question": "Кто отвечает за полноту и достоверность данных в карточке проекта?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D03"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q061-requirement-1",
+          "requirement": "несет ответственность за достоверность",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3065-1 от 25.11.2021.docx",
+              "start": 9198,
+              "end": 9236,
+              "text": "несет ответственность за достоверность"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "несет ответственность за достоверность"
+      ],
+      "family": "Открытие ФЛС",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Заместитель руководителя или ответственный исполнитель проекта."
+    },
+    {
+      "id": "Q062",
+      "question": "Кто присваивает номер ФЛС при его открытии по регламенту?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D03"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q062-requirement-1",
+          "requirement": "присваивает номер ФЛС",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3065-1 от 25.11.2021.docx",
+              "start": 9559,
+              "end": 9580,
+              "text": "присваивает номер ФЛС"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "присваивает номер ФЛС"
+      ],
+      "family": "Открытие ФЛС",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Сотрудник финансово-экономического управления."
+    },
+    {
+      "id": "Q063",
+      "question": "Сколько времени даётся руководителю проекта на проверку и согласование приказа об открытии ФЛС?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D03"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q063-requirement-1",
+          "requirement": "в течение одного рабочего дня",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3065-1 от 25.11.2021.docx",
+              "start": 9315,
+              "end": 9344,
+              "text": "в течение одного рабочего дня"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в течение одного рабочего дня"
+      ],
+      "family": "Открытие ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Один рабочий день."
+    },
+    {
+      "id": "Q064",
+      "question": "Какой приказ отменён приказом № 794-1 о согласовании смет?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D06"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q064-requirement-1",
+          "requirement": "19.09.2019г. № 1469-1",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 794-1 от 28.03.2023.docx",
+              "start": 305,
+              "end": 326,
+              "text": "19.09.2019г. № 1469-1"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "19.09.2019г. № 1469-1"
+      ],
+      "family": "Сметы",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Приказ от 19.09.2019 № 1469-1 о новых бланках смет."
+    },
+    {
+      "id": "Q065",
+      "question": "На какие подразделения и источники финансирования действует регламент смет?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D06"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q065-requirement-1",
+          "requirement": "на все источники финансирования",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 794-1 от 28.03.2023.docx",
+              "start": 2861,
+              "end": 2892,
+              "text": "на все источники финансирования"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "на все источники финансирования"
+      ],
+      "family": "Сметы",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "На все подразделения и структуры МФТИ и все источники финансирования."
+    },
+    {
+      "id": "Q066",
+      "question": "В каком разрезе формируются сметы по большинству видов деятельности?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D06"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q066-requirement-1",
+          "requirement": "помесячно по всем видам деятельности",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 794-1 от 28.03.2023.docx",
+              "start": 4174,
+              "end": 4210,
+              "text": "помесячно по всем видам деятельности"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "помесячно по всем видам деятельности"
+      ],
+      "family": "Сметы",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Помесячно, за исключением договоров по грантам РЦНИ с физлицами."
+    },
+    {
+      "id": "Q067",
+      "question": "Как оформляют сметы по договорам РЦНИ с физическими лицами?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D06"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q067-requirement-1",
+          "requirement": "годовые сметы на бумажном носителе",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 794-1 от 28.03.2023.docx",
+              "start": 4318,
+              "end": 4352,
+              "text": "годовые сметы на бумажном носителе"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "годовые сметы на бумажном носителе"
+      ],
+      "family": "Сметы",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Годовые сметы на бумаге по форме приложения 1б."
+    },
+    {
+      "id": "Q068",
+      "question": "В какой программе руководитель проекта составляет и запускает согласование сметы?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D06"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q068-requirement-1",
+          "requirement": "1С:Документооборот",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 794-1 от 28.03.2023.docx",
+              "start": 4411,
+              "end": 4429,
+              "text": "1С:Документооборот"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "1С:Документооборот"
+      ],
+      "family": "Сметы",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В системе 1С:Документооборот."
+    },
+    {
+      "id": "Q069",
+      "question": "Куда автоматически попадает утверждённая смета из 1С:Документооборот?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D06"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q069-requirement-1",
+          "requirement": "в 1С:БГУ",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 794-1 от 28.03.2023.docx",
+              "start": 6314,
+              "end": 6322,
+              "text": "в 1С:БГУ"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в 1С:БГУ"
+      ],
+      "family": "Сметы",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "В 1С:БГУ."
+    },
+    {
+      "id": "Q070",
+      "question": "Кто отвечает за правильное составление сметы?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D06"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q070-requirement-1",
+          "requirement": "Ответственный исполнитель несет ответственность",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 794-1 от 28.03.2023.docx",
+              "start": 6410,
+              "end": 6457,
+              "text": "Ответственный исполнитель несет ответственность"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Ответственный исполнитель несет ответственность"
+      ],
+      "family": "Сметы",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Ответственный исполнитель."
+    },
+    {
+      "id": "Q071",
+      "question": "Кто окончательно утверждает сметы?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D06"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q071-requirement-1",
+          "requirement": "утверждает сметы",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 794-1 от 28.03.2023.docx",
+              "start": 8044,
+              "end": 8060,
+              "text": "утверждает сметы"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "утверждает сметы"
+      ],
+      "family": "Сметы",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Курирующий проректор или директор по направлению."
+    },
+    {
+      "id": "Q072",
+      "question": "Кто назначает уникальный номер финансового лицевого счёта?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D15"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q072-requirement-1",
+          "requirement": "сотрудник финансово-экономического управления",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 2439,
+              "end": 2484,
+              "text": "сотрудник финансово-экономического управления"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "сотрудник финансово-экономического управления"
+      ],
+      "family": "Нумерация ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Сотрудник финансово-экономического управления на основании карточки проекта."
+    },
+    {
+      "id": "Q073",
+      "question": "Сколько символов содержит уникальный номер ФЛС?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D15"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q073-requirement-1",
+          "requirement": "11-18 разрядов",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 2583,
+              "end": 2597,
+              "text": "11-18 разрядов"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "11-18 разрядов"
+      ],
+      "family": "Нумерация ФЛС",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "От 11 до 18 разрядов."
+    },
+    {
+      "id": "Q074",
+      "question": "Что кодируют первые пять цифр номера ФЛС?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D15"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q074-requirement-1",
+          "requirement": "код подразделения",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 2691,
+              "end": 2708,
+              "text": "код подразделения"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "код подразделения"
+      ],
+      "family": "Нумерация ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Код подразделения, ответственного за выполнение проекта."
+    },
+    {
+      "id": "Q075",
+      "question": "Что означают шестой и седьмой разряды номера ФЛС?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D15"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q075-requirement-1",
+          "requirement": "код финансодержателя",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 2843,
+              "end": 2863,
+              "text": "код финансодержателя"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "код финансодержателя"
+      ],
+      "family": "Нумерация ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Код финансодержателя."
+    },
+    {
+      "id": "Q076",
+      "question": "Какие позиции номера ФЛС содержат код финансового обеспечения?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D15"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q076-requirement-1",
+          "requirement": "8 - 9 разряд",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 2925,
+              "end": 2937,
+              "text": "8 - 9 разряд"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "8 - 9 разряд"
+      ],
+      "family": "Нумерация ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Восьмая и девятая позиции."
+    },
+    {
+      "id": "Q077",
+      "question": "Какой код финансового обеспечения используется для субсидии на госзадание?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D15"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q077-requirement-1",
+          "requirement": "04 – средства субсидий на выполнение государственного задания",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 3322,
+              "end": 3383,
+              "text": "04 – средства субсидий на выполнение государственного задания"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "04 – средства субсидий на выполнение государственного задания"
+      ],
+      "family": "Нумерация ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "04."
+    },
+    {
+      "id": "Q078",
+      "question": "Что содержат разряды номера ФЛС с 10-го по 18-й?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D15"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q078-requirement-1",
+          "requirement": "сокращенное обозначение наименования проекта",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 3568,
+              "end": 3612,
+              "text": "сокращенное обозначение наименования проекта"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "сокращенное обозначение наименования проекта"
+      ],
+      "family": "Нумерация ФЛС",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Сокращённое буквенно-цифровое обозначение проекта, согласуемое с его руководителем."
+    },
+    {
+      "id": "Q079",
+      "question": "На какие годы утверждена финансовая структура в приказе № 3614-1?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D04"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q079-requirement-1",
+          "requirement": "2026 год и плановый период 2027 и 2028",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+              "start": 687,
+              "end": 725,
+              "text": "2026 год и плановый период 2027 и 2028"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "2026 год и плановый период 2027 и 2028"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "На бюджетный 2026 год и плановый период 2027–2028 годов."
+    },
+    {
+      "id": "Q080",
+      "question": "Что происходит с финансовой структурой при изменении организационной структуры МФТИ?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D04"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q080-requirement-1",
+          "requirement": "аналогичные изменения в финансовую структуру",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+              "start": 895,
+              "end": 939,
+              "text": "аналогичные изменения в финансовую структуру"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "аналогичные изменения в финансовую структуру"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Аналогичные изменения считаются внесёнными в финансовую структуру с учётом иерархии подразделений."
+    },
+    {
+      "id": "Q081",
+      "question": "До какой даты проректоры должны передать план поступлений на 2026 год?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q081-requirement-1",
+          "requirement": "до 01.10.2025г.",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 622,
+              "end": 637,
+              "text": "до 01.10.2025г."
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "до 01.10.2025г."
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "До 1 октября 2025 года через 1С:Документооборот."
+    },
+    {
+      "id": "Q082",
+      "question": "Когда подразделения должны предоставить план расходов, финансируемых из общехозяйственного фонда?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q082-requirement-1",
+          "requirement": "до 10 сентября 2025г.",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 4807,
+              "end": 4828,
+              "text": "до 10 сентября 2025г."
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "до 10 сентября 2025г."
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "До 10 сентября 2025 года."
+    },
+    {
+      "id": "Q083",
+      "question": "Какой процент страховых взносов заложен в план начислений на зарплату на 2026 год?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q083-requirement-1",
+          "requirement": "30,2%",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 12514,
+              "end": 12519,
+              "text": "30,2%"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "30,2%"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "30,2% для начислений на выплаты по оплате труда."
+    },
+    {
+      "id": "Q084",
+      "question": "Какой резерв отпускных планируется для профессорско-преподавательского состава?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q084-requirement-1",
+          "requirement": "16,4%",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 12641,
+              "end": 12646,
+              "text": "16,4%"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "16,4%"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "16,4% от планируемой заработной платы."
+    },
+    {
+      "id": "Q085",
+      "question": "Какой резерв отпускных планируется для остальных категорий персонала?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q085-requirement-1",
+          "requirement": "8,2%",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 12768,
+              "end": 12772,
+              "text": "8,2%"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "8,2%"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "8,2% от планируемой заработной платы."
+    },
+    {
+      "id": "Q086",
+      "question": "Какой процент взносов нужно учесть для договоров ГПХ?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q086-requirement-1",
+          "requirement": "30% от суммы договора",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 13306,
+              "end": 13327,
+              "text": "30% от суммы договора"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "30% от суммы договора"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "30% от суммы договора."
+    },
+    {
+      "id": "Q087",
+      "question": "Какая минимальная плановая прибыль предусмотрена по научной деятельности?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q087-requirement-1",
+          "requirement": "не менее 9%",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 13469,
+              "end": 13480,
+              "text": "не менее 9%"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не менее 9%"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Не менее 9% от себестоимости работ и услуг."
+    },
+    {
+      "id": "Q088",
+      "question": "Чем подтвердить планируемое софинансирование проекта в паспорте проектной деятельности?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05",
+        "D14"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q088-requirement-1",
+          "requirement": "официальные письма/приказы",
+          "alternatives": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 14356,
+              "end": 14382,
+              "text": "официальные письма/приказы"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "официальные письма/приказы"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Официальными письмами, приказами и другими документами с указанием сроков и сумм (если такие есть)."
+    },
+    {
+      "id": "Q089",
+      "question": "Обязательны ли технические задания и сметы для инфраструктурных проектов?",
+      "question_type": "hard",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05",
+        "D14"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q089-requirement-1",
+          "requirement": "Для инфраструктурных проектов",
+          "alternatives": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 15450,
+              "end": 15479,
+              "text": "Для инфраструктурных проектов"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Для инфраструктурных проектов"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Да, представление ТЗ и сметы обязательно."
+    },
+    {
+      "id": "Q090",
+      "question": "Как при планировании доходного договора на 2026 год учитывают НДС 20%?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D05",
+        "D14"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q090-requirement-1",
+          "requirement": "деления суммы договора на 1,2",
+          "alternatives": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 18693,
+              "end": 18722,
+              "text": "деления суммы договора на 1,2"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "деления суммы договора на 1,2"
+      ],
+      "family": "Бюджетирование",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Планируемое поступление уменьшают на НДС: сумму договора делят на 1,2."
+    },
+    {
+      "id": "Q091",
+      "question": "С какого момента в промышленную эксплуатацию введён функционал согласования смет в 1С:Документооборот?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D07"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q091-requirement-1",
+          "requirement": "с даты подписания приказа",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 889-1 от 04.04.2023_инструкция по корректировке смет.docx",
+              "start": 674,
+              "end": 699,
+              "text": "с даты подписания приказа"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "с даты подписания приказа"
+      ],
+      "family": "Сметы",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "С даты подписания приказа № 889-1 от 04.04.2023."
+    },
+    {
+      "id": "Q092",
+      "question": "Каким приложением следует руководствоваться при работе с функционалом смет?",
+      "question_type": "medium",
+      "answerable": true,
+      "gold_document_ids": [
+        "D07"
+      ],
+      "evidence_groups": [
+        {
+          "id": "Q092-requirement-1",
+          "requirement": "инструкцией (приложение 1)",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 889-1 от 04.04.2023_инструкция по корректировке смет.docx",
+              "start": 779,
+              "end": 805,
+              "text": "инструкцией (приложение 1)"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "инструкцией (приложение 1)"
+      ],
+      "family": "Сметы",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      },
+      "reference_answer": "Инструкцией в приложении 1 к приказу № 889-1."
+    },
+    {
+      "id": "Q093",
+      "question": "Где в регламентах указано, сколько стоит годовая парковка личного автомобиля сотрудника МФТИ?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "Нет ответа",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      }
+    },
+    {
+      "id": "Q094",
+      "question": "Какие условия и тарифы подключения к платному корпоративному фитнес-клубу для сотрудников МФТИ?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "Нет ответа",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      }
+    },
+    {
+      "id": "Q095",
+      "question": "Какой официальный рецепт блюда недели утверждён приказом ректора для столовой?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "Нет ответа",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      }
+    },
+    {
+      "id": "Q096",
+      "question": "Какой номер модели установлен у всех кофемашин в зданиях университета?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "Нет ответа",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      }
+    },
+    {
+      "id": "Q097",
+      "question": "Какой регламент задаёт порядок оформления личной ипотеки сотрудников через МФТИ?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "Нет ответа",
+      "split": "dev",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      }
+    },
+    {
+      "id": "Q098",
+      "question": "Сколько домашних животных разрешено содержать каждому преподавателю в собственной квартире?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "Нет ответа",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      }
+    },
+    {
+      "id": "Q099",
+      "question": "Какую конкретную марку велосипедного шлема обязан покупать каждый новый сотрудник?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "Нет ответа",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      }
+    },
+    {
+      "id": "Q100",
+      "question": "Какой максимальный объём личного облачного хранилища выделяет МФТИ всем выпускникам в 2032 году?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "Нет ответа",
+      "split": "test",
+      "annotation": {
+        "method": "rag100_external",
+        "review_status": "external_single_annotator"
+      }
+    }
+  ]
+}

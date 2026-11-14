@@ -1,0 +1,231 @@
+[
+  {
+    "name": "B0",
+    "metrics": {
+      "questions": 100,
+      "answer_correctness_proxy": 0.8478260869565217,
+      "procedure_completeness": null,
+      "citation_precision_proxy": 0.7037037037037037,
+      "citation_recall_proxy": 0.8478260869565217,
+      "unsupported_quote_count": 63,
+      "abstention_precision": 0.6,
+      "abstention_recall": 0.75,
+      "false_abstentions": 4,
+      "missed_abstentions": 2,
+      "end_to_end_success_rate": 0.84,
+      "manual_review_required": true,
+      "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+    },
+    "failure_categories": {
+      "evidence_present_but_not_selected_by_llm": 7,
+      "false_abstention": 4,
+      "evidence_absent_from_candidates": 3,
+      "missed_abstention": 2
+    },
+    "latency": {
+      "retrieval": {
+        "n": 100,
+        "min": 0.18487279998953454,
+        "median": 0.215504649997456,
+        "mean": 0.24564987799967639,
+        "p95": 0.471058789997187,
+        "max": 0.4889153999974951
+      },
+      "generation": {
+        "n": 100,
+        "min": 0.31805960001656786,
+        "median": 0.5799097999988589,
+        "mean": 0.5901118720025988,
+        "p95": 0.7743134750067838,
+        "max": 0.9816248999850359
+      },
+      "total": {
+        "n": 100,
+        "min": 0.5223500999854878,
+        "median": 0.844006300001638,
+        "mean": 0.8360547599973507,
+        "p95": 1.0352623650265738,
+        "max": 1.3754085999971721
+      }
+    },
+    "resources": {
+      "peak_rss_bytes": 2405982208,
+      "rss_growth_bytes": 684195840,
+      "peak_vram_bytes": 1116313088,
+      "sampler_interval_seconds": 0.05
+    },
+    "errors": 0
+  },
+  {
+    "name": "E2",
+    "metrics": {
+      "questions": 100,
+      "answer_correctness_proxy": 0.8152173913043478,
+      "procedure_completeness": null,
+      "citation_precision_proxy": 0.6441947565543071,
+      "citation_recall_proxy": 0.8152173913043478,
+      "unsupported_quote_count": 65,
+      "abstention_precision": 0.6363636363636364,
+      "abstention_recall": 0.875,
+      "false_abstentions": 4,
+      "missed_abstentions": 1,
+      "end_to_end_success_rate": 0.82,
+      "manual_review_required": true,
+      "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+    },
+    "failure_categories": {
+      "evidence_present_but_not_selected_by_llm": 11,
+      "false_abstention": 4,
+      "evidence_absent_from_candidates": 2,
+      "missed_abstention": 1
+    },
+    "latency": {
+      "retrieval": {
+        "n": 100,
+        "min": 0.313746399973752,
+        "median": 0.4123035999946296,
+        "mean": 0.4434260560001712,
+        "p95": 0.685885450009664,
+        "max": 0.783164399996167
+      },
+      "generation": {
+        "n": 100,
+        "min": 0.27779689998715185,
+        "median": 0.4719564499828266,
+        "mean": 0.4767048970007454,
+        "p95": 0.6738963649913785,
+        "max": 0.8098309000197332
+      },
+      "total": {
+        "n": 100,
+        "min": 0.6465751000214368,
+        "median": 0.9142811499914387,
+        "mean": 0.920677276001079,
+        "p95": 1.2096491050018812,
+        "max": 1.54458510002587
+      }
+    },
+    "resources": {
+      "peak_rss_bytes": 4126326784,
+      "rss_growth_bytes": 513671168,
+      "peak_vram_bytes": 1796962816,
+      "sampler_interval_seconds": 0.05
+    },
+    "errors": 0
+  },
+  {
+    "name": "ADAPT",
+    "metrics": {
+      "questions": 100,
+      "answer_correctness_proxy": 0.8260869565217391,
+      "procedure_completeness": null,
+      "citation_precision_proxy": 0.6518518518518518,
+      "citation_recall_proxy": 0.8260869565217391,
+      "unsupported_quote_count": 66,
+      "abstention_precision": 0.6,
+      "abstention_recall": 0.75,
+      "false_abstentions": 4,
+      "missed_abstentions": 2,
+      "end_to_end_success_rate": 0.82,
+      "manual_review_required": true,
+      "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+    },
+    "failure_categories": {
+      "evidence_present_but_not_selected_by_llm": 10,
+      "false_abstention": 4,
+      "evidence_absent_from_candidates": 2,
+      "missed_abstention": 2
+    },
+    "latency": {
+      "retrieval": {
+        "n": 100,
+        "min": 0.3049252000055276,
+        "median": 0.4103016500012018,
+        "mean": 0.4498166490002768,
+        "p95": 0.726765870010422,
+        "max": 0.8059413000009954
+      },
+      "generation": {
+        "n": 100,
+        "min": 0.28844410000601783,
+        "median": 0.3639584000047762,
+        "mean": 0.36734310000087134,
+        "p95": 0.4420312349859159,
+        "max": 0.5044666000176221
+      },
+      "total": {
+        "n": 100,
+        "min": 0.6442816999915522,
+        "median": 0.7820606499881251,
+        "mean": 0.8177052060005372,
+        "p95": 1.106250785003067,
+        "max": 1.239123000006657
+      }
+    },
+    "resources": {
+      "peak_rss_bytes": 4407455744,
+      "rss_growth_bytes": 244482048,
+      "peak_vram_bytes": 1796962816,
+      "sampler_interval_seconds": 0.05
+    },
+    "errors": 0
+  },
+  {
+    "name": "RERANK",
+    "metrics": {
+      "questions": 100,
+      "answer_correctness_proxy": 0.8695652173913043,
+      "procedure_completeness": null,
+      "citation_precision_proxy": 0.6759259259259259,
+      "citation_recall_proxy": 0.8695652173913043,
+      "unsupported_quote_count": 63,
+      "abstention_precision": 0.7,
+      "abstention_recall": 0.875,
+      "false_abstentions": 3,
+      "missed_abstentions": 1,
+      "end_to_end_success_rate": 0.87,
+      "manual_review_required": true,
+      "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+    },
+    "failure_categories": {
+      "evidence_present_but_not_selected_by_llm": 6,
+      "false_abstention": 3,
+      "evidence_absent_from_candidates": 2,
+      "evidence_not_selected": 1,
+      "missed_abstention": 1
+    },
+    "latency": {
+      "retrieval": {
+        "n": 100,
+        "min": 0.6774693999905139,
+        "median": 1.2556906000099843,
+        "mean": 2.80640082699887,
+        "p95": 3.8983818699853146,
+        "max": 61.119744000025094
+      },
+      "generation": {
+        "n": 100,
+        "min": 0.3572242000082042,
+        "median": 0.6872793499933323,
+        "mean": 0.710153430000646,
+        "p95": 0.9756697950113448,
+        "max": 1.6402490000182297
+      },
+      "total": {
+        "n": 100,
+        "min": 1.0351407999987714,
+        "median": 1.9813920999877155,
+        "mean": 3.517105138998013,
+        "p95": 4.415038734978588,
+        "max": 62.48964879999403
+      }
+    },
+    "resources": {
+      "peak_rss_bytes": 6435971072,
+      "rss_growth_bytes": 2148904960,
+      "peak_vram_bytes": 4586558464,
+      "sampler_interval_seconds": 0.05
+    },
+    "errors": 0
+  }
+]

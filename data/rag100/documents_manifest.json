@@ -1,0 +1,268 @@
+[
+  {
+    "id": "D01",
+    "name": "460-1 Открытие ФЛС_приказ об изменении в приказе на открытие ФЛС.pdf",
+    "type": ".pdf",
+    "size": 13123371,
+    "pages": 19,
+    "chars": 854,
+    "low_text_pages": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "gold_questions": 0,
+    "text_layer_status": "mostly_scanned"
+  },
+  {
+    "id": "D02",
+    "name": "Копия Приложение 1б Бланк сметы РЦНИ.xlsx",
+    "type": ".xlsx",
+    "size": 9963,
+    "xml_sheets": 1,
+    "chars": 0,
+    "gold_questions": 0,
+    "text_layer_status": "template_xlsx"
+  },
+  {
+    "id": "D03",
+    "name": "Приказ N 3065-1 от 25.11.2021.docx",
+    "type": ".docx",
+    "size": 29040,
+    "paragraphs": 320,
+    "tables": 5,
+    "chars": 39443,
+    "gold_questions": 8,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D04",
+    "name": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+    "type": ".docx",
+    "size": 54075,
+    "paragraphs": 28,
+    "tables": 4,
+    "chars": 66597,
+    "gold_questions": 2,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D05",
+    "name": "Приказ N 3699-1 от 18.08.2025.docx",
+    "type": ".docx",
+    "size": 34725,
+    "paragraphs": 259,
+    "tables": 12,
+    "chars": 37076,
+    "gold_questions": 7,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D06",
+    "name": "Приказ N 794-1 от 28.03.2023.docx",
+    "type": ".docx",
+    "size": 16227,
+    "paragraphs": 94,
+    "tables": 3,
+    "chars": 8003,
+    "gold_questions": 8,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D07",
+    "name": "Приказ N 889-1 от 04.04.2023_инструкция по корректировке смет.docx",
+    "type": ".docx",
+    "size": 13028,
+    "paragraphs": 28,
+    "tables": 3,
+    "chars": 1670,
+    "gold_questions": 2,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D08",
+    "name": "Приказ и регламент по ЭБ.pdf",
+    "type": ".pdf",
+    "size": 4481173,
+    "pages": 6,
+    "chars": 192,
+    "low_text_pages": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "gold_questions": 0,
+    "text_layer_status": "mostly_scanned"
+  },
+  {
+    "id": "D09",
+    "name": "Приказ и Регламент работы первой линии техподдержки.pdf",
+    "type": ".pdf",
+    "size": 570724,
+    "pages": 4,
+    "chars": 6677,
+    "low_text_pages": [],
+    "gold_questions": 14,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D10",
+    "name": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+    "type": ".pdf",
+    "size": 865098,
+    "pages": 7,
+    "chars": 16874,
+    "low_text_pages": [],
+    "gold_questions": 13,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D11",
+    "name": "Приложение 1_новая смета 2019 (с незащищенными формулами).xlsx",
+    "type": ".xlsx",
+    "size": 51919,
+    "xml_sheets": 2,
+    "chars": 0,
+    "gold_questions": 0,
+    "text_layer_status": "template_xlsx"
+  },
+  {
+    "id": "D12",
+    "name": "Приложение 1а Бланк сметы.docx",
+    "type": ".docx",
+    "size": 18858,
+    "paragraphs": 17,
+    "tables": 3,
+    "chars": 2137,
+    "gold_questions": 0,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D13",
+    "name": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+    "type": ".xlsx",
+    "size": 33418,
+    "xml_sheets": 1,
+    "chars": 0,
+    "gold_questions": 0,
+    "text_layer_status": "template_xlsx"
+  },
+  {
+    "id": "D14",
+    "name": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+    "type": ".docx",
+    "size": 33128,
+    "paragraphs": 169,
+    "tables": 9,
+    "chars": 20592,
+    "gold_questions": 3,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D15",
+    "name": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+    "type": ".docx",
+    "size": 21092,
+    "paragraphs": 83,
+    "tables": 5,
+    "chars": 10940,
+    "gold_questions": 7,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D16",
+    "name": "Регламент бронирования конц зала.pdf",
+    "type": ".pdf",
+    "size": 4442798,
+    "pages": 14,
+    "chars": 13,
+    "low_text_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "gold_questions": 0,
+    "text_layer_status": "mostly_scanned"
+  },
+  {
+    "id": "D17",
+    "name": "Регламент о командировании.pdf",
+    "type": ".pdf",
+    "size": 608358,
+    "pages": 16,
+    "chars": 49763,
+    "low_text_pages": [],
+    "gold_questions": 15,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D18",
+    "name": "Регламент поиска и подбора персонала.pdf",
+    "type": ".pdf",
+    "size": 568495,
+    "pages": 5,
+    "chars": 13954,
+    "low_text_pages": [],
+    "gold_questions": 13,
+    "text_layer_status": "extractable"
+  },
+  {
+    "id": "D19",
+    "name": "Регламент поселения сотрудников.pdf",
+    "type": ".pdf",
+    "size": 2291332,
+    "pages": 3,
+    "chars": 266,
+    "low_text_pages": [
+      2,
+      3
+    ],
+    "gold_questions": 0,
+    "text_layer_status": "mostly_scanned"
+  },
+  {
+    "id": "D20",
+    "name": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+    "type": ".pdf",
+    "size": 1203049,
+    "pages": 5,
+    "chars": 0,
+    "low_text_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "gold_questions": 0,
+    "text_layer_status": "mostly_scanned"
+  }
+]

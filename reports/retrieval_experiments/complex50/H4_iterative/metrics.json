@@ -1,0 +1,39 @@
+{
+  "questions": 50,
+  "oracle": false,
+  "rrf": {
+    "document_recall": 1.0,
+    "unit_recall": 0.8767445887445888,
+    "clause_recall": 0.8547445887445888,
+    "evidence_recall": 0.8547445887445888,
+    "fact_coverage": 0.8240000000000001,
+    "all_evidence_found": 0.64
+  },
+  "reranked": {
+    "document_recall": 1.0,
+    "unit_recall": 0.8767445887445888,
+    "clause_recall": 0.8547445887445888,
+    "evidence_recall": 0.8547445887445888,
+    "fact_coverage": 0.8240000000000001,
+    "all_evidence_found": 0.64
+  },
+  "selected": {
+    "document_recall": 1.0,
+    "unit_recall": 0.9354285714285715,
+    "clause_recall": 0.9270476190476191,
+    "evidence_recall": 0.9270476190476191,
+    "fact_coverage": 0.9283333333333332,
+    "all_evidence_found": 0.78
+  },
+  "generation": {
+    "step_recall": 0.36033333333333334,
+    "complete_at_all": 0.04,
+    "false_abstention": 0.0,
+    "unsupported_quote_rate": 0.35
+  },
+  "latency": {
+    "retrieval_median": 9.340761999977985,
+    "generation_median": 2.033987900009379,
+    "context_tokens_mean": 3056.0
+  }
+}

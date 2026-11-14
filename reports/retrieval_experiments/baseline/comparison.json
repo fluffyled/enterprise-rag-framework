@@ -1,0 +1,130 @@
+{
+  "experiments": [
+    {
+      "name": "baseline_dev",
+      "metrics": {
+        "questions": 33,
+        "all_documents_hit@5": 1.0,
+        "all_documents_hit@5_n": 30,
+        "all_evidence_hit@20": 0.9333333333333333,
+        "all_evidence_hit@20_n": 30,
+        "all_evidence_hit@6": 0.8333333333333334,
+        "all_evidence_hit@6_n": 30,
+        "covered_requirements": 1.0606060606060606,
+        "covered_requirements_n": 33,
+        "document_hit@1": 0.8,
+        "document_hit@1_n": 30,
+        "document_hit@3": 1.0,
+        "document_hit@3_n": 30,
+        "document_hit@5": 1.0,
+        "document_hit@5_n": 30,
+        "document_recall@1": 0.7666666666666667,
+        "document_recall@1_n": 30,
+        "document_recall@3": 1.0,
+        "document_recall@3_n": 30,
+        "document_recall@5": 1.0,
+        "document_recall@5_n": 30,
+        "evidence_precision": 0.03956642650397715,
+        "evidence_precision_n": 33,
+        "evidence_recall@20": 0.9722222222222221,
+        "evidence_recall@20_n": 30,
+        "evidence_recall@6": 0.8944444444444444,
+        "evidence_recall@6_n": 30,
+        "gold_requirement_count": 1.2424242424242424,
+        "gold_requirement_count_n": 33,
+        "gold_span_coverage": 0.8944444444444444,
+        "gold_span_coverage_n": 30,
+        "gold_span_coverage@20": 0.9722222222222221,
+        "gold_span_coverage@20_n": 30,
+        "gold_span_coverage@6": 0.8944444444444444,
+        "gold_span_coverage@6_n": 30,
+        "mrr@10": 0.8237037037037037,
+        "mrr@10_n": 30,
+        "mrr@5": 0.8833333333333333,
+        "mrr@5_n": 30,
+        "ndcg@10": 0.8326061351355464,
+        "ndcg@10_n": 30,
+        "ndcg@5": 0.9130929753571457,
+        "ndcg@5_n": 30,
+        "ranked_document_count": 5.0606060606060606,
+        "ranked_document_count_n": 33,
+        "redundancy_ratio": 0.048245208949487854,
+        "redundancy_ratio_n": 33,
+        "requirements_total": 1.2424242424242424,
+        "requirements_total_n": 33,
+        "selected_characters": 2128.060606060606,
+        "selected_characters_n": 33,
+        "selected_tokens": 269.06060606060606,
+        "selected_tokens_n": 33,
+        "unique_documents": 2.515151515151515,
+        "unique_documents_n": 33,
+        "all_evidence_hit@6_errors": 5,
+        "all_documents_hit@5_errors": 0
+      },
+      "latency": {
+        "embedding": {
+          "n": 99,
+          "min": 0.01406009999482194,
+          "median": 0.016842500001075678,
+          "mean": 0.01871547777791604,
+          "p95": 0.031874859998060855,
+          "max": 0.03382370000326773
+        },
+        "bm25": {
+          "n": 99,
+          "min": 0.029982400003063958,
+          "median": 0.039223599997058045,
+          "mean": 0.044186759595697477,
+          "p95": 0.09711602000461425,
+          "max": 0.10079319999931613
+        },
+        "dense": {
+          "n": 99,
+          "min": 0.04687030000059167,
+          "median": 0.05629359999875305,
+          "mean": 0.06552848787881278,
+          "p95": 0.13591595999896525,
+          "max": 0.145086699994863
+        },
+        "rrf": {
+          "n": 99,
+          "min": 0.0002554000020609237,
+          "median": 0.0003654999964055605,
+          "mean": 0.0004261303030135524,
+          "p95": 0.0006730400018568615,
+          "max": 0.0011268000016571023
+        },
+        "reranking": {
+          "n": 99,
+          "min": 0.19455120000202442,
+          "median": 0.6732913000014378,
+          "mean": 0.7119775181819216,
+          "p95": 1.2901209499992545,
+          "max": 1.910732200005441
+        },
+        "context_selection": {
+          "n": 99,
+          "min": 6.999980541877449e-07,
+          "median": 1.1000010999850929e-06,
+          "mean": 1.2757572947502738e-06,
+          "p95": 2.3999964469112456e-06,
+          "max": 3.9000005926936865e-06
+        },
+        "total": {
+          "n": 99,
+          "min": 0.3047048000007635,
+          "median": 0.7863651000006939,
+          "mean": 0.8428817464642414,
+          "p95": 1.5652202099983696,
+          "max": 2.174942000005103
+        },
+        "initialization": {
+          "n": 1,
+          "mean": 5.258135600000969,
+          "measurement_mode": "cold"
+        }
+      }
+    }
+  ],
+  "paired_bootstrap": {}
+}

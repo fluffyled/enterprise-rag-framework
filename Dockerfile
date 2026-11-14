@@ -5,6 +5,11 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 COPY navigator navigator
-COPY app.py models.lock.json ./
+COPY answering answering
+COPY ui ui
+COPY configs configs
+COPY demo_fixtures demo_fixtures
+COPY scripts/build_clause_store.py scripts/build_clause_store.py
+COPY app.py models.lock.json answer-model.lock.json ./
 COPY .streamlit .streamlit
 CMD ["python", "-m", "streamlit", "run", "app.py", "--server.address", "0.0.0.0"]

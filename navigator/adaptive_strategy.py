@@ -18,7 +18,7 @@ import re
 _DOC_TYPE_RE = re.compile(r"\b(приказ|регламент|инструкци\w+|положени\w+|договор\w*|смет\w+|бюджет\w*|приложени\w+|распоряжени\w+|contract\w*|agreement\w*|polic\w+|clause\w*|exhibit\w*|schedule\w*|section\w*)\b", re.IGNORECASE)
 _ENUM_RE = re.compile(r"\b(перечислите|назовите|укажите|какие|каких|сколько|list|name|what are|which|how many)\b", re.IGNORECASE)
 _LIST_RE = re.compile(r"\s+(?:и|а также|либо|или|and|or|as well as)\s+|,", re.IGNORECASE)
-_YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
+_YEAR_RE = re.compile(r"\b(?:19|20)\d{2}\b")
 
 STRATEGY_BY_TYPE = {
     "single_fact": "top_k",

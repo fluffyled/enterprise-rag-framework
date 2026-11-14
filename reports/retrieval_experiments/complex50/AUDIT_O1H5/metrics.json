@@ -1,0 +1,29 @@
+{
+  "questions": 50,
+  "oracle": {
+    "document_recall": 1.0,
+    "unit_recall": 1.0,
+    "clause_recall": 1.0,
+    "clause_recall_strict": 1.0,
+    "clause_recall_soft_only": 0.0,
+    "evidence_recall": 1.0,
+    "fact_coverage": 1.0,
+    "fact_coverage_strict": 1.0,
+    "all_evidence_found": 1.0,
+    "clause_recall_legacy": 1.0,
+    "fact_coverage_legacy": 1.0
+  },
+  "generation": {
+    "step_recall": 0.5760000000000001,
+    "complete_at_all": 0.26,
+    "false_abstention": 0.02,
+    "error_rate": 0.0,
+    "unsupported_quote_rate": 0.29266666666666663,
+    "legacy_step_recall": 0.7336666666666666
+  },
+  "latency": {
+    "retrieval_median": 0.0,
+    "generation_median": 4.605128199997125,
+    "context_tokens_mean": 226.84
+  }
+}

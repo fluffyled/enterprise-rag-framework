@@ -1,0 +1,146 @@
+{
+  "split": "test",
+  "n": 74,
+  "pairs": {
+    "BGE_protected - BGE_e2": {
+      "by_unit": {
+        "doc_hit@5": {
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "iterations": 2000
+        },
+        "doc_mrr@10": {
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "iterations": 2000
+        },
+        "unit_hit@5": {
+          "difference": 0.027027027027026973,
+          "ci95": [
+            0.0,
+            0.07246376811594202
+          ],
+          "iterations": 2000
+        },
+        "unit_mrr@10": {
+          "difference": 0.004954954954954904,
+          "ci95": [
+            0.0,
+            0.013333333333333308
+          ],
+          "iterations": 2000
+        }
+      },
+      "by_document": {
+        "doc_hit@5": {
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "iterations": 2000
+        },
+        "doc_mrr@10": {
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "iterations": 2000
+        },
+        "unit_hit@5": {
+          "difference": 0.027027027027026973,
+          "ci95": [
+            0.0,
+            0.06666666666666665
+          ],
+          "iterations": 2000
+        },
+        "unit_mrr@10": {
+          "difference": 0.004954954954954904,
+          "ci95": [
+            0.0,
+            0.011965811965812034
+          ],
+          "iterations": 2000
+        }
+      }
+    },
+    "BGE_coverage - BGE_e2": {
+      "by_unit": {
+        "doc_hit@5": {
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "iterations": 2000
+        },
+        "doc_mrr@10": {
+          "difference": -0.08333333333333348,
+          "ci95": [
+            -0.13034188034188032,
+            -0.02238805970149249
+          ],
+          "iterations": 2000
+        },
+        "unit_hit@5": {
+          "difference": 0.013513513513513487,
+          "ci95": [
+            0.0,
+            0.046875
+          ],
+          "iterations": 2000
+        },
+        "unit_mrr@10": {
+          "difference": -0.13288288288288297,
+          "ci95": [
+            -0.19444444444444453,
+            -0.062189054726368154
+          ],
+          "iterations": 2000
+        }
+      },
+      "by_document": {
+        "doc_hit@5": {
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "iterations": 2000
+        },
+        "doc_mrr@10": {
+          "difference": -0.08333333333333348,
+          "ci95": [
+            -0.1351851851851853,
+            -0.01724137931034475
+          ],
+          "iterations": 2000
+        },
+        "unit_hit@5": {
+          "difference": 0.013513513513513487,
+          "ci95": [
+            0.0,
+            0.04761904761904767
+          ],
+          "iterations": 2000
+        },
+        "unit_mrr@10": {
+          "difference": -0.13288288288288297,
+          "ci95": [
+            -0.19713261648745517,
+            -0.04924242424242442
+          ],
+          "iterations": 2000
+        }
+      }
+    }
+  }
+}

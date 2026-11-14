@@ -1,0 +1,80 @@
+{"id": "Q001", "retrieved": [], "abstained": false}
+{"id": "Q003", "retrieved": [], "abstained": false}
+{"id": "Q004", "retrieved": [{"document_id": "D20", "unit_type": "page", "unit_locator": 4}, {"document_id": "D20", "unit_type": "page", "unit_locator": 5}, {"document_id": "D20", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q005", "retrieved": [{"document_id": "D20", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q006", "retrieved": [], "abstained": false}
+{"id": "Q007", "retrieved": [{"document_id": "D16", "unit_type": "page", "unit_locator": 13}, {"document_id": "D16", "unit_type": "page", "unit_locator": 12}, {"document_id": "D16", "unit_type": "page", "unit_locator": 10}], "abstained": false}
+{"id": "Q008", "retrieved": [], "abstained": false}
+{"id": "Q009", "retrieved": [{"document_id": "D08", "unit_type": "page", "unit_locator": 3}, {"document_id": "D16", "unit_type": "page", "unit_locator": 2}, {"document_id": "D20", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q010", "retrieved": [], "abstained": false}
+{"id": "Q012", "retrieved": [], "abstained": false}
+{"id": "Q013", "retrieved": [], "abstained": false}
+{"id": "Q014", "retrieved": [{"document_id": "D16", "unit_type": "page", "unit_locator": 5}], "abstained": false}
+{"id": "Q015", "retrieved": [], "abstained": false}
+{"id": "Q017", "retrieved": [], "abstained": false}
+{"id": "Q018", "retrieved": [], "abstained": false}
+{"id": "Q019", "retrieved": [], "abstained": false}
+{"id": "Q021", "retrieved": [], "abstained": false}
+{"id": "Q022", "retrieved": [], "abstained": false}
+{"id": "Q023", "retrieved": [], "abstained": false}
+{"id": "Q024", "retrieved": [], "abstained": false}
+{"id": "Q025", "retrieved": [], "abstained": false}
+{"id": "Q026", "retrieved": [], "abstained": false}
+{"id": "Q028", "retrieved": [], "abstained": false}
+{"id": "Q029", "retrieved": [], "abstained": false}
+{"id": "Q030", "retrieved": [], "abstained": false}
+{"id": "Q031", "retrieved": [], "abstained": false}
+{"id": "Q032", "retrieved": [], "abstained": false}
+{"id": "Q034", "retrieved": [], "abstained": false}
+{"id": "Q035", "retrieved": [], "abstained": false}
+{"id": "Q036", "retrieved": [], "abstained": false}
+{"id": "Q037", "retrieved": [], "abstained": false}
+{"id": "Q038", "retrieved": [], "abstained": false}
+{"id": "Q039", "retrieved": [{"document_id": "D19", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q040", "retrieved": [], "abstained": false}
+{"id": "Q041", "retrieved": [], "abstained": false}
+{"id": "Q043", "retrieved": [], "abstained": false}
+{"id": "Q045", "retrieved": [], "abstained": false}
+{"id": "Q047", "retrieved": [], "abstained": false}
+{"id": "Q049", "retrieved": [], "abstained": false}
+{"id": "Q051", "retrieved": [], "abstained": false}
+{"id": "Q052", "retrieved": [], "abstained": false}
+{"id": "Q053", "retrieved": [], "abstained": false}
+{"id": "Q054", "retrieved": [], "abstained": false}
+{"id": "Q055", "retrieved": [], "abstained": false}
+{"id": "Q056", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 1}, {"document_id": "D03", "unit_type": "paragraph", "unit_locator": 11}, {"document_id": "D01", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q057", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 3}, {"document_id": "D01", "unit_type": "page", "unit_locator": 2}, {"document_id": "D01", "unit_type": "page", "unit_locator": 18}], "abstained": false}
+{"id": "Q058", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 3}, {"document_id": "D01", "unit_type": "page", "unit_locator": 5}, {"document_id": "D01", "unit_type": "page", "unit_locator": 18}, {"document_id": "D01", "unit_type": "page", "unit_locator": 7}], "abstained": false}
+{"id": "Q059", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 3}, {"document_id": "D01", "unit_type": "page", "unit_locator": 5}], "abstained": false}
+{"id": "Q063", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 6}, {"document_id": "D01", "unit_type": "page", "unit_locator": 5}, {"document_id": "D01", "unit_type": "page", "unit_locator": 4}], "abstained": false}
+{"id": "Q064", "retrieved": [{"document_id": "D07", "unit_type": "paragraph", "unit_locator": 12}, {"document_id": "D07", "unit_type": "paragraph", "unit_locator": 16}, {"document_id": "D06", "unit_type": "paragraph", "unit_locator": 17}], "abstained": false}
+{"id": "Q065", "retrieved": [{"document_id": "D07", "unit_type": "paragraph", "unit_locator": 3}], "abstained": false}
+{"id": "Q067", "retrieved": [], "abstained": false}
+{"id": "Q070", "retrieved": [], "abstained": false}
+{"id": "Q071", "retrieved": [], "abstained": false}
+{"id": "Q072", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q074", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q075", "retrieved": [], "abstained": false}
+{"id": "Q076", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q077", "retrieved": [{"document_id": "D08", "unit_type": "page", "unit_locator": 2}], "abstained": false}
+{"id": "Q078", "retrieved": [], "abstained": false}
+{"id": "Q079", "retrieved": [{"document_id": "D04", "unit_type": "paragraph", "unit_locator": 21}, {"document_id": "D04", "unit_type": "paragraph", "unit_locator": 27}, {"document_id": "D06", "unit_type": "paragraph", "unit_locator": 17}, {"document_id": "D07", "unit_type": "paragraph", "unit_locator": 12}], "abstained": false}
+{"id": "Q080", "retrieved": [{"document_id": "D04", "unit_type": "paragraph", "unit_locator": 15}, {"document_id": "D04", "unit_type": "paragraph", "unit_locator": 11}, {"document_id": "D04", "unit_type": "paragraph", "unit_locator": 14}, {"document_id": "D01", "unit_type": "page", "unit_locator": 1}], "abstained": false}
+{"id": "Q081", "retrieved": [{"document_id": "D14", "unit_type": "paragraph", "unit_locator": 4}], "abstained": false}
+{"id": "Q082", "retrieved": [{"document_id": "D16", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q083", "retrieved": [], "abstained": false}
+{"id": "Q084", "retrieved": [{"document_id": "D01", "unit_type": "page", "unit_locator": 7}], "abstained": false}
+{"id": "Q085", "retrieved": [], "abstained": false}
+{"id": "Q086", "retrieved": [], "abstained": false}
+{"id": "Q087", "retrieved": [], "abstained": false}
+{"id": "Q088", "retrieved": [{"document_id": "D14", "unit_type": "paragraph", "unit_locator": 118}, {"document_id": "D14", "unit_type": "paragraph", "unit_locator": 59}], "abstained": false}
+{"id": "Q089", "retrieved": [{"document_id": "D14", "unit_type": "paragraph", "unit_locator": 137}, {"document_id": "D01", "unit_type": "page", "unit_locator": 2}, {"document_id": "D14", "unit_type": "paragraph", "unit_locator": 136}], "abstained": false}
+{"id": "Q090", "retrieved": [{"document_id": "D14", "unit_type": "paragraph", "unit_locator": 163}], "abstained": false}
+{"id": "Q091", "retrieved": [{"document_id": "D07", "unit_type": "paragraph", "unit_locator": 16}, {"document_id": "D07", "unit_type": "paragraph", "unit_locator": 11}, {"document_id": "D07", "unit_type": "paragraph", "unit_locator": 12}, {"document_id": "D06", "unit_type": "paragraph", "unit_locator": 17}], "abstained": false}
+{"id": "Q092", "retrieved": [{"document_id": "D07", "unit_type": "paragraph", "unit_locator": 17}, {"document_id": "D07", "unit_type": "paragraph", "unit_locator": 16}, {"document_id": "D07", "unit_type": "paragraph", "unit_locator": 11}], "abstained": false}
+{"id": "Q093", "retrieved": [{"document_id": "D08", "unit_type": "page", "unit_locator": 2}, {"document_id": "D19", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q094", "retrieved": [{"document_id": "D19", "unit_type": "page", "unit_locator": 2}], "abstained": false}
+{"id": "Q095", "retrieved": [], "abstained": false}
+{"id": "Q098", "retrieved": [{"document_id": "D19", "unit_type": "page", "unit_locator": 2}, {"document_id": "D19", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q099", "retrieved": [{"document_id": "D19", "unit_type": "page", "unit_locator": 2}, {"document_id": "D19", "unit_type": "page", "unit_locator": 3}], "abstained": false}
+{"id": "Q100", "retrieved": [{"document_id": "D16", "unit_type": "page", "unit_locator": 4}, {"document_id": "D20", "unit_type": "page", "unit_locator": 2}, {"document_id": "D20", "unit_type": "page", "unit_locator": 1}], "abstained": false}

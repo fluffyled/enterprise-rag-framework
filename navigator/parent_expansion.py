@@ -31,7 +31,14 @@ def token_count_text(text):
 
 def load_clause_store(path=None):
     payload = json.loads(Path(path or STORE_PATH).read_text(encoding="utf-8"))
+    if payload.get("schema_version") == 2:
+        return {(entry["document_id"], entry["sha256"]): entry for entry in payload["documents"]}
     return payload["documents"]
+
+
+def clause_entry(store, document_id, sha):
+    entry = store.get((document_id, sha)) or store.get(sha)
+    return entry if entry and (not document_id or entry.get("document_id") == document_id) else None
 
 
 def _clauses_for_span(clauses, start, end):
@@ -66,7 +73,7 @@ def expand_parents(documents, store, token_budget, related_clauses=False, **kwar
         meta = document.meta
         sha = meta.get("sha256")
         source_span = meta.get("source_span") or {}
-        entry = store.get(sha) if sha else None
+        entry = clause_entry(store, meta.get("document_id"), sha) if sha else None
         start = source_span.get("start")
         if entry is None or not isinstance(start, int) or start < 0:
             emit_chunk_fallback(document, "missing_clause" if entry is None else "invalid_source_span")

@@ -8,8 +8,8 @@ from navigator.parent_expansion import expand_parents, load_clause_store
 
 def make_store(clauses_by_sha):
     return {
-        sha: {"document_id": f"doc{i}.pdf", "clauses": clauses}
-        for i, (sha, clauses) in enumerate(clauses_by_sha.items())
+        sha: {"document_id": clauses[0]["document_id"], "clauses": clauses}
+        for sha, clauses in clauses_by_sha.items()
     }
 
 
@@ -17,11 +17,11 @@ def make_clause(cid, number, text, start, end, sha="sha1"):
     return {"clause_id": cid, "document_id": "doc.pdf", "number": number, "level": number.count(".") + 1, "title": text[:40], "full_text": text, "start": start, "end": end, "parent_id": None, "references": []}
 
 
-def make_chunk(start, sha="sha1", content="кусок текста", chunk_id="chunk-1"):
+def make_chunk(start, sha="sha1", content="кусок текста", chunk_id="chunk-1", document_id="doc.pdf"):
     return Document(content=content, meta={
-        "sha256": sha, "chunk_id": chunk_id, "document_id": "doc.pdf",
+        "sha256": sha, "chunk_id": chunk_id, "document_id": document_id,
         "page": "2", "locator": "абзац 5",
-        "source_span": {"document_id": "doc.pdf", "start": start, "end": start + len(content)},
+        "source_span": {"document_id": document_id, "start": start, "end": start + len(content)},
     })
 
 
@@ -78,10 +78,67 @@ def test_invalid_source_span_falls_back():
 def test_identical_texts_from_different_docs_not_merged():
     clause_a = make_clause("cA", "1", "1. Одинаковый текст пункта.", 0, 40, sha="shaA")
     clause_b = make_clause("cB", "1", "1. Одинаковый текст пункта.", 0, 40, sha="shaB")
+    clause_b["document_id"] = "other.pdf"
     store = make_store({"shaA": [clause_a], "shaB": [clause_b]})
-    docs, diag = expand_parents([make_chunk(5, sha="shaA"), make_chunk(5, sha="shaB", chunk_id="chunk-2")], store, token_budget=1000)
+    docs, diag = expand_parents([make_chunk(5, sha="shaA"),
+                                 make_chunk(5, sha="shaB", chunk_id="chunk-2", document_id="other.pdf")],
+                                store, token_budget=1000)
     assert len(docs) == 2
     assert {d.meta["clause_id"] for d in docs} == {"cA", "cB"}
+
+
+def test_shared_sha_does_not_borrow_clause_from_another_document():
+    store = make_store({"sha1": [make_clause("c1", "3", "3. Пункт.", 0, 20)]})
+    chunk = make_chunk(5, document_id="copy.pdf")
+    docs, diag = expand_parents([chunk], store, token_budget=1000)
+    assert docs == [chunk]
+    assert diag["items"][0]["reason"] == "missing_clause"
+
+
+def test_identical_docx_versions_keep_distinct_chunks_and_clauses(tmp_path):
+    from docx import Document as WordDocument
+    from navigator.ingest import ingest, units
+    from scripts.build_clause_store import build_store
+
+    raw = tmp_path / "raw"
+    raw.mkdir()
+    original = WordDocument()
+    original.add_paragraph("1. Сотрудник передаёт заявление ответственному лицу.")
+    table = original.add_table(rows=1, cols=3)
+    for cell, value in zip(table.rows[0].cells, ("Да", "Да", "Нет"), strict=True):
+        cell.text = value
+    original.save(raw / "first.docx")
+    (raw / "second.docx").write_bytes((raw / "first.docx").read_bytes())
+    assert list(units(raw / "first.docx"))[1][0] == "Да | Да | Нет"
+    chunks = ingest(raw, tmp_path)
+    assert len({chunk["id"] for chunk in chunks}) == len(chunks)
+    docs = json.loads((tmp_path / "source_documents.json").read_text(encoding="utf-8"))
+    payload = build_store(docs)
+    path = tmp_path / "clauses.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    store = load_clause_store(path)
+    assert len(store) == 2
+    ids = {entry["clauses"][0]["clause_id"] for entry in store.values()}
+    assert len(ids) == 2
+    (raw / "first.docx").unlink()
+    ingest(raw, tmp_path)
+    remaining = build_store(json.loads((tmp_path / "source_documents.json").read_text(encoding="utf-8")))
+    assert remaining["documents"] == [payload["documents"][1]]
+
+
+def test_failed_rebuild_preserves_diagnostic_and_previous_snapshot(tmp_path):
+    from navigator.corpus import rebuild
+
+    raw = tmp_path / "raw"
+    raw.mkdir()
+    (raw / "broken.docx").write_bytes(b"not a zip")
+    snapshots = tmp_path / "snapshots"
+    previous = snapshots / "previous"
+    previous.mkdir(parents=True)
+    with pytest.raises(RuntimeError, match="broken.docx"):
+        rebuild(snapshots, raw=raw)
+    assert {item.name for item in snapshots.iterdir()} == {"previous", "last_build_error.json"}
+    assert "broken.docx" in (snapshots / "last_build_error.json").read_text(encoding="utf8")
 
 
 def test_budget_never_exceeded():

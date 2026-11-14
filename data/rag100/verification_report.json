@@ -1,0 +1,40 @@
+{
+  "total_files": 20,
+  "total_questions": 100,
+  "answerable": 92,
+  "unanswerable": 8,
+  "gold_documents": 11,
+  "structural_verification": "literal evidence match with exact PDF-page/DOCX-paragraph offsets",
+  "type_counts": {
+    ".pdf": 9,
+    ".xlsx": 3,
+    ".docx": 8
+  },
+  "excluded_scanned_pdf": [
+    "D01",
+    "D08",
+    "D16",
+    "D19",
+    "D20"
+  ],
+  "excluded_xlsx": [
+    "D02",
+    "D11",
+    "D13"
+  ],
+  "categories": {
+    "ИТ-поддержка": 14,
+    "Подбор персонала": 13,
+    "Внутреннее заимствование": 13,
+    "Командировки": 15,
+    "Открытие ФЛС": 8,
+    "Сметы": 10,
+    "Нумерация ФЛС": 7,
+    "Бюджетирование": 12,
+    "Нет ответа": 8
+  },
+  "splits": {
+    "test": 80,
+    "dev": 20
+  }
+}

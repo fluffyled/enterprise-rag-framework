@@ -1,0 +1,25 @@
+{
+  "endpoint": "http://127.0.0.1:8080",
+  "seconds": 0.5582852999941679,
+  "result": {
+    "status": "supported_quotes",
+    "answer": [
+      {
+        "source": 1,
+        "quote": "Сотрудник подаёт заявку в течение пяти рабочих дней."
+      }
+    ],
+    "steps": [],
+    "conflicts": [],
+    "model_selection": {
+      "answer_ids": [
+        1
+      ],
+      "step_ids": [],
+      "conflict_pairs": [],
+      "insufficient": false
+    }
+  },
+  "literal_quotes_valid": true,
+  "nvidia_smi": "3069 MiB, 4950 MiB, 97 %"
+}

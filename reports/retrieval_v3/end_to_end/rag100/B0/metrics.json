@@ -1,0 +1,29 @@
+{
+  "metrics": {
+    "questions": 100,
+    "answer_correctness_proxy": 0.8478260869565217,
+    "procedure_completeness": null,
+    "citation_precision_proxy": 0.7037037037037037,
+    "citation_recall_proxy": 0.8478260869565217,
+    "unsupported_quote_count": 63,
+    "abstention_precision": 0.6,
+    "abstention_recall": 0.75,
+    "false_abstentions": 4,
+    "missed_abstentions": 2,
+    "end_to_end_success_rate": 0.84,
+    "manual_review_required": true,
+    "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+  },
+  "failure_categories": {
+    "evidence_present_but_not_selected_by_llm": 7,
+    "false_abstention": 4,
+    "evidence_absent_from_candidates": 3,
+    "missed_abstention": 2
+  },
+  "resources": {
+    "peak_rss_bytes": 2405982208,
+    "rss_growth_bytes": 684195840,
+    "peak_vram_bytes": 1116313088,
+    "sampler_interval_seconds": 0.05
+  }
+}

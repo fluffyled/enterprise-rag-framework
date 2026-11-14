@@ -1,0 +1,210 @@
+[
+  {
+    "name": "B0",
+    "metrics": {
+      "questions": 3,
+      "answer_correctness_proxy": null,
+      "procedure_completeness": null,
+      "citation_precision_proxy": null,
+      "citation_recall_proxy": null,
+      "unsupported_quote_count": 0,
+      "abstention_precision": 1.0,
+      "abstention_recall": 1.0,
+      "false_abstentions": 0,
+      "missed_abstentions": 0,
+      "end_to_end_success_rate": 1.0,
+      "manual_review_required": true,
+      "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+    },
+    "failure_categories": {},
+    "latency": {
+      "retrieval": {
+        "n": 3,
+        "min": 0.19978379999520257,
+        "median": 0.20527359998959582,
+        "mean": 0.25253079999917344,
+        "p95": 0.3378088600104093,
+        "max": 0.35253500001272187
+      },
+      "generation": {
+        "n": 3,
+        "min": 0.335291800001869,
+        "median": 0.42618310000398196,
+        "mean": 0.4526327666681027,
+        "p95": 0.5793993699990097,
+        "max": 0.5964233999984572
+      },
+      "total": {
+        "n": 3,
+        "min": 0.6261081999982707,
+        "median": 0.6879573999904096,
+        "mean": 0.7053017333334234,
+        "p95": 0.7904513800094719,
+        "max": 0.8018396000115899
+      }
+    },
+    "resources": {
+      "peak_rss_bytes": 2188201984,
+      "rss_growth_bytes": 468090880,
+      "peak_vram_bytes": 1039851008,
+      "sampler_interval_seconds": 0.05
+    },
+    "errors": 0
+  },
+  {
+    "name": "V2",
+    "metrics": {
+      "questions": 3,
+      "answer_correctness_proxy": null,
+      "procedure_completeness": null,
+      "citation_precision_proxy": null,
+      "citation_recall_proxy": null,
+      "unsupported_quote_count": 0,
+      "abstention_precision": 1.0,
+      "abstention_recall": 1.0,
+      "false_abstentions": 0,
+      "missed_abstentions": 0,
+      "end_to_end_success_rate": 1.0,
+      "manual_review_required": true,
+      "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+    },
+    "failure_categories": {},
+    "latency": {
+      "retrieval": {
+        "n": 3,
+        "min": 0.18394319999788422,
+        "median": 0.2176424999925075,
+        "mean": 0.21162453333090525,
+        "p95": 0.23172336000134236,
+        "max": 0.23328790000232402
+      },
+      "generation": {
+        "n": 3,
+        "min": 0.3168034000118496,
+        "median": 0.34336379999876954,
+        "mean": 0.4029401666727305,
+        "p95": 0.5281243500066921,
+        "max": 0.5486533000075724
+      },
+      "total": {
+        "n": 3,
+        "min": 0.5008826999983285,
+        "median": 0.5613148999982513,
+        "mean": 0.6147643000003882,
+        "p95": 0.7600172600039513,
+        "max": 0.7820953000045847
+      }
+    },
+    "resources": {
+      "peak_rss_bytes": 2277040128,
+      "rss_growth_bytes": 14041088,
+      "peak_vram_bytes": 1041554944,
+      "sampler_interval_seconds": 0.05
+    },
+    "errors": 0
+  },
+  {
+    "name": "V3F",
+    "metrics": {
+      "questions": 3,
+      "answer_correctness_proxy": null,
+      "procedure_completeness": null,
+      "citation_precision_proxy": null,
+      "citation_recall_proxy": null,
+      "unsupported_quote_count": 0,
+      "abstention_precision": 1.0,
+      "abstention_recall": 1.0,
+      "false_abstentions": 0,
+      "missed_abstentions": 0,
+      "end_to_end_success_rate": 1.0,
+      "manual_review_required": true,
+      "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+    },
+    "failure_categories": {},
+    "latency": {
+      "retrieval": {
+        "n": 3,
+        "min": 0.26294220000272617,
+        "median": 0.3086187000008067,
+        "mean": 0.3146368333303447,
+        "p95": 0.3659765099888318,
+        "max": 0.3723495999875013
+      },
+      "generation": {
+        "n": 3,
+        "min": 0.31430230000114534,
+        "median": 0.34471099999791477,
+        "mean": 0.4144088333317389,
+        "p95": 0.5602629799963325,
+        "max": 0.5842131999961566
+      },
+      "total": {
+        "n": 3,
+        "min": 0.6078046000038739,
+        "median": 0.6867888999986462,
+        "mean": 0.7291926666657673,
+        "p95": 0.8723649399951682,
+        "max": 0.8929844999947818
+      }
+    },
+    "resources": {
+      "peak_rss_bytes": 2361024512,
+      "rss_growth_bytes": 20353024,
+      "peak_vram_bytes": 1098951168,
+      "sampler_interval_seconds": 0.05
+    },
+    "errors": 0
+  },
+  {
+    "name": "ORACLE",
+    "metrics": {
+      "questions": 3,
+      "answer_correctness_proxy": null,
+      "procedure_completeness": null,
+      "citation_precision_proxy": null,
+      "citation_recall_proxy": null,
+      "unsupported_quote_count": 0,
+      "abstention_precision": 1.0,
+      "abstention_recall": 1.0,
+      "false_abstentions": 0,
+      "missed_abstentions": 0,
+      "end_to_end_success_rate": 1.0,
+      "manual_review_required": true,
+      "proxy_definition": "Correctness and citation metrics use overlap with annotated evidence quotes; they are not a substitute for semantic human review."
+    },
+    "failure_categories": {},
+    "latency": {
+      "retrieval": {
+        "n": 3,
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "generation": {
+        "n": 3,
+        "min": 1.069999416358769e-05,
+        "median": 2.309998671989888e-05,
+        "mean": 2.4199990245203178e-05,
+        "p95": 3.722998953890055e-05,
+        "max": 3.879998985212296e-05
+      },
+      "total": {
+        "n": 3,
+        "min": 1.9400002202019095e-05,
+        "median": 4.3400010326877236e-05,
+        "mean": 4.366667417343706e-05,
+        "p95": 6.572001002496109e-05,
+        "max": 6.820000999141484e-05
+      }
+    },
+    "resources": {
+      "peak_rss_bytes": 1797083136,
+      "rss_growth_bytes": 262144,
+      "peak_vram_bytes": 1098951168,
+      "sampler_interval_seconds": 0.05
+    },
+    "errors": 0
+  }
+]

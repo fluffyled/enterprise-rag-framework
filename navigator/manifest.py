@@ -82,10 +82,19 @@ def build_manifest(output_path=None):
     return manifest
 
 
-def validate(config_path=None, index_path=None, strict=True):
+def validate(config_path=None, index_path=None, strict=True, *, manifest_path=None, require_manifest=False):
     """Проверка совместимости. strict=False — только предупреждения (возвращает
     список строк); strict=True — RuntimeError при критической рассинхронизации."""
+    if manifest_path is not None:
+        manifest_path = Path(manifest_path)
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        for name in ("index.json", "clauses.json", "source_documents.json"):
+            if _sha256_file(manifest_path.parent / name) != manifest[name]:
+                raise RuntimeError(f"Артефакт корпуса изменился: {name}")
+        return []
     if not MANIFEST_PATH.exists():
+        if require_manifest:
+            raise RuntimeError("Отсутствует манифест корпуса. Постройте базу документов.")
         return ["manifest отсутствует — валидация пропущена (scripts/build_retrieval_manifest.py)"]
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     problems = []
@@ -98,14 +107,20 @@ def validate(config_path=None, index_path=None, strict=True):
     if index_path:
         index_info = manifest["indexes"]["bge_internal"]
         candidate = Path(index_path)
-        if candidate.exists() and candidate.samefile(ROOT / index_info["path"]):
+        if candidate.exists() and (ROOT / index_info["path"]).exists() and candidate.samefile(ROOT / index_info["path"]):
             if _sha256_file(candidate) != index_info["sha256"]:
                 problems.append("BGE-индекс изменился: пересоберите индекс или manifest")
+        elif require_manifest:
+            problems.append("Индекс отсутствует в манифесте. Постройте снимок корпуса.")
     clauses = ROOT / "data/clauses/clauses.json"
     if clauses.exists() and manifest["parser"]["clause_store_sha256"]:
         if _sha256_file(clauses) != manifest["parser"]["clause_store_sha256"]:
             problems.append("Clause Store изменился: пересоберите store или manifest")
+    if require_manifest and not manifest["parser"].get("clause_store_sha256"):
+        problems.append("В манифесте отсутствует контрольная сумма Clause Store.")
     corpus = ROOT / "data/source_documents.json"
+    if require_manifest and (not corpus.exists() or not clauses.exists()):
+        problems.append("Отсутствуют исходные тексты или Clause Store.")
     if corpus.exists() and _sha256_file(corpus) != manifest["corpus"]["source_documents_sha256"]:
         problems.append("Корпус документов изменился: требуется полная пересборка")
     if strict and problems:

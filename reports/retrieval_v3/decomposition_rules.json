@@ -1,0 +1,538 @@
+{
+  "D0": {
+    "cases": 20,
+    "exact_match": 0.7,
+    "valid_spans": 1.0,
+    "mean_subtasks": 1.5,
+    "mean_latency_seconds": 1.8625000666361303e-05,
+    "planner_fallback_rate": 0.0,
+    "errors": [
+      "d05",
+      "d10",
+      "d11",
+      "d14",
+      "d18",
+      "d20"
+    ],
+    "per_query": [
+      {
+        "id": "d01",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой срок подачи заявки",
+          "кто утверждает документ"
+        ],
+        "latency_seconds": 0.00020900000527035445,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d02",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Когда нужно подать отчёт",
+          "какие документы нужно приложить"
+        ],
+        "latency_seconds": 1.9500002963468432e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d03",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Кто инициирует поиск сотрудника?"
+        ],
+        "latency_seconds": 1.7999991541728377e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d04",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какие нормативы суточных",
+          "найма жилья установлены"
+        ],
+        "latency_seconds": 1.340000017080456e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d05",
+        "exact_match": false,
+        "valid_spans": true,
+        "expected_count": 3,
+        "actual_count": 2,
+        "actual": [
+          "Как заполнить форму, кого уведомить",
+          "когда отправить её"
+        ],
+        "latency_seconds": 1.2400007108226418e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d06",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какие документы нужны, где хранится форма",
+          "кто её подписывает"
+        ],
+        "latency_seconds": 1.5400000847876072e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d07",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Если срок истёк, какие действия нужно выполнить?"
+        ],
+        "latency_seconds": 8.800008799880743e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d08",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "При наличии задолженности можно ли получить новый аванс?"
+        ],
+        "latency_seconds": 8.199989679269493e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d09",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой КФО используется для грантов",
+          "какой для субсидий"
+        ],
+        "latency_seconds": 1.069999416358769e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d10",
+        "exact_match": false,
+        "valid_spans": true,
+        "expected_count": 3,
+        "actual_count": 1,
+        "actual": [
+          "Назовите ответственного, срок и порядок действий."
+        ],
+        "latency_seconds": 8.700008038431406e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d11",
+        "exact_match": false,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 1,
+        "actual": [
+          "Какие условия и исключения установлены для займа?"
+        ],
+        "latency_seconds": 8.90000956133008e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d12",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой процент применяется",
+          "к какой сумме он относится"
+        ],
+        "latency_seconds": 1.1099997209385037e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d13",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Что происходит после истечения срока?"
+        ],
+        "latency_seconds": 1.400010660290718e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d14",
+        "exact_match": false,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 1,
+        "actual": [
+          "Кто проверяет отчёт и кто его утверждает?"
+        ],
+        "latency_seconds": 1.1999945854768157e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d15",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Как оформить командировку",
+          "какие расходы возмещаются"
+        ],
+        "latency_seconds": 1.0899995686486363e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d16",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Какая ставка указана, если сотрудник работает неполный день?"
+        ],
+        "latency_seconds": 8.200004231184721e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d17",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой документ отменён",
+          "какой введён вместо него"
+        ],
+        "latency_seconds": 1.0100004146806896e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d18",
+        "exact_match": false,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 1,
+        "actual": [
+          "Какой размер штрафа и когда он начисляется?"
+        ],
+        "latency_seconds": 1.2999953469261527e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d19",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Какой email используется для заявки?"
+        ],
+        "latency_seconds": 1.1999945854768157e-06,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d20",
+        "exact_match": false,
+        "valid_spans": true,
+        "expected_count": 3,
+        "actual_count": 2,
+        "actual": [
+          "Какой срок, ответственный",
+          "порядок согласования сметы"
+        ],
+        "latency_seconds": 1.0299991117790341e-05,
+        "planner_status": "rules"
+      }
+    ]
+  },
+  "D1": {
+    "cases": 20,
+    "exact_match": 1.0,
+    "valid_spans": 1.0,
+    "mean_subtasks": 1.85,
+    "mean_latency_seconds": 6.687499844701961e-05,
+    "planner_fallback_rate": 0.0,
+    "errors": [],
+    "per_query": [
+      {
+        "id": "d01",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой срок подачи заявки",
+          "кто утверждает документ"
+        ],
+        "latency_seconds": 0.0008271999977296218,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d02",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Когда нужно подать отчёт",
+          "какие документы нужно приложить"
+        ],
+        "latency_seconds": 2.6399997295811772e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d03",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Кто инициирует поиск сотрудника?"
+        ],
+        "latency_seconds": 1.2200005585327744e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d04",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какие нормативы суточных",
+          "найма жилья установлены"
+        ],
+        "latency_seconds": 1.8700011423788965e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d05",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 3,
+        "actual_count": 3,
+        "actual": [
+          "Как заполнить форму",
+          "кого уведомить",
+          "когда отправить её"
+        ],
+        "latency_seconds": 2.3100001271814108e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d06",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какие документы нужны, где хранится форма",
+          "кто её подписывает"
+        ],
+        "latency_seconds": 1.8799997633323073e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d07",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Если срок истёк, какие действия нужно выполнить?"
+        ],
+        "latency_seconds": 1.5900004655122757e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d08",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "При наличии задолженности можно ли получить новый аванс?"
+        ],
+        "latency_seconds": 1.4899997040629387e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d09",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой КФО используется для грантов",
+          "какой для субсидий"
+        ],
+        "latency_seconds": 1.6299993149004877e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d10",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 3,
+        "actual_count": 3,
+        "actual": [
+          "Назовите ответственного",
+          "срок",
+          "порядок действий."
+        ],
+        "latency_seconds": 0.00020569999469444156,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d11",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какие условия",
+          "исключения установлены для займа"
+        ],
+        "latency_seconds": 2.0399995264597237e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d12",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой процент применяется",
+          "к какой сумме он относится"
+        ],
+        "latency_seconds": 1.7699989257380366e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d13",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Что происходит после истечения срока?"
+        ],
+        "latency_seconds": 1.0799994925037026e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d14",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Кто проверяет отчёт",
+          "кто его утверждает"
+        ],
+        "latency_seconds": 1.5199999324977398e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d15",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Как оформить командировку",
+          "какие расходы возмещаются"
+        ],
+        "latency_seconds": 1.5999990864656866e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d16",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Какая ставка указана, если сотрудник работает неполный день?"
+        ],
+        "latency_seconds": 1.2899996363557875e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d17",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой документ отменён",
+          "какой введён вместо него"
+        ],
+        "latency_seconds": 1.5300000086426735e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d18",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 2,
+        "actual_count": 2,
+        "actual": [
+          "Какой размер штрафа",
+          "когда он начисляется"
+        ],
+        "latency_seconds": 1.5099998563528061e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d19",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 1,
+        "actual_count": 1,
+        "actual": [
+          "Какой email используется для заявки?"
+        ],
+        "latency_seconds": 1.0200004908256233e-05,
+        "planner_status": "rules"
+      },
+      {
+        "id": "d20",
+        "exact_match": true,
+        "valid_spans": true,
+        "expected_count": 3,
+        "actual_count": 3,
+        "actual": [
+          "Какой срок",
+          "ответственный",
+          "порядок согласования сметы"
+        ],
+        "latency_seconds": 2.469999890308827e-05,
+        "planner_status": "rules"
+      }
+    ]
+  }
+}

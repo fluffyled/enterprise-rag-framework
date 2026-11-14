@@ -1,0 +1,412 @@
+{
+  "experiment": "B0",
+  "counts": {
+    "generation_error": 6,
+    "ok": 63,
+    "false_abstention": 3,
+    "retrieval_miss": 6,
+    "unsupported_answer": 2
+  },
+  "rows": [
+    {
+      "id": "Q001",
+      "category": "generation_error",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q003",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q004",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q005",
+      "category": "false_abstention",
+      "status": "insufficient"
+    },
+    {
+      "id": "Q006",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q007",
+      "category": "retrieval_miss",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q008",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q009",
+      "category": "retrieval_miss",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q010",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q012",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q013",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q014",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q015",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q017",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q018",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q019",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q021",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q022",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q023",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q024",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q025",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q026",
+      "category": "generation_error",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q028",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q029",
+      "category": "generation_error",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q030",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q031",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q032",
+      "category": "false_abstention",
+      "status": "insufficient"
+    },
+    {
+      "id": "Q034",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q035",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q036",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q037",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q038",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q039",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q040",
+      "category": "generation_error",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q041",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q043",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q045",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q047",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q049",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q051",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q052",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q053",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q054",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q055",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q056",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q057",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q058",
+      "category": "retrieval_miss",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q059",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q063",
+      "category": "retrieval_miss",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q064",
+      "category": "generation_error",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q065",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q067",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q070",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q071",
+      "category": "generation_error",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q072",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q074",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q075",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q076",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q077",
+      "category": "retrieval_miss",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q078",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q079",
+      "category": "retrieval_miss",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q080",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q081",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q082",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q083",
+      "category": "false_abstention",
+      "status": "insufficient"
+    },
+    {
+      "id": "Q084",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q085",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q086",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q087",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q088",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q089",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q090",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q091",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q092",
+      "category": "ok",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q093",
+      "category": "ok",
+      "status": "insufficient"
+    },
+    {
+      "id": "Q094",
+      "category": "ok",
+      "status": "insufficient"
+    },
+    {
+      "id": "Q095",
+      "category": "unsupported_answer",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q098",
+      "category": "unsupported_answer",
+      "status": "supported_quotes"
+    },
+    {
+      "id": "Q099",
+      "category": "ok",
+      "status": "insufficient"
+    },
+    {
+      "id": "Q100",
+      "category": "ok",
+      "status": "insufficient"
+    }
+  ]
+}

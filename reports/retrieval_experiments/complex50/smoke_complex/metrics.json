@@ -1,0 +1,28 @@
+{
+  "questions": 15,
+  "oracle": false,
+  "rrf": {
+    "document_recall": 1.0,
+    "unit_recall": 0.8606349206349206,
+    "clause_recall": 0.8473015873015872,
+    "evidence_recall": 0.8473015873015872,
+    "fact_coverage": 0.8366666666666667,
+    "all_evidence_found": 0.6
+  },
+  "reranked": {
+    "document_recall": 1.0,
+    "unit_recall": 0.8606349206349206,
+    "clause_recall": 0.8473015873015872,
+    "evidence_recall": 0.8473015873015872,
+    "fact_coverage": 0.8366666666666667,
+    "all_evidence_found": 0.6
+  },
+  "selected": {
+    "document_recall": 1.0,
+    "unit_recall": 0.7892063492063492,
+    "clause_recall": 0.7758730158730158,
+    "evidence_recall": 0.7758730158730158,
+    "fact_coverage": 0.7733333333333333,
+    "all_evidence_found": 0.4666666666666667
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "clauses_total": 439,
+  "batches": 110,
+  "failed_batches": 0,
+  "fact_cards": 322,
+  "synthetic_questions": 949,
+  "seconds": 1028.1,
+  "prompt_sha256": "35bfe1c514e889c78f1e262d33a84b6abba4f2cfe22238e23acb6546c667bdc0",
+  "model": "Qwen2.5-3B-Instruct q4_k_m (llama.cpp CUDA)"
+}
