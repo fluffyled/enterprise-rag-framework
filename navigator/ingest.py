@@ -75,9 +75,10 @@ def units(path):
         raise ValueError(f"Неподдерживаемый формат: {path.suffix}")
 
 
-def ingest():
+def ingest(raw=None, output=None):
     docs, manifest, errors, source_documents = [], [], [], []
-    raw = DATA / "raw"
+    raw = Path(raw) if raw is not None else DATA / "raw"
+    output = Path(output) if output is not None else DATA
     if not raw.exists(): raise RuntimeError("Нет data/raw. Сначала скачайте документы.")
     for path in sorted(raw.rglob("*")):
         if not path.is_file(): continue
@@ -117,7 +118,10 @@ def ingest():
                     char_end = unit_start + selected[-1].end()
                     span = {"document_id": relative_path, "start": char_start, "end": char_end}
                     m = dict(base, **meta, section=section, word_start=start, chunk_id=None, source_span=span, unit_source_span={"start": unit_start, "end": unit_end}, original_content=content)
-                    cid = hashlib.sha256(json.dumps([digest, meta["locator"], start], ensure_ascii=False).encode()).hexdigest()[:24]
+                    identity = [digest, meta["locator"], start]
+                    if output != DATA:
+                        identity.append(relative_path)
+                    cid = hashlib.sha256(json.dumps(identity, ensure_ascii=False).encode()).hexdigest()[:24]
                     m["chunk_id"] = cid
                     pending.append({"id": cid, "content": content, "meta": m})
             docs.extend(pending); count = len(pending)
@@ -126,15 +130,15 @@ def ingest():
             errors.append({"name": path.name, "error": str(exc)})
         manifest.append(dict(base, chunks=count))
         print(path.name, count, flush=True)
-    DATA.mkdir(exist_ok=True)
-    (DATA / "manifest.json").write_text(json.dumps({"files": manifest, "errors": errors}, ensure_ascii=False, indent=2), encoding="utf-8")
+    output.mkdir(parents=True, exist_ok=True)
+    (output / "manifest.json").write_text(json.dumps({"files": manifest, "errors": errors}, ensure_ascii=False, indent=2), encoding="utf-8")
     if errors:
         raise RuntimeError("Индекс не заменён: ошибки обработки. См. data/manifest.json")
     if not docs: raise RuntimeError("Нет извлечённого текста")
-    tmp = DATA / "chunks.tmp"
+    tmp = output / "chunks.tmp"
     tmp.write_text(json.dumps(docs, ensure_ascii=False), encoding="utf-8")
-    tmp.replace(DATA / "chunks.json")
-    tmp = DATA / "source_documents.tmp"
+    tmp.replace(output / "chunks.json")
+    tmp = output / "source_documents.tmp"
     tmp.write_text(json.dumps(source_documents, ensure_ascii=False), encoding="utf-8")
-    tmp.replace(DATA / "source_documents.json")
+    tmp.replace(output / "source_documents.json")
     return docs

@@ -140,7 +140,8 @@ def _weighted_rank_fusion(dense, sparse, sparse_weight, top_k):
 
 
 class Retriever:
-    def __init__(self, rerank=None, config=None, index_path=None):
+    def __init__(self, rerank=None, config=None, index_path=None, *, clause_store_path=None,
+                 manifest_path=None):
         self.config = load_config(config)
         self.index_path = Path(index_path) if index_path else INDEX
         payload = json.loads(self.index_path.read_text(encoding="utf-8"))
@@ -166,7 +167,9 @@ class Retriever:
             config_file = config
         elif isinstance(self.config, dict):
             config_file = None
-        validate_manifest(config_path=config_file, index_path=self.index_path, strict=True)
+        self.clause_store_path = clause_store_path
+        validate_manifest(config_path=config_file, index_path=self.index_path, strict=True,
+                          manifest_path=manifest_path)
         self._validate_index_config(self.config)
         self._configure_components(self.config)
 
@@ -477,7 +480,7 @@ class Retriever:
         selected = select_context(strategy, reranked, top_k, settings["context_token_budget"], **selection_kwargs) if settings["coverage_aware"] else reranked[:top_k]
         if settings.get("parent_expansion"):
             if not hasattr(self, "_clause_store"):
-                self._clause_store = load_clause_store()
+                self._clause_store = load_clause_store(self.clause_store_path)
             selected, expansion_diag = expand_parents(selected, self._clause_store, settings["context_token_budget"], related_clauses=settings.get("related_clauses", False))
             metadata["parent_expansion"] = expansion_diag
         timings["context_selection"] = time.perf_counter() - started

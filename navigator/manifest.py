@@ -82,9 +82,16 @@ def build_manifest(output_path=None):
     return manifest
 
 
-def validate(config_path=None, index_path=None, strict=True):
+def validate(config_path=None, index_path=None, strict=True, *, manifest_path=None):
     """Проверка совместимости. strict=False — только предупреждения (возвращает
     список строк); strict=True — RuntimeError при критической рассинхронизации."""
+    if manifest_path is not None:
+        manifest_path = Path(manifest_path)
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        for name in ("index.json", "clauses.json", "source_documents.json"):
+            if _sha256_file(manifest_path.parent / name) != manifest[name]:
+                raise RuntimeError(f"Артефакт корпуса изменился: {name}")
+        return []
     if not MANIFEST_PATH.exists():
         return ["manifest отсутствует — валидация пропущена (scripts/build_retrieval_manifest.py)"]
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
@@ -98,7 +105,7 @@ def validate(config_path=None, index_path=None, strict=True):
     if index_path:
         index_info = manifest["indexes"]["bge_internal"]
         candidate = Path(index_path)
-        if candidate.exists() and candidate.samefile(ROOT / index_info["path"]):
+        if candidate.exists() and (ROOT / index_info["path"]).exists() and candidate.samefile(ROOT / index_info["path"]):
             if _sha256_file(candidate) != index_info["sha256"]:
                 problems.append("BGE-индекс изменился: пересоберите индекс или manifest")
     clauses = ROOT / "data/clauses/clauses.json"

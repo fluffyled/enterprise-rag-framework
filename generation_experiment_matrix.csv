@@ -1,0 +1,15 @@
+context,split,question,mode,status,seconds,semantic_score,gold_count
+Oracle,dev,HQ002,G0,error,6.857,0,4
+Oracle,dev,HQ002,G0-H5,error,17.072,0,4
+Oracle,dev,HQ002,G1,partial,16.237,3,4
+Oracle,dev,HQ002,G2,partial,16.571,3.5,4
+Oracle,dev,HQ002,G3,partial,17.262,3.5,4
+Oracle,dev,HQ002,G4,partial,40.774,3.5,4
+Oracle,dev,HQ004,G0,error,6.295,0,4
+Oracle,dev,HQ004,G0-H5,error,16.208,0,4
+Oracle,dev,HQ004,G1,answered,6.421,2,4
+Oracle,dev,HQ004,G2,answered,10.237,2.5,4
+Oracle,dev,HQ004,G3,answered,61.155,2,4
+Oracle,dev,HQ004,G4,answered,37.774,2,4
+Oracle,dev,HQ014,G2-no-retry,error,32.812,0,5
+Oracle,dev,HQ014,G2,partial,60.221,,5
