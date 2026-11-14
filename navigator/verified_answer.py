@@ -57,19 +57,20 @@ def _digits(text):
     return set(re.findall(r"\d+", text or ""))
 
 
-def build_evidence_blocks(documents, token_cap=2200, block_token_cap=900):
+def build_evidence_blocks(documents, char_cap=5800, block_char_cap=2400):
+    """Капы в СИМВОЛАХ: счётчик токенов словесный, а llama использует BPE,
+    для русского текста 1 BPE-токен ≈ 2.2 символа (словесный счёт занижает
+    в ~2.4 раза). Слот 4096 токенов ≈ 9000 символов минус система/ответ."""
     blocks = []
-    used_tokens = 0
+    used_chars = 0
     for index, document in enumerate(documents, 1):
         meta = document.meta
         content = document.content
-        if token_count_text(content) > block_token_cap:
-            words = content.split()
-            content = " ".join(words[: block_token_cap * 2]) + " …"
-        cost = token_count_text(content)
-        if blocks and used_tokens + cost > token_cap:
+        if len(content) > block_char_cap:
+            content = content[:block_char_cap] + " …"
+        if blocks and used_chars + len(content) > char_cap:
             continue
-        used_tokens += cost
+        used_chars += len(content)
         blocks.append({
             "id": f"block_{index}",
             "document": meta.get("document_id") or meta.get("name"),
