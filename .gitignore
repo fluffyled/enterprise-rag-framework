@@ -24,3 +24,4 @@ reports/**/per_query_results.json
 data/experiment_indexes/multidoc2dial/88ae285727d63b84/index.json
 data/experiment_indexes/multidoc2dial/f08c5dd40c32277b/index.json
 .cache/
+/data/raw.zip

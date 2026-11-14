@@ -12,13 +12,13 @@
 |---|---|---|
 | Исследование | Сравнение RAG, hybrid, reranking, иерархии, цитирования, abstention; 5 open-source проектов; дополнительные QA-наборы. Непроверенные данные отмечены | [research.md](research.md) |
 | Аудит | Форматы, страницы, текст/сканы, DOCX-таблицы, XLSX-формулы/объединения, SHA256 | [DATASET_AUDIT.md](DATASET_AUDIT.md) |
-| Извлечение | PDFium, python-docx, openpyxl; page/paragraph/table-row/sheet-row locators | [navigator/ingest.py](navigator/ingest.py) |
-| OCR | Tesseract rus+eng при тексте страницы короче 80 символов; кэш по SHA256 и странице | [navigator/ingest.py](navigator/ingest.py) |
-| Фрагменты | До 110 слов, шаг 90, перекрытие до 20 слов; metadata и parent_id исходного блока | [navigator/ingest.py](navigator/ingest.py) |
-| Поиск | Haystack BM25Okapi + normalized dense cosine; RRF top20; cross-encoder reranker; top6 в ответ | [navigator/retrieval.py](navigator/retrieval.py) |
-| Ответ | Локальная Qwen выбирает номера предложений в constrained JSON; код извлекает и проверяет цитаты | [navigator/answer.py](navigator/answer.py) |
-| UI и CLI | Вопрос, ответ, шаги, возможные конфликты, отказ/ошибка, раскрываемые источники | [app.py](app.py), [navigator/cli.py](navigator/cli.py) |
-| Запуск | start/stop, фиксированные зависимости, ревизии и SHA256 моделей, Docker-конфигурация | [README.md](README.md), [models.lock.json](models.lock.json) |
+| Извлечение | PDFium, python-docx, openpyxl; page/paragraph/table-row/sheet-row locators | [navigator/ingest.py](../../navigator/ingest.py) |
+| OCR | Tesseract rus+eng при тексте страницы короче 80 символов; кэш по SHA256 и странице | [navigator/ingest.py](../../navigator/ingest.py) |
+| Фрагменты | До 110 слов, шаг 90, перекрытие до 20 слов; metadata и parent_id исходного блока | [navigator/ingest.py](../../navigator/ingest.py) |
+| Поиск | Haystack BM25Okapi + normalized dense cosine; RRF top20; cross-encoder reranker; top6 в ответ | [navigator/retrieval.py](../../navigator/retrieval.py) |
+| Ответ | Локальная Qwen выбирает номера предложений в constrained JSON; код извлекает и проверяет цитаты | [navigator/answer.py](../../navigator/answer.py) |
+| UI и CLI | Вопрос, ответ, шаги, возможные конфликты, отказ/ошибка, раскрываемые источники | [app.py](../../app.py), [navigator/cli.py](../../navigator/cli.py) |
+| Запуск | start/stop, фиксированные зависимости, ревизии и SHA256 моделей, Docker-конфигурация | [README.md](../../README.md), [models.lock.json](../../models.lock.json) |
 | Проверка | 10 pytest, Streamlit AppTest, 8 реальных сценариев, pip check | [TEST_RESULTS.md](TEST_RESULTS.md) |
 
 Индекс пересобирается целиком при ingest/index. Ошибка файла блокирует замену chunks snapshot. Parent_id сохранен, но полноценный hierarchical/parent-child retrieval не реализован. Даты из имен не доказывают юридическую актуальность.
@@ -71,9 +71,9 @@ pypdf не прочитал часть PDF из-за `Odd-length string`; исп
 | Runtime | llama.cpp CPU b12284, 4 потока, заданный context 8192 | Скрипты запуска и Dockerfile.llm |
 | OCR | Tesseract 5.5.3 rus+eng; rus из tessdata_fast 4.1.0 | SHA256 в runtime-checksums.json |
 
-E5 использует query:/passage: и normalized cosine. Лицензии: [THIRD_PARTY.md](THIRD_PARTY.md). Qwen3B имеет **Qwen Research License**; коммерческая пригодность не утверждается. Контрольные суммы: [runtime-checksums.json](runtime-checksums.json).
+E5 использует query:/passage: и normalized cosine. Лицензии: [THIRD_PARTY.md](../../THIRD_PARTY.md). Qwen3B имеет **Qwen Research License**; коммерческая пригодность не утверждается. Контрольные суммы: [runtime-checksums.json](../../runtime-checksums.json).
 
-Git, VS Code и Python уже были установлены. Создана `.venv` на Python 3.11.9. Установлены Haystack 2.13.1, sentence-transformers 3.4.1, transformers 4.49.0, torch 2.6.0+cpu, Streamlit 1.45.0, PDFium 4.30.0, python-docx 1.1.2, openpyxl 3.1.5, pytesseract 0.3.13, Pillow 11.2.1, gdown 5.2.0 и pytest 8.3.5. Для аудита также ставились pypdf и BeautifulSoup. Полный Windows lock: [requirements-lock.txt](requirements-lock.txt), 89 пакетов. Docker и Ollama не устанавливались. Обучения и fine-tuning не было.
+Git, VS Code и Python уже были установлены. Создана `.venv` на Python 3.11.9. Установлены Haystack 2.13.1, sentence-transformers 3.4.1, transformers 4.49.0, torch 2.6.0+cpu, Streamlit 1.45.0, PDFium 4.30.0, python-docx 1.1.2, openpyxl 3.1.5, pytesseract 0.3.13, Pillow 11.2.1, gdown 5.2.0 и pytest 8.3.5. Для аудита также ставились pypdf и BeautifulSoup. Полный Windows lock: [requirements-lock.txt](../../requirements-lock.txt), 89 пакетов. Docker и Ollama не устанавливались. Обучения и fine-tuning не было.
 
 | Ресурс | Наблюдение |
 |---|---|
@@ -90,7 +90,7 @@ Git, VS Code и Python уже были установлены. Создана `.
 
 ## 4. Все сохраненные метрики QA
 
-8 разведочных сценариев. Конкретные вопросы, названия внутренних источников, gold ответы и цитаты не публикуются. Полный локальный лог: reports/evaluation.json. Обезличенная сводка: [metrics/baseline_summary.json](metrics/baseline_summary.json).
+8 разведочных сценариев. Конкретные вопросы, названия внутренних источников, gold ответы и цитаты не публикуются. Полный локальный лог: reports/evaluation.json. Обезличенная сводка: [metrics/baseline_summary.json](../../metrics/baseline_summary.json).
 
 ### 4.1. Сценарии
 
