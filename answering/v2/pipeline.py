@@ -367,7 +367,7 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
         batches = evidence_batches(request.evidence, settings.input_chars, settings.extraction)
         facts = deduplicate(extract(batches))
         trace["extracted_facts"] = [f.model_dump() for f in facts]
-        if not facts and issues:
+        if not facts and issues and not settings.fail_on_batch_error:
             raise ValueError("No usable extraction response")
         missing, conflicts = {}, set()
         if settings.verify:

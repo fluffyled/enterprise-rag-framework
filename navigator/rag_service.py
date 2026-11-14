@@ -102,7 +102,9 @@ def ask(question, retrieval=None, generation=None, *, snapshot=None, diagnostics
             info["generation_ms"] = round((perf_counter() - started) * 1000)
         trace = response.diagnostics.pop("trace", None)
         if trace:
-            info["model"] = next((call.get("model") for call in trace["calls"] if call.get("model")), None)
+            model = next((call.get("model") for call in trace["calls"] if call.get("model")), None)
+            if model:
+                info["model"] = model.replace("\\", "/").rsplit("/", 1)[-1]
         if diagnostics and trace:
             target = DATA / "traces" / (uuid4().hex + ".json")
             target.parent.mkdir(parents=True, exist_ok=True)

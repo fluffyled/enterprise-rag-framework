@@ -128,9 +128,11 @@ def documents_page():
             with st.spinner("Извлекаю текст и строю индекс…"):
                 inputs = [(item["name"], STORE / "staging" / s.owner / item["id"]) for item in s.files]
                 snapshot = rebuild(STORE / "corpus" / s.owner, inputs)
+            if s.snapshot and str(snapshot) != s.snapshot:
+                invalidate_corpus()
             s.snapshot = str(snapshot)
             s.rebuild_required = False
-            s.pop("health", None)
+            s.pop("health_key", None)
             persist()
             st.success("База обновлена.")
         except (OSError, RuntimeError, ValueError) as exc:
@@ -336,8 +338,11 @@ def main():
     if s.mode == "Демонстрационный":
         st.info("Демонстрационный режим — тестовые данные. Retrieval и LLM не подключены к этим ответам.")
     else:
-        if "health" not in s or st.button("Проверить подключение"):
-            s.health = health(s.snapshot, s.settings.get("generation", application_config()["generation"]))
+        health_key = (s.snapshot, s.settings.get("generation", application_config()["generation"]))
+        refresh = st.button("Проверить подключение")
+        if s.get("health_key") != health_key or refresh:
+            s.health = health(*health_key)
+            s.health_key = health_key
         st.caption(("Индекс найден · загрузка Retrieval при запросе" if s.health["index"] else "Retrieval: индекс отсутствует") + " | " + ("LLM: отвечает на health-check" if s.health["llm"] else "LLM: недоступна"))
     try:
         if page == "Ассистент": assistant_page()

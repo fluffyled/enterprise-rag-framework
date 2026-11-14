@@ -57,7 +57,7 @@ def get_input(dataset, case):
     return AnswerInputV1(question=case["question"], evidence=evidence), gold
 
 
-def main(output_path, repair_from=None):
+def main(output_path, repair_from=None, *, resume=False):
     opener = build_opener(ProxyHandler({}), NoRedirect())
     with opener.open("http://127.0.0.1:8091/v1/models", timeout=10) as response:
         models = json.load(response)["data"]
@@ -66,6 +66,9 @@ def main(output_path, repair_from=None):
     cases = [(dataset, case, *get_input(dataset, case)) for dataset, case in load_cases()]
     if len(cases) != 150 or len({(d, c["id"]) for d, c, *_ in cases}) != 150:
         raise ValueError("Expected 150 distinct dataset/question IDs")
+    # Report known regressions early while preserving the full sample.
+    priority = {"HQ004", "HQ014", "HQ022", "HQ048", "Q031", "Q032"}
+    cases.sort(key=lambda row: row[1]["id"] not in priority)
     if repair_from:
         previous = read_rows(repair_from)
         expected = {(d, c["id"]) for d, c, *_ in cases}
@@ -73,7 +76,17 @@ def main(output_path, repair_from=None):
             raise ValueError("Repair requires a complete source trace")
         failures = {(r["dataset"], r["id"]) for r in previous if r["result"]["status"] == "error"}
         cases = [row for row in cases if (row[0], row[1]["id"]) in failures]
-    with output_path.open("x", encoding="utf-8") as output:
+    if resume:
+        if repair_from:
+            raise ValueError("Resume and repair require separate runs")
+        previous = read_rows(output_path)
+        expected = {(d, c["id"]): hashlib.sha256(r.model_dump_json().encode()).hexdigest()
+                    for d, c, r, _ in cases}
+        done = {(r["dataset"], r["id"]): r["input_sha256"] for r in previous}
+        if len(done) != len(previous) or any(expected.get(key) != sha for key, sha in done.items()):
+            raise ValueError("Existing results do not match the Oracle inputs")
+        cases = [row for row in cases if (row[0], row[1]["id"]) not in done]
+    with output_path.open("a" if resume else "x", encoding="utf-8") as output:
         for dataset, case, request, gold in cases:
             started = perf_counter()
             result = generate_v2(request, endpoint=ENDPOINT, settings=SETTINGS)
@@ -120,6 +133,7 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, default=OUTPUT)
     parser.add_argument("--repair-from", type=Path)
     parser.add_argument("--retries", type=Path)
+    parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
     if args.summary:
         rows = read_rows(args.output)
@@ -138,4 +152,4 @@ if __name__ == "__main__":
             print("After targeted recovery:")
             summarize([by_id.get((r["dataset"], r["id"]), r) for r in rows])
     else:
-        main(args.output, args.repair_from)
+        main(args.output, args.repair_from, resume=args.resume)

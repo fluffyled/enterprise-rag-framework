@@ -14,6 +14,8 @@ def adapt_evidence(documents, mode, source_documents=(), clause_store=None, *, a
     corpus = {row["document_id"]: row for row in source_documents}
     evidence = {}
     inputs = list(documents)
+    parent_limit = len(inputs) + 2
+    queued = {(item.meta.get("document_id"), item.meta.get("clause_id")) for item in inputs}
     for document in inputs:
         meta = document.meta
         document_id = meta.get("document_id") or meta.get("relative_path") or meta.get("name")
@@ -53,9 +55,11 @@ def adapt_evidence(documents, mode, source_documents=(), clause_store=None, *, a
             if page:
                 locator = f"{locator}, стр. {page}" if locator else f"стр. {page}"
         parent_id = None if clause.get("parent_ambiguous") else clause.get("parent_id")
-        if add_parents and parent_id and coordinates and len(inputs) < len(documents) + 2:
+        parent_key = document_id, parent_id
+        if add_parents and parent_id and coordinates and len(inputs) < parent_limit and parent_key not in queued:
             parent = next((row for row in entry["clauses"] if row["clause_id"] == parent_id), None)
             if parent and parent["start"] <= start < end <= parent["end"] and len(parent["full_text"]) <= 1500:
+                queued.add(parent_key)
                 inputs.append(SimpleNamespace(content=parent["full_text"], meta={
                     **meta, "clause_id": parent_id, "clause_number": parent["number"],
                     "source_span": {"start": parent["start"], "end": parent["end"]},
