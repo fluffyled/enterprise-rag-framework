@@ -1,18 +1,22 @@
-schema_version: 1
+# Retrieval Stable — конфигурация приложения по умолчанию (Retrieval v4.1).
+# Идентична configs/retrieval_fast_stable.yaml (Fast Stable):
+# BGE-M3 (dense+sparse) → bge-reranker-v2-m3 → adaptive selection.
+# Для Quality Stable используйте NAVIGATOR_CONFIG=configs/retrieval_quality_stable.yaml
+# (parent expansion; требуется NAVIGATOR_INDEX с BGE-индексом, см. start.ps1).
 retrieval:
-  hierarchical: false
-  contextual: false
   coverage_aware: true
-  selection_strategy: "coverage_decomposed"
-  adaptive: false
-  graph_expansion: false
-  embedding_backend: "e5-small"
-  reranker_backend: "mminilm"
+  selection_strategy: "adaptive_strategy"
+  decomposition_method: "existing"
+  embedding_backend: "bge-m3-sparse"
+  reranker_backend: "bge-reranker-v2-m3"
   device: "cuda"
+  bge_sparse_weight: 0.5
   candidate_top_k: 20
   output_top_k: 6
   context_token_budget: 2000
-  coverage_lambda: 0.15
-  chunk_words: 110
-  chunk_stride: 90
+  batch_cross_encoder: true
+  protected_top_p: 2
+  coverage_alpha: 0.5
+  coverage_beta: 0.3
+  coverage_gamma: 0.2
 seed: 42

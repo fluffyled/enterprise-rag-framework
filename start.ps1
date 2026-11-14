@@ -18,6 +18,8 @@ $modelFile = Join-Path $PSScriptRoot 'models/llm3/qwen2.5-3b-instruct-q4_k_m.ggu
 $llmArgs = @('-m', ('"' + $modelFile + '"'), '--host','127.0.0.1','--port','8080','-c','8192','-t','4')
 if ($llmDevice -eq 'cuda') { $llmArgs += @('-ngl', '999') }
 $llmProcess = Start-Process -FilePath $llamaPath -ArgumentList $llmArgs -WindowStyle Hidden -PassThru -RedirectStandardOutput 'reports/llm.stdout.log' -RedirectStandardError 'reports/llm.stderr.log'
+$env:NAVIGATOR_CONFIG = $env:NAVIGATOR_CONFIG ?? (Join-Path $PSScriptRoot "configs/retrieval_stable.yaml")
+$env:NAVIGATOR_INDEX = $env:NAVIGATOR_INDEX ?? (Join-Path $PSScriptRoot "data/experiment_indexes/internal/f08c5dd40c32277b/index.json")
 $appProcess = Start-Process -FilePath $pythonExe -ArgumentList '-m','streamlit','run','app.py' -WorkingDirectory $PSScriptRoot -WindowStyle Hidden -PassThru -RedirectStandardOutput 'reports/app.stdout.log' -RedirectStandardError 'reports/app.stderr.log'
 @{ llm = $llmProcess.Id; app = $appProcess.Id; llmPath = $llamaExe.FullName; appPath = $pythonExe } | ConvertTo-Json | Set-Content -LiteralPath 'data/processes.json'
 Write-Output 'Приложение запускается: http://127.0.0.1:8501. Логи в reports.'

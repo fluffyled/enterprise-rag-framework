@@ -2,7 +2,16 @@
 
 Дата: 2026-11-14. Ветка `sevsese` (github.com/fluffyled/enterprise-rag-framework).
 Все числа — реальные замеры; конфиги, seed=42, версии моделей и traces
-сохранены. Gold-разметка используется только в evaluation. 84/84 тестов зелёные.
+сохранены. Gold-разметка используется только в evaluation.
+
+> **Retrieval v4.1 Stable (2026-11-14, тег `retrieval-v4.1-stable`)**: после аудита
+> (AUDIT_REPORT.md: метрики H5 и Clause Recall скорректированы) и стабилизации
+> (RETRIEVAL_FREEZE_REPORT.md: store без gold — 747 пунктов/20 док., контракт
+> происхождения evidence, stable-конфиги Fast/Quality, manifest версионирования).
+> **104/104 тестов.** Актуальные значения: Clause Recall Q0 0.707 / Quality 0.896
+> (strict 0.845); H5 Step Recall 0.426 (не 0.558 — см. AUDIT_REPORT D4).
+> Стабильные конфиги: `retrieval_fast_stable.yaml` (дефолт) и
+> `retrieval_quality_stable.yaml`.
 
 ---
 
@@ -125,7 +134,7 @@ Oracle-эксперимент: идеальный контекст → citation 
 
 ### 3.2 Итерация B — H1 parent expansion
 
-Clause store: **439 пунктов**, 237/239 gold evidence валидно, gap 1–9%.
+Clause store (v4.1): **747 пунктов, 20/20 документов**, построение без gold; 239/239 gold evidence валидно (после исправления координат), gap 1–9%.
 Расширение по span-пересечению (чанк 110/90 накрывает границы пунктов).
 
 | Конфиг | Clause | Fact | All Found | Step | Complete | Контекст |
@@ -138,7 +147,7 @@ Clause store: **439 пунктов**, 237/239 gold evidence валидно, gap 
 
 ### 3.3 Итерация C — H2 related clauses
 
-Граф связей: 439 узлов, **21 ребро references** (корпус почти не перекрёстно ссылается).
+Граф связей (8 gold-док.): 439 узлов, **21 ребро references** (корпус почти не перекрёстно ссылается).
 H2 ≡ H1 на всех метриках, 0 вопросов изменено → **нейтральный результат**.
 
 ### 3.4 Итерация D — H3/H4 multi-hop
@@ -174,7 +183,7 @@ H5 — лучшая полнота ответов во всём исследов
 
 ### 3.6 Итерация G — LLM Enrichment (doc2query, построено по запросу)
 
-Offline: 439 пунктов → Qwen (батчи по 4, `--parallel 4`, 17 мин, **0 сбоев**):
+Offline (8 gold-док.): 439 пунктов → Qwen (батчи по 4, `--parallel 4`, 17 мин, **0 сбоев**):
 **322 карточки фактов** (actor/action/object/condition/deadline + дословная цитата)
 + **949 синтетических вопросов**. Валидация: цитата ⊆ пункт, цифры сроков ⊆ цитаты,
 лексическое пересечение вопроса с пунктом. Кэш эмбеддингов BGE с fingerprint.
@@ -276,11 +285,11 @@ Q0 0.759→0.707, H1 0.914→0.896, H4 0.927→0.909 — выводы по retri
 - Evaluators: `scripts/evaluate_complex_rag.py` (complex50, staged, oracle,
   verified-generation, parallel LLM), `scripts/evaluate_rag100.py`,
   `scripts/grouped_bootstrap_rag100.py`, `scripts/error_analysis_pipeline.py`.
-- Хранилища: `data/clauses/clauses.json` (439), `data/enrichment/`
+- Хранилища: `data/clauses/clauses.json` (747), `data/enrichment/`
   (322 факта + 949 вопросов + manifest), `data/hrag50/*_grouped.jsonl`.
 - Traces: `reports/retrieval_experiments/complex50/*` (per-query, raw LLM),
   `rag100/`, `v4f_*`.
-- Тесты: 84/84 (`pytest tests/`): FastBM25-эквивалентность, protected coverage,
+- Тесты (v4.1): 104/104 (`pytest tests/`): FastBM25-эквивалентность, protected coverage,
   adaptive, multi-hop, enrichment-канал, verified-answer, parent expansion.
 
 Воспроизведение (примеры):

@@ -50,11 +50,16 @@ def test_stable_and_baseline_configs_are_distinct():
     from navigator.settings import ROOT
     baseline = load_config(ROOT / "configs" / "retrieval_baseline.yaml")
     stable = load_config(ROOT / "configs" / "retrieval_stable.yaml")
+    fast = load_config(ROOT / "configs" / "retrieval_fast_stable.yaml")
+    quality = load_config(ROOT / "configs" / "retrieval_quality_stable.yaml")
     assert not baseline["retrieval"]["coverage_aware"]
-    assert stable["retrieval"]["coverage_aware"]
-    assert stable["retrieval"]["selection_strategy"] == "coverage_decomposed"
-    assert stable["retrieval"]["embedding_backend"] == "e5-small"
-    assert not stable["retrieval"]["hierarchical"] and not stable["retrieval"]["adaptive"]
+    # v4.1 stable = Fast (BGE-M3 + bge-reranker + adaptive); выбор Quality —
+    # явный, через NAVIGATOR_CONFIG=configs/retrieval_quality_stable.yaml
+    assert stable["retrieval"]["embedding_backend"] == "bge-m3-sparse"
+    assert stable["retrieval"]["reranker_backend"] == "bge-reranker-v2-m3"
+    assert fast["retrieval"]["selection_strategy"] == stable["retrieval"]["selection_strategy"]
+    assert quality["retrieval"]["parent_expansion"] is True
+    assert not stable["retrieval"]["multi_hop"] and not stable["retrieval"]["parent_expansion"]
 
 
 def test_improved_decomposition_preserves_spans_context_and_dependencies():

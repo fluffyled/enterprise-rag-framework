@@ -101,7 +101,8 @@ def multi_hop_search(retriever, question, effective, metadata, timings):
     if settings.get("parent_expansion"):
         if not hasattr(retriever, "_clause_store"):
             retriever._clause_store = load_clause_store()
-        selected = expand_parents(ordered[: settings["output_top_k"] * 2], retriever._clause_store, settings["context_token_budget"], related_clauses=settings.get("related_clauses", False))
+        selected, expansion_diag = expand_parents(ordered[: settings["output_top_k"] * 2], retriever._clause_store, settings["context_token_budget"], related_clauses=settings.get("related_clauses", False))
+        diagnostics["parent_expansion"] = expansion_diag["counts"]
     else:
         selected = ordered[: settings["output_top_k"]]
     timings["multi_hop_total"] = time.perf_counter() - started

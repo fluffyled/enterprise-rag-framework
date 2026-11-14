@@ -1,23 +1,20 @@
-"""Универсальный evaluator сложных вопросов (complex50, этап 2 ТЗ).
+"""Универсальный evaluator сложных вопросов (complex50, этап 2 ТЗ; аудит v4.1).
 
-Работает с любой конфигурацией RAG и с oracle-контекстом.
+Семантика метрик (зафиксирована, этап 4 аудита):
+- document_recall — доля gold-документов, представленных в выдаче (по юнитам).
+- unit_recall — доля gold source-units (страница/абзац) в выдаче.
+- clause_recall (главная) — объединение strict+soft; strict = дословное
+  вхождение needle В ДОКУМЕНТЕ gold evidence (это проверка текстового
+  evidence в правильном документе, НЕ проверка точного clause ID);
+  soft = токенное пересечение с evidence_quote ≥ 0.5 (диагностическая).
+- fact_coverage — доля required_facts, у которых покрыты ВСЕ evidence.
+- all_evidence_found — доля вопросов с полным покрытием.
+- legacy_* — прежние определения (без учёта документа / по полным цитатам),
+  сохранены ТОЛЬКО для сравнения с историческими исследованиями.
 
-Retrieval-метрики (по стадиям: rrf-кандидаты → reranked → selected/LLM context):
-- document_recall — доля gold-документов в выдаче;
-- unit_recall — доля gold source-units (страница/абзац);
-- clause_recall — доля gold-clauses, покрытых текстом чанков (needle ⊆ chunk);
-- evidence_recall — доля gold evidence, покрытых текстом;
-- fact_coverage — доля required_facts, у которых покрыты ВСЕ evidence_ids;
-- all_evidence_found — доля вопросов со всеми покрытыми evidence.
-
-Метрики генерации (детерминированные прокси, не judge):
-- step_recall — доля required_facts, покрытых цитатами ответа (пересечение
-  цитат с evidence_quote факта);
-- complete_at_all — доля ответов со всеми фактами;
-- false_abstention — отказ при покрытых evidence в контексте;
-- unsupported_quote_rate — доля цитат ответа без пересечения с gold evidence.
-
-Oracle: --oracle передаёт LLM эталонные evidence вместо retrieval (только evaluation).
+Gold используется только здесь, в offline evaluation; runtime-поиск его
+не видит. Ответы LLM оцениваются агентом генерации; здесь generation-метрики
+приведены для совместимости прогонов.
 """
 
 import argparse
@@ -48,8 +45,9 @@ def norm(text):
     return re.sub(r"\s+", " ", text or " ").strip()
 
 
-def load_gold():
-    return [json.loads(line) for line in GOLD.read_text(encoding="utf-8").splitlines() if line.strip()]
+def load_gold(path=None):
+    source = Path(path) if path else GOLD
+    return [json.loads(line) for line in source.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 def build_indexes(gold, index_path):
@@ -261,14 +259,16 @@ def parse_args(argv=None):
     parser.add_argument("--generation-mode", choices=("quotes", "verified"), default="quotes")
     parser.add_argument("--parallel", type=int, default=4, help="параллельных LLM-вызовов (слоты llama-server)")
     parser.add_argument("--oracle", action="store_true")
+    parser.add_argument("--gold-path", default=None, help="альтернативный gold (например grouped split)")
     parser.add_argument("--endpoint", default="http://127.0.0.1:8080/v1/chat/completions")
     return parser.parse_args(argv)
 
 
 def run(args):
-    gold_rows = [row for row in load_gold() if args.split == "all" or row["split"] == args.split]
+    gold_all = load_gold(args.gold_path)
+    gold_rows = [row for row in gold_all if args.split == "all" or row["split"] == args.split]
     index_path = args.index_path or str(ROOT / "data/index.json")
-    chunk_units = build_indexes(load_gold(), index_path)
+    chunk_units = build_indexes(gold_all, index_path)
 
     config = None if args.oracle else load_config(ROOT / args.config)
     retriever = None if args.oracle else get_retriever(args.config, args.index_path)

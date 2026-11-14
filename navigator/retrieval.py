@@ -160,6 +160,13 @@ class Retriever:
         if payload.get("hierarchy"):
             self.document_store = _store([Document(**document) for document in payload["hierarchy"]["document_profiles"]])
             self.section_store = _store([Document(**document) for document in payload["hierarchy"]["section_profiles"]])
+        from .manifest import validate as validate_manifest
+        config_file = None
+        if isinstance(config, (str, Path)):
+            config_file = config
+        elif isinstance(self.config, dict):
+            config_file = None
+        validate_manifest(config_path=config_file, index_path=self.index_path, strict=True)
         self._validate_index_config(self.config)
         self._configure_components(self.config)
 
@@ -471,8 +478,8 @@ class Retriever:
         if settings.get("parent_expansion"):
             if not hasattr(self, "_clause_store"):
                 self._clause_store = load_clause_store()
-            selected = expand_parents(selected, self._clause_store, settings["context_token_budget"], related_clauses=settings.get("related_clauses", False))
-            metadata["parent_expansion"] = True
+            selected, expansion_diag = expand_parents(selected, self._clause_store, settings["context_token_budget"], related_clauses=settings.get("related_clauses", False))
+            metadata["parent_expansion"] = expansion_diag
         timings["context_selection"] = time.perf_counter() - started
         for index, document in enumerate(selected, 1):
             document.meta["final_position"] = index
