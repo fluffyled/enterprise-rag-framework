@@ -107,6 +107,7 @@ class Step(Model):
 
 class Summary(Model):
     text: str = ""
+    fact_ids: list[str] = Field(default_factory=list)
     evidence_ids: list[str] = Field(default_factory=list)
 
 

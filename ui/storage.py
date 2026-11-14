@@ -10,8 +10,6 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 STORE = Path(os.environ.get("UI_DATA_DIR", ROOT / "data" / "ui")).resolve()
-if os.name == "nt" and STORE.drive.lower() != "d:":
-    raise RuntimeError("UI_DATA_DIR должен находиться на диске D:")
 MAX_BYTES = 20 * 1024 * 1024
 EXTENSIONS = {".pdf", ".docx", ".xlsx"}
 
@@ -25,6 +23,51 @@ def save_json(path, value):
 
 def load_json(path, default):
     return json.loads(path.read_text(encoding="utf-8-sig")) if path.exists() else default
+
+
+def load_workspace(path, defaults):
+    from .services import validate_response
+
+    saved = load_json(path, {})
+    if not isinstance(saved, dict) or saved.get("schema_version", 1) != 1:
+        raise ValueError("Некорректная версия рабочего пространства")
+    owner = saved.get("owner")
+    if not isinstance(owner, str) or not re.fullmatch(r"[a-f0-9]{32}", owner):
+        raise ValueError("Некорректная сессия")
+    chats, active, files = saved.get("chats"), saved.get("active"), saved.get("files")
+    if not isinstance(chats, dict) or not isinstance(active, str) or active not in chats or not isinstance(files, list):
+        raise ValueError("Некорректная история")
+    for chat in chats.values():
+        if not isinstance(chat, dict) or not isinstance(chat.get("title"), str) or not isinstance(chat.get("turns"), list):
+            raise ValueError("Некорректный диалог")
+        for turn in chat["turns"]:
+            if not isinstance(turn, dict) or not isinstance(turn.get("question"), str) or not re.fullmatch(
+                r"[a-f0-9]{32}", str(turn.get("id"))
+            ):
+                raise ValueError("Некорректный запрос")
+            result = validate_response(turn.get("result"))
+            if not isinstance(result.get("metadata"), dict):
+                raise ValueError("Некорректные метаданные ответа")
+    for item in files:
+        if not isinstance(item, dict) or item.get("owner") != owner or not re.fullmatch(
+            r"[a-f0-9]{64}\.(pdf|docx|xlsx)", str(item.get("id"))
+        ) or any(not isinstance(item.get(k), str) for k in ("name", "type", "added")) or type(item.get("size")) is not int:
+            raise ValueError("Некорректная запись о файле")
+    settings = saved.get("settings")
+    if not isinstance(settings, dict) or any(type(settings.get(k, val)) is not type(val) for k, val in defaults.items()):
+        raise ValueError("Некорректные настройки")
+    if settings.get("retrieval", "fast") not in ("fast", "quality") or settings.get("generation", "legacy") not in ("legacy", "g2"):
+        raise ValueError("Некорректный профиль")
+    snapshot = saved.get("snapshot")
+    if snapshot is not None and (not isinstance(snapshot, str) or not Path(snapshot).resolve().is_relative_to(
+        (STORE / "corpus" / owner).resolve()
+    )):
+        raise ValueError("Снимок вне рабочего пространства")
+    rebuild_required = saved.get("rebuild_required", bool(files))
+    if type(rebuild_required) is not bool:
+        raise ValueError("Некорректное состояние индекса")
+    return dict(settings={**defaults, **settings}, chats=chats, active=active,
+                files=files, owner=owner, snapshot=snapshot, rebuild_required=rebuild_required)
 
 
 def stage_file(name, content, owner):

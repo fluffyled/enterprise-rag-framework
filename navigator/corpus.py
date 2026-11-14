@@ -14,9 +14,9 @@ def fingerprint(path):
 
 
 def rebuild(directory, uploads=(), *, raw=DATA / "raw"):
-    from .ingest import ingest
+    from .ingest import ingest, input_files
     from .retrieval import build_index
-    from scripts.build_clause_store import parse_clauses
+    from scripts.build_clause_store import build_store
 
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
@@ -33,22 +33,12 @@ def rebuild(directory, uploads=(), *, raw=DATA / "raw"):
                 raise ValueError("Некорректный путь загруженного документа")
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(path, target)
-        manifest = {"empty": not any(path.is_file() for path in pending.rglob("*"))}
+        manifest = {"empty": not input_files(pending)}
         if not manifest["empty"]:
             ingest(raw=pending, output=snapshot)
             documents = json.loads((snapshot / "source_documents.json").read_text(encoding="utf-8"))
-            entries = {}
-            seen = set()
-            for document in documents:
-                sha = document["sha256"]
-                if sha in seen:
-                    # The frozen Clause Store lookup is SHA-based. Keep both chunks.
-                    entries.pop(sha, None)
-                    continue
-                seen.add(sha)
-                doc_id = document["document_id"]
-                entries[sha] = {"document_id": doc_id, "clauses": parse_clauses(doc_id, sha, document["text"])}
-            (snapshot / "clauses.json").write_text(json.dumps({"documents": entries}, ensure_ascii=False), encoding="utf-8")
+            (snapshot / "clauses.json").write_text(
+                json.dumps(build_store(documents), ensure_ascii=False), encoding="utf-8")
             from .rag_service import LOCK, PROFILES, clear_resources
             with LOCK:
                 clear_resources()
@@ -58,7 +48,14 @@ def rebuild(directory, uploads=(), *, raw=DATA / "raw"):
                              for name in ("index.json", "clauses.json", "source_documents.json")})
         shutil.rmtree(pending)
         (snapshot / "snapshot.json").write_text(json.dumps(manifest), encoding="utf-8")
-    except BaseException:
-        shutil.rmtree(snapshot)
+    except BaseException as exc:
+        try:
+            error = directory / "last_build_error.json"
+            temporary = directory / f"{snapshot.name}.error.tmp"
+            temporary.write_text(json.dumps({"error": str(exc)[:2000]}, ensure_ascii=False), encoding="utf-8")
+            temporary.replace(error)
+        except OSError:
+            pass
+        shutil.rmtree(snapshot, ignore_errors=True)
         raise
     return snapshot

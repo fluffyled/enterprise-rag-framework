@@ -83,14 +83,14 @@ def clause_documents(retriever, clause_ids, store=None):
     store = store or load_clause_store()
     documents = []
     for clause_id in clause_ids:
-        for entry in store.values():
+        for key, entry in store.items():
             for clause in entry["clauses"]:
                 if clause["clause_id"] != clause_id:
                     continue
                 documents.append({
                     "clause": clause,
                     "document": entry["document_id"],
-                    "sha": next(sha for sha, e in store.items() if e["document_id"] == entry["document_id"]),
+                    "sha": entry.get("sha256", key),
                 })
                 break
     from haystack import Document

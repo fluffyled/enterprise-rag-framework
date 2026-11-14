@@ -16,6 +16,8 @@
 
 Для воспроизводимости сохраните SHA кода, моделей, профилей и индекса командой `python -m scripts.build_release_manifest --index <индекс> --output reports/release-manifest.json`.
 
+После изменения корпуса создайте новый снимок через интерфейс. Новая индексация включает путь документа в ID чанка и хранит пункты по паре «документ + версия». Приложение принимает собранный снимок или замороженный индекс, указанный в общем манифесте. При сбое сборки причина сохраняется в `last_build_error.json` рядом со снимками.
+
 Для замера полного тракта задайте `NAVIGATOR_INDEX`, запустите локальную модель и выполните `python -m scripts.evaluate_unified --output reports/generation-research/full-fast-legacy150.jsonl`. Ключи `--retrieval` и `--generation` выбирают режимы. После сбоя можно повторить отсутствующие и ошибочные строки с `--retry-from <предыдущий файл>` и новым путём вывода. Для повтора используйте тот же индекс, модель и режимы.
 
 Oracle на 150 вопросах запускается командой `python -m scripts.run_selected_generation --output reports/generation-research/oracle150.jsonl` при доступном локальном llama-server на порту 8091. Каталог вывода создаётся заранее. Для продолжения прогона укажите тот же путь и `--resume`, для итоговых метрик используйте `--summary`. Данные бенчмарка берутся из `data/hrag50` и `data/rag100`. Парное сравнение запускается через `python -m scripts.run_generation_research --dataset data/hrag50/hierarchical_complex_qa_50.jsonl --modes G0 G1 G2 --output reports/generation-research/paired.jsonl`.

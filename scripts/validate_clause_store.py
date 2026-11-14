@@ -13,6 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+from navigator.parent_expansion import clause_entry, load_clause_store
 
 
 def norm_with_map(text):
@@ -50,7 +51,7 @@ def main():
     parser.add_argument("--gold", default=str(ROOT / "data/hrag50/hierarchical_complex_qa_50.jsonl"))
     args = parser.parse_args()
 
-    store = json.loads(Path(args.store).read_text(encoding="utf-8"))["documents"]
+    store = load_clause_store(args.store)
     documents = json.loads(Path(args.documents).read_text(encoding="utf-8"))
     gold = [json.loads(line) for line in Path(args.gold).read_text(encoding="utf-8").splitlines() if line.strip()]
 
@@ -62,7 +63,8 @@ def main():
             if not document:
                 misses.append((evidence["evidence_id"], "no document"))
                 continue
-            clauses = store[document["sha256"]]["clauses"]
+            entry = clause_entry(store, document["document_id"], document["sha256"])
+            clauses = entry["clauses"] if entry else []
             needle = re.sub(r"\s+", " ", evidence["evidence_needle"]).strip()
             span = find_in_original(document["text"], needle)
             if span is None:

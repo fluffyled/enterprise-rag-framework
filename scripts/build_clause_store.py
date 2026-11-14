@@ -96,6 +96,20 @@ def parse_clauses(document_id, sha256, text):
 REF_RE = re.compile(r"(?:п\.|пп\.|пункт(?:а|е|у|ы)?|раздел(?:а|е)?)\s*(\d+(?:\.\d+)*)", re.IGNORECASE)
 
 
+def build_store(documents):
+    entries = []
+    seen = set()
+    for document in documents:
+        doc_id, sha = document["document_id"], document["sha256"]
+        if (doc_id, sha) in seen:
+            raise ValueError(f"Дублирующаяся версия документа: {doc_id}")
+        seen.add((doc_id, sha))
+        identity = hashlib.sha256(f"{doc_id}\0{sha}".encode()).hexdigest()
+        entries.append({"document_id": doc_id, "sha256": sha,
+                        "clauses": parse_clauses(doc_id, identity, document["text"])})
+    return {"schema_version": 2, "documents": entries}
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--documents", default=str(ROOT / "data/source_documents.json"))
@@ -105,22 +119,17 @@ def main():
     documents = json.loads(Path(args.documents).read_text(encoding="utf-8"))
     # аудит 1.5: уникальность document ID и SHA
     doc_ids = [d["document_id"] for d in documents]
-    shas = [d["sha256"] for d in documents]
     if len(doc_ids) != len(set(doc_ids)):
         raise ValueError("Дублирующиеся document_id во входном корпусе")
-    if len(shas) != len(set(shas)):
-        raise ValueError("Дублирующиеся sha256 во входном корпусе")
-
-    store = {}
+    store = build_store(documents)
     report = {"documents": {}, "total_clauses": 0}
     clause_ids = set()
-    for document in documents:
-        clauses = parse_clauses(document["document_id"], document["sha256"], document["text"])
+    for document, entry in zip(documents, store["documents"], strict=True):
+        clauses = entry["clauses"]
         for clause in clauses:
             if clause["clause_id"] in clause_ids:
                 raise ValueError(f"Дублирующийся clause_id {clause['clause_id']}")
             clause_ids.add(clause["clause_id"])
-        store[document["sha256"]] = {"document_id": document["document_id"], "clauses": clauses}
         spans = sorted((clause["start"], clause["end"]) for clause in clauses)
         merged = []
         for start, end in spans:
@@ -140,7 +149,7 @@ def main():
 
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps({"documents": store}, ensure_ascii=False), encoding="utf-8")
+    out.write_text(json.dumps(store, ensure_ascii=False), encoding="utf-8")
     (out.parent / "clause_build_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     no_clause_docs = [name for name, d in report["documents"].items() if not d["has_numbered_clauses"]]
     print(json.dumps({"total_clauses": report["total_clauses"], "documents": len(documents), "docs_without_clauses": len(no_clause_docs)}, ensure_ascii=False))

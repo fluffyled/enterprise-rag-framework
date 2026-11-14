@@ -43,11 +43,11 @@ def test_application_chain(tmp_path, monkeypatch, profile, mode):
             return [d]
 
     monkeypatch.setattr(rag_service, "_resource_key", (index, tuple(
-        p.stat().st_mtime_ns if p.exists() else None for p in [
+        rag_service.artifact_stamp(p) for p in [
             index, clauses, tmp_path / "source_documents.json", *rag_service.PROFILES.values(),
             tmp_path / "snapshot.json",
         ]
-    )))
+    ) + (rag_service.fingerprint(tmp_path / "snapshot.json"),)))
     monkeypatch.setattr(rag_service, "resources", lambda *args: (Retriever(), {}, []))
 
     def client(endpoint, payload, trace):
@@ -110,6 +110,73 @@ def test_evidence_batches_bound_escaped_json_and_preserve_order():
     rows = [row for batch in batches for row in batch]
     assert rows[-1]["id"] == "A"
     assert "".join(row["text"] for row in rows if row["id"] == "Z") == evidence[0].full_text
+
+
+@pytest.mark.parametrize("item,exception", [
+    ("при сниженных накладных", "кроме договоров с лимитом от грантодателя"),
+    ("без аванса", "кроме договоров по итогам конкурса"),
+])
+def test_visible_summary_preserves_list_scope(monkeypatch, item, exception):
+    from answering.v2.contracts import Evidence
+    from ui import services
+
+    intro = "4. Запрет действует для договоров, заключённых после утверждения регламента:"
+    bullet = f"- {item}, {exception};"
+    source = Evidence(id="E1", document_id="rules", document_title="Правила",
+                      full_text=f"{intro}\n{bullet}\n- при задолженности.")
+
+    def client(endpoint, payload, trace):
+        data = json.loads(payload["messages"][1]["content"])
+        properties = payload["response_format"]["schema"]["properties"]
+        if "aspects" in properties:
+            return {"aspects": [item]}
+        if "verdicts" in properties:
+            return {"verdicts": [{"id": fact["id"], "verdict": "unsupported"} for fact in data["facts"]],
+                    "missing": [], "conflict_evidence_ids": []}
+        return {"facts": [{"text": f"Запрет {item}", "kind": "action", "requirement_ids": ["R1"],
+                           "citations": [{"evidence_id": "E1", "quote": item}]}]}
+
+    monkeypatch.setattr(generation_service, "generate_v2", lambda request, settings:
+                        pipeline.generate_v2(request, settings=settings, client=client))
+    result = generation_service.GenerationService().generate(item, [source], "g2")
+    monkeypatch.setattr(rag_service, "ask", lambda *args, **kwargs: result)
+    visible = services.connected({"question": item})
+    assert visible["status"] == "partial"
+    assert intro in visible["answer"] and bullet in visible["answer"]
+    assert intro in visible["sources"][0]["quotes"] and bullet in visible["sources"][0]["quotes"]
+
+
+def test_joint_claim_uses_both_batches():
+    from answering.v2.contracts import AnswerInputV1, Evidence
+
+    evidence = [Evidence(id="E1", document_id="rules", full_text="Ответственный — бухгалтер. " + "а" * 100),
+                Evidence(id="E2", document_id="rules", full_text="Срок — три дня. " + "б" * 100)]
+
+    def fact(ids):
+        return {"text": " и ".join(evidence[i].full_text.split(".")[0] for i in ids),
+                "kind": "other", "requirement_ids": ["R1"],
+                "citations": [{"evidence_id": evidence[i].id, "quote": evidence[i].full_text.split(".")[0]} for i in ids]}
+
+    def client(endpoint, payload, trace):
+        data = json.loads(payload["messages"][1]["content"])
+        if "facts" in data:
+            return {"verdicts": [{"id": f["id"], "verdict": "supported"} for f in data["facts"]],
+                    "missing": [], "conflict_evidence_ids": []}
+        ids = [int(row["id"][1:]) - 1 for row in data["evidence"]]
+        return {"facts": [fact(ids)]}
+
+    settings = pipeline.Settings(input_chars=250, scoped_summary=True, repair_attempts=0, fail_on_batch_error=True)
+    result = pipeline.generate_v2(AnswerInputV1(question="Кто и в какой срок?", evidence=evidence),
+                                  settings=settings, client=client)
+    assert result.verification.passed
+    assert any({c.evidence_id for c in fact.citations} == {"E1", "E2"} for fact in result.claims)
+
+
+def test_adaptive_strategy_counts_distinct_full_years():
+    from navigator.adaptive_strategy import classify_question
+
+    result = classify_question("Сравните регламент и приказ за 2024 и 2025 годы")
+    assert result["signals"]["years"] == ["2024", "2025"]
 
 
 def test_missing_or_empty_documents(tmp_path):

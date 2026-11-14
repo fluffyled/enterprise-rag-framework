@@ -117,11 +117,12 @@ def main():
     parser.add_argument("--parallel", type=int, default=4)
     args = parser.parse_args()
 
-    store = json.loads(CLAUSES.read_text(encoding="utf-8"))["documents"]
+    from navigator.parent_expansion import load_clause_store
+    store = load_clause_store(CLAUSES)
     clauses = []
-    for sha, entry in store.items():
+    for key, entry in store.items():
         for clause in entry["clauses"]:
-            clauses.append({"sha": sha, "document": entry["document_id"], **clause})
+            clauses.append({"sha": entry.get("sha256", key), "document": entry["document_id"], **clause})
     if args.limit:
         clauses = clauses[: args.limit]
 

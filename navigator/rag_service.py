@@ -3,13 +3,14 @@ import json
 import os
 from functools import lru_cache
 from pathlib import Path
-from threading import RLock
+from threading import Lock, RLock
 from time import perf_counter
 from uuid import uuid4
 
 import yaml
 
 from .config import load_config
+from .corpus import fingerprint
 from .evidence_adapter import adapt_evidence
 from .generation_service import AnswerResponse, GenerationService
 from .settings import DATA, INDEX, ROOT
@@ -18,6 +19,7 @@ PROFILES = {"fast": ROOT / "configs/retrieval_bge_adaptive_rerank.yaml",
             "quality": ROOT / "configs/retrieval_h1_parent.yaml"}
 GENERATION = ("legacy", "g2")
 LOCK = RLock()
+GENERATION_LOCK = Lock()
 
 
 @lru_cache(maxsize=1)
@@ -44,9 +46,17 @@ def resources(index, clauses, corpus, manifest, stamps):
     store = load_clause_store(clauses) if clauses.exists() else {}
     sources = json.loads(corpus.read_text(encoding="utf-8")) if corpus.exists() else []
     retriever = Retriever(config=PROFILES["fast"], index_path=index,
-                          clause_store_path=clauses, manifest_path=manifest)
+                          clause_store_path=clauses, manifest_path=manifest, require_manifest=True)
     retriever._clause_store = store
     return retriever, store, sources
+
+
+def artifact_stamp(path):
+    try:
+        stat = path.stat()
+    except FileNotFoundError:
+        return None
+    return stat.st_mtime_ns, stat.st_ctime_ns, stat.st_size, stat.st_ino
 
 
 def clear_resources():
@@ -84,7 +94,9 @@ def ask(question, retrieval=None, generation=None, *, snapshot=None, diagnostics
         with LOCK:
             started = perf_counter()
             paths = [index, clauses, corpus, *PROFILES.values()] + ([manifest] if manifest else [])
-            stamps = tuple(path.stat().st_mtime_ns if path.exists() else None for path in paths)
+            stamps = tuple(artifact_stamp(path) for path in paths)
+            if manifest and manifest.exists():
+                stamps += (fingerprint(manifest),)
             # Evict before loading a new index to avoid concurrent copies of GPU models.
             global _resource_key
             if _resource_key != (index, stamps):
@@ -96,10 +108,12 @@ def ask(question, retrieval=None, generation=None, *, snapshot=None, diagnostics
             info.update(retrieval_ms=round((perf_counter() - started) * 1000), retrieval=retrieval,
                         generation=generation, retrieval_details=getattr(documents, "metadata", {}),
                         evidence_ids=[item.id for item in evidence])
-            phase = "LLM"
-            started = perf_counter()
+            del retriever, store, sources, documents
+        phase = "LLM"
+        started = perf_counter()
+        with GENERATION_LOCK:
             response = GenerationService().generate(question.strip(), evidence, generation)
-            info["generation_ms"] = round((perf_counter() - started) * 1000)
+        info["generation_ms"] = round((perf_counter() - started) * 1000)
         trace = response.diagnostics.pop("trace", None)
         if trace:
             model = next((call.get("model") for call in trace["calls"] if call.get("model")), None)

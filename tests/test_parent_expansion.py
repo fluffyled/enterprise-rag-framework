@@ -95,6 +95,52 @@ def test_shared_sha_does_not_borrow_clause_from_another_document():
     assert diag["items"][0]["reason"] == "missing_clause"
 
 
+def test_identical_docx_versions_keep_distinct_chunks_and_clauses(tmp_path):
+    from docx import Document as WordDocument
+    from navigator.ingest import ingest, units
+    from scripts.build_clause_store import build_store
+
+    raw = tmp_path / "raw"
+    raw.mkdir()
+    original = WordDocument()
+    original.add_paragraph("1. Сотрудник передаёт заявление ответственному лицу.")
+    table = original.add_table(rows=1, cols=3)
+    for cell, value in zip(table.rows[0].cells, ("Да", "Да", "Нет"), strict=True):
+        cell.text = value
+    original.save(raw / "first.docx")
+    (raw / "second.docx").write_bytes((raw / "first.docx").read_bytes())
+    assert list(units(raw / "first.docx"))[1][0] == "Да | Да | Нет"
+    chunks = ingest(raw, tmp_path)
+    assert len({chunk["id"] for chunk in chunks}) == len(chunks)
+    docs = json.loads((tmp_path / "source_documents.json").read_text(encoding="utf-8"))
+    payload = build_store(docs)
+    path = tmp_path / "clauses.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    store = load_clause_store(path)
+    assert len(store) == 2
+    ids = {entry["clauses"][0]["clause_id"] for entry in store.values()}
+    assert len(ids) == 2
+    (raw / "first.docx").unlink()
+    ingest(raw, tmp_path)
+    remaining = build_store(json.loads((tmp_path / "source_documents.json").read_text(encoding="utf-8")))
+    assert remaining["documents"] == [payload["documents"][1]]
+
+
+def test_failed_rebuild_preserves_diagnostic_and_previous_snapshot(tmp_path):
+    from navigator.corpus import rebuild
+
+    raw = tmp_path / "raw"
+    raw.mkdir()
+    (raw / "broken.docx").write_bytes(b"not a zip")
+    snapshots = tmp_path / "snapshots"
+    previous = snapshots / "previous"
+    previous.mkdir(parents=True)
+    with pytest.raises(RuntimeError, match="broken.docx"):
+        rebuild(snapshots, raw=raw)
+    assert {item.name for item in snapshots.iterdir()} == {"previous", "last_build_error.json"}
+    assert "broken.docx" in (snapshots / "last_build_error.json").read_text(encoding="utf8")
+
+
 def test_budget_never_exceeded():
     store = make_store({"sha1": [make_clause(str(i), f"1.{i}", f"1.{i}. Пункт {'слово ' * 50}", i * 400, i * 400 + 300) for i in range(1, 6)]})
     chunks = [make_chunk(i * 400 + 10, chunk_id=f"c{i}") for i in range(1, 6)]

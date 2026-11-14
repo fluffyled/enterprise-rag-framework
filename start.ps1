@@ -34,7 +34,7 @@ try {
         Start-Sleep -Milliseconds 500
     }
     if (-not $ready -or $llm.HasExited) { throw 'llama-server не прошёл пробную генерацию. См. reports/llm.stderr.log.' }
-    $app = Start-Process -FilePath $pythonExe -ArgumentList '-m','streamlit','run','app.py' -WindowStyle Hidden -PassThru -RedirectStandardOutput 'reports/app.stdout.log' -RedirectStandardError 'reports/app.stderr.log'
+    $app = Start-Process -FilePath $pythonExe -ArgumentList '-m','streamlit','run','app.py','--server.address','127.0.0.1','--server.port','8501' -WindowStyle Hidden -PassThru -RedirectStandardOutput 'reports/app.stdout.log' -RedirectStandardError 'reports/app.stderr.log'
     $deadline = [DateTime]::UtcNow.AddSeconds(45)
     $ready = $false
     while ([DateTime]::UtcNow -lt $deadline -and -not $app.HasExited) {

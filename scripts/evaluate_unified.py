@@ -1,12 +1,37 @@
 """Measure the connected application against local complex50 and rag100 questions."""
 import argparse
+import hashlib
 import json
+import os
+import subprocess
 from collections import Counter
 from pathlib import Path
 from statistics import median, quantiles
 from time import perf_counter
 
-from navigator.rag_service import ask, index_path
+from navigator.corpus import fingerprint
+from navigator.rag_service import PROFILES, ask, index_path
+from navigator.settings import DATA, ROOT
+
+
+def run_fingerprint(cases, retrieval, generation):
+    model = json.loads((ROOT / "answer-model.lock.json").read_text(encoding="utf-8"))
+    model_path = ROOT / model["local_dir"] / model["filename"]
+    files = [index_path(), PROFILES[retrieval], DATA / "source_documents.json",
+             DATA / "clauses/clauses.json", ROOT / "models.lock.json", model_path]
+    server = Path(os.environ.get("NAVIGATOR_EVAL_SERVER", ROOT / "tools/llama-cuda/llama-server.exe"))
+    files.append(server)
+    if not all(path.is_file() for path in files):
+        raise ValueError("Evaluation requires local index, corpus, model and server artifacts")
+    changes = subprocess.check_output(["git", "diff", "HEAD", "--", "navigator", "answering", "scripts"], cwd=ROOT)
+    material = {
+        "schema": 1, "revision": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "changes": hashlib.sha256(changes).hexdigest(), "evaluator": fingerprint(Path(__file__)),
+        "artifacts": [fingerprint(path) for path in files], "cases": cases,
+        "retrieval": retrieval, "generation": generation,
+        "endpoint": os.environ.get("ANSWER_LLM_ENDPOINT" if generation == "g2" else "LLM_ENDPOINT"),
+    }
+    return hashlib.sha256(json.dumps(material, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 from scripts.evaluate_generation_v2 import proxy_hits
 from scripts.run_selected_generation import load_cases
 
@@ -53,15 +78,17 @@ def main():
         parser.error("Unknown or missing evaluation case")
     if not index_path().is_file():
         parser.error("Set NAVIGATOR_INDEX to a compatible BGE index")
+    try:
+        benchmark = run_fingerprint(cases, args.retrieval, args.generation)
+    except (ValueError, OSError) as exc:
+        parser.error(str(exc))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     previous = {}
     if args.retry_from:
         for line in args.retry_from.read_text(encoding="utf-8").splitlines():
             row = json.loads(line)
-            if (row.get("retrieval", args.retrieval), row.get("generation", args.generation)) != (
-                args.retrieval, args.generation
-            ):
-                parser.error("Retry input uses different evaluation modes")
+            if row.get("benchmark") != benchmark:
+                parser.error("Retry input belongs to a different benchmark or lacks a fingerprint")
             if row["status"] != "error":
                 previous[row["dataset"], row["id"]] = row
     rows = []
@@ -82,6 +109,7 @@ def main():
             row = {
                 "dataset": dataset, "id": case["id"], "answerable": case["answerable"],
                 "retrieval": args.retrieval, "generation": args.generation,
+                "benchmark": benchmark,
                 "status": result.status, "seconds": elapsed, "total": len(expected),
                 "hits": len(proxy_hits(expected, [item["text"] for item in items])),
                 "quotes": len(quotes), "invalid_quotes": sum(quote not in excerpt for quote, excerpt in quotes),

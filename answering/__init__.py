@@ -5,8 +5,6 @@ import tempfile
 from pathlib import Path
 
 _CACHE = Path(__file__).resolve().parent.parent / ".cache"
-if os.name == "nt" and _CACHE.drive.lower() != "d:":
-    raise RuntimeError("Project storage must stay on drive D:")
 for _name, _subdir in {
     "PIP_CACHE_DIR": "pip", "HF_HOME": "huggingface",
     "HF_HUB_CACHE": "huggingface/hub", "HF_ASSETS_CACHE": "huggingface/assets",

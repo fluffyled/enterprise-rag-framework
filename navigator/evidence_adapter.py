@@ -4,6 +4,7 @@ import json
 from types import SimpleNamespace
 
 from answering.v2.contracts import Evidence
+from .parent_expansion import clause_entry
 
 
 def digest(text):
@@ -41,7 +42,7 @@ def adapt_evidence(documents, mode, source_documents=(), clause_store=None, *, a
                 coordinates = [(start + leading, start + leading + len(content))]
         expanded = meta.get("expansion_status") == "expanded_successfully"
         node_id = meta.get("clause_id") if expanded else None
-        entry = (clause_store or {}).get(version, {})
+        entry = clause_entry(clause_store or {}, document_id, version) or {}
         clause = next((row for row in entry.get("clauses", [])
                        if row["clause_id"] == node_id), {}) if entry.get("document_id") == document_id else {}
         key = node_id or meta.get("chunk_id") or document.id

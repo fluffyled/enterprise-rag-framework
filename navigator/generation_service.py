@@ -11,7 +11,7 @@ from .evidence_adapter import validate_citation
 
 G2_SETTINGS = Settings(input_chars=1900, max_output_tokens=1450, plan_requirements=True,
                        preserve_alternatives=True, repair_attempts=0, fail_on_batch_error=True,
-                       max_facts_per_batch=4, structured_fields=True)
+                       max_facts_per_batch=4, structured_fields=True, scoped_summary=True)
 
 
 @dataclass
@@ -88,7 +88,7 @@ class GenerationService:
                 return {"text": fact.text, "citations": list(dict.fromkeys(
                     cite(c.evidence_id, c.quote) for c in fact.citations))}
 
-            summary = [fact for fact in result.claims if fact.kind != "action"] or result.claims[:1]
+            summary = [facts[identifier] for identifier in result.summary.fact_ids]
             response.summary = [fact_item(fact) for fact in summary]
             for step in result.steps:
                 row = step.model_dump(exclude={"fact_ids", "evidence_ids", "requirement_ids", "dependency_citations"})

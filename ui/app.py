@@ -3,7 +3,7 @@ import os
 from uuid import uuid4
 import streamlit as st
 from ui.services import ask_question, fixtures, health
-from ui.storage import STORE, ROOT, load_json, save_json, stage_file, delete_file, valid_url
+from ui.storage import STORE, ROOT, load_workspace, save_json, stage_file, delete_file, valid_url
 from ui.views import answer_view
 from navigator.rag_service import application_config
 from navigator.corpus import rebuild
@@ -36,7 +36,7 @@ def initialize():
 
 def persist():
     if st.session_state.persist:
-        save_json(STORE / "workspace.json", {"settings": st.session_state.settings, "chats": st.session_state.chats,
+        save_json(STORE / "workspace.json", {"schema_version": 1, "settings": st.session_state.settings, "chats": st.session_state.chats,
                   "files": st.session_state.files, "snapshot": st.session_state.snapshot,
                   "rebuild_required": st.session_state.rebuild_required, "owner": st.session_state.owner, "active": st.session_state.active})
 
@@ -239,13 +239,7 @@ def settings_page():
             (STORE / "workspace.json").unlink(missing_ok=True)
     if (STORE / "workspace.json").exists() and st.button("Загрузить сохранённое рабочее пространство"):
         try:
-            saved = load_json(STORE / "workspace.json", {})
-            for key in ("settings", "chats", "files", "owner", "active"):
-                if key not in saved:
-                    raise ValueError("Сохранённое пространство повреждено")
-            saved.setdefault("snapshot", None)
-            saved.setdefault("rebuild_required", bool(saved["files"]))
-            s.update(saved)
+            s.update(load_workspace(STORE / "workspace.json", DEFAULTS))
             s.persist = True
             st.rerun()
         except (ValueError, OSError):
