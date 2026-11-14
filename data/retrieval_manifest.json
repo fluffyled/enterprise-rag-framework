@@ -1,0 +1,40 @@
+{
+  "name": "retrieval-v4.1",
+  "git_sha": "abab6d16ec2155fbdb7a44d94049be434c13e10a",
+  "seed": 42,
+  "corpus": {
+    "source_documents_sha256": "ab4067745696d7b7fb4aa606a0e0a6341f96f57e2090ac67ccee44aa72f451ba",
+    "document_count": 20
+  },
+  "parser": {
+    "clause_store_sha256": "593edea96e26918e2915fbc39df9b152c39164a93534e2732adbc5c213185fa5",
+    "clause_build_report": "data/clauses/clause_build_report.json"
+  },
+  "indexes": {
+    "bge_internal": {
+      "path": "data/experiment_indexes/internal/f08c5dd40c32277b/index.json",
+      "sha256": "2976c914f9c9b587c824264fad3ba5e5b799009601ab1e80157eab10d2c67a0f"
+    }
+  },
+  "configs": {
+    "retrieval_fast_stable.yaml": "aafb5f0dfd525923",
+    "retrieval_quality_stable.yaml": "c1a68cbbdc03f8a2",
+    "retrieval_stable.yaml": "526f442607d0cb02"
+  },
+  "models": {
+    "embedding": "614241f6",
+    "reranker": "1427fd65",
+    "bge_m3": "5617a9f6",
+    "reranker_bge_v2_m3": "953dc6f6",
+    "llm": "7dabda4d"
+  },
+  "libraries": {
+    "torch": "2.11.0+cu126",
+    "sentence-transformers": "6.3.0",
+    "haystack-ai": "3.5.0"
+  },
+  "evaluation": {
+    "complex50_sha256": "a0e56c381d10f3e27b43af5a67836b0968b02a00f4abcebc5b7186437d5f3fb5",
+    "rag100_sha256": "1382ba0cb78b06f80caedc6e96d26f902af05f778eb6db04f9d57d47fbc60603"
+  }
+}
