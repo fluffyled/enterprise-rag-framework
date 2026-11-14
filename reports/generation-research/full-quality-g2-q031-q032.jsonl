@@ -1,0 +1,2 @@
+{"dataset": "rag100", "id": "Q031", "answerable": true, "retrieval": "quality", "generation": "g2", "status": "partial", "seconds": 142.202, "total": 1, "hits": 0, "quotes": 8, "invalid_quotes": 0, "error": ""}
+{"dataset": "rag100", "id": "Q032", "answerable": true, "retrieval": "quality", "generation": "g2", "status": "partial", "seconds": 100.594, "total": 1, "hits": 0, "quotes": 5, "invalid_quotes": 0, "error": ""}

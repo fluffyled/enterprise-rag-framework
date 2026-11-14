@@ -1,0 +1,1099 @@
+{
+  "schema_version": 1,
+  "private": true,
+  "split": "holdout",
+  "queries": [
+    {
+      "id": "holdout-001",
+      "question": "На какие годы утверждается финансовая структура приказом 3614-1?",
+      "question_type": "simple_fact",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-001-requirement-1",
+          "requirement": "на 2026 год и плановый период 2027 и 2028 года",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+              "start": 684,
+              "end": 730,
+              "text": "на 2026 год и плановый период 2027 и 2028 года"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "на 2026 год и плановый период 2027 и 2028 года"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-002",
+      "question": "Сопоставьте приказ о финансовой структуре с приложением: какой код присвоен управлению информационных технологий?",
+      "question_type": "multi_document",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+        "Приложение к приказу об утверждении фин. структуры 2026г..xlsx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-002-requirement-1",
+          "requirement": "Утвердить финансовую структуру МФТИ",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx",
+              "start": 617,
+              "end": 652,
+              "text": "Утвердить финансовую структуру МФТИ"
+            }
+          ]
+        },
+        {
+          "id": "holdout-002-requirement-2",
+          "requirement": "10267 управление информационных технологий",
+          "alternatives": [
+            {
+              "document_id": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+              "start": 1496,
+              "end": 1538,
+              "text": "10267 управление информационных технологий"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Утвердить финансовую структуру МФТИ",
+        "10267 управление информационных технологий"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-003",
+      "question": "Какой штраф за изменение финансовой структуры установлен приказом 3614-1?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-004",
+      "question": "До какой даты проректоры подают сведения о планируемых поступлениях на 2026 год?",
+      "question_type": "deadline_responsible",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ N 3699-1 от 18.08.2025.docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-004-requirement-1",
+          "requirement": "в срок до 01.10.2025г. предоставить информацию",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 615,
+              "end": 661,
+              "text": "в срок до 01.10.2025г. предоставить информацию"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в срок до 01.10.2025г. предоставить информацию"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-005",
+      "question": "Какие нормативы суточных и найма жилья по России заложены при планировании бюджета 2026?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ N 3699-1 от 18.08.2025.docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-005-requirement-1",
+          "requirement": "размер суточных выплат - 100 рублей в сутки",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 10433,
+              "end": 10476,
+              "text": "размер суточных выплат - 100 рублей в сутки"
+            }
+          ]
+        },
+        {
+          "id": "holdout-005-requirement-2",
+          "requirement": "4500 рублей в сутки",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 10640,
+              "end": 10659,
+              "text": "4500 рублей в сутки"
+            }
+          ]
+        },
+        {
+          "id": "holdout-005-requirement-3",
+          "requirement": "федерального бюджета не более 550 рублей в сутки",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 10677,
+              "end": 10725,
+              "text": "федерального бюджета не более 550 рублей в сутки"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "размер суточных выплат - 100 рублей в сутки",
+        "4500 рублей в сутки",
+        "федерального бюджета не более 550 рублей в сутки"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-006",
+      "question": "Как рассчитывается сумма договора без НДС 20% в приложении о распределении доходов?",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ N 3699-1 от 18.08.2025.docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-006-requirement-1",
+          "requirement": "путем деления суммы договора на 1,2",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 35182,
+              "end": 35217,
+              "text": "путем деления суммы договора на 1,2"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "путем деления суммы договора на 1,2"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-007",
+      "question": "Какой код имеет лаборатория алгебры, геометрии, логики и теории чисел имени Манина?",
+      "question_type": "table_attachment",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приложение к приказу об утверждении фин. структуры 2026г..xlsx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-007-requirement-1",
+          "requirement": "10763 лаборатория алгебры, геометрии, логики и теории чисел",
+          "alternatives": [
+            {
+              "document_id": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+              "start": 2505,
+              "end": 2564,
+              "text": "10763 лаборатория алгебры, геометрии, логики и теории чисел"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "10763 лаборатория алгебры, геометрии, логики и теории чисел"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-008",
+      "question": "На какую дату заявлена актуальность финансовой структуры в приложении XLSX?",
+      "question_type": "table_attachment",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приложение к приказу об утверждении фин. структуры 2026г..xlsx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-008-requirement-1",
+          "requirement": "актуальность на 01.08.2025г.",
+          "alternatives": [
+            {
+              "document_id": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+              "start": 94,
+              "end": 122,
+              "text": "актуальность на 01.08.2025г."
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "актуальность на 01.08.2025г."
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-009",
+      "question": "Какой код указан у отдела координации поисковых исследований?",
+      "question_type": "table_attachment",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приложение к приказу об утверждении фин. структуры 2026г..xlsx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-009-requirement-1",
+          "requirement": "10470 отдел координации поисковых исследований",
+          "alternatives": [
+            {
+              "document_id": "Приложение к приказу об утверждении фин. структуры 2026г..xlsx",
+              "start": 3212,
+              "end": 3258,
+              "text": "10470 отдел координации поисковых исследований"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "10470 отдел координации поисковых исследований"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-010",
+      "question": "Какой КФО указан для субсидии на капитальный ремонт?",
+      "question_type": "table_attachment",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приложения к приказу_ о формировании бюджетирования  2026г..docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-010-requirement-1",
+          "requirement": "Субсидия на капитальный ремонт | отдел технической эксплуатации и ремонта | КФО 5",
+          "alternatives": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 1614,
+              "end": 1695,
+              "text": "Субсидия на капитальный ремонт | отдел технической эксплуатации и ремонта | КФО 5"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Субсидия на капитальный ремонт | отдел технической эксплуатации и ремонта | КФО 5"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-011",
+      "question": "Какие сведения паспорта проекта относятся к срокам и общей стоимости?",
+      "question_type": "table_attachment",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приложения к приказу_ о формировании бюджетирования  2026г..docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-011-requirement-1",
+          "requirement": "Общая сумма проекта (руб.)",
+          "alternatives": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 10754,
+              "end": 10780,
+              "text": "Общая сумма проекта (руб.)"
+            }
+          ]
+        },
+        {
+          "id": "holdout-011-requirement-2",
+          "requirement": "Период действия проекта",
+          "alternatives": [
+            {
+              "document_id": "Приложения к приказу_ о формировании бюджетирования  2026г..docx",
+              "start": 11097,
+              "end": 11120,
+              "text": "Период действия проекта"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Общая сумма проекта (руб.)",
+        "Период действия проекта"
+      ],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-012",
+      "question": "Какая фактическая стоимость проекта вписана в пустой шаблон паспорта проекта?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "budget_2026",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-013",
+      "question": "Какой прежний приказ о внутреннем заимствовании утратил силу с введением регламента 5990-1?",
+      "question_type": "version_change",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ №  5990-1 от 03.11.2026 новый.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-013-requirement-1",
+          "requirement": "Считать утратившим силу приказ от 08.07.2020 № 1465-1",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 513,
+              "end": 566,
+              "text": "Считать утратившим силу приказ от 08.07.2020 № 1465-1"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Считать утратившим силу приказ от 08.07.2020 № 1465-1"
+      ],
+      "family": "loans",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-014",
+      "question": "Каковы максимальная доля заимствования и допустимый срок займа?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ №  5990-1 от 03.11.2026 новый.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-014-requirement-1",
+          "requirement": "не превышающей 90% от общей суммы",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 2082,
+              "end": 2115,
+              "text": "не превышающей 90% от общей суммы"
+            }
+          ]
+        },
+        {
+          "id": "holdout-014-requirement-2",
+          "requirement": "Срок заимствования может составлять от 1 до 4 месяцев",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 2659,
+              "end": 2712,
+              "text": "Срок заимствования может составлять от 1 до 4 месяцев"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не превышающей 90% от общей суммы",
+        "Срок заимствования может составлять от 1 до 4 месяцев"
+      ],
+      "family": "loans",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-015",
+      "question": "До каких чисел подаётся заявка и утверждается распоряжение о внутреннем заимствовании?",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ №  5990-1 от 03.11.2026 новый.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-015-requirement-1",
+          "requirement": "до 18",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 4581,
+              "end": 4586,
+              "text": "до 18"
+            }
+          ]
+        },
+        {
+          "id": "holdout-015-requirement-2",
+          "requirement": "утверждается",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 4971,
+              "end": 4983,
+              "text": "утверждается"
+            }
+          ]
+        },
+        {
+          "id": "holdout-015-requirement-3",
+          "requirement": "до 26 числа месяца",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 5005,
+              "end": 5023,
+              "text": "до 26 числа месяца"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "до 18",
+        "утверждается",
+        "до 26 числа месяца"
+      ],
+      "family": "loans",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-016",
+      "question": "Какие категории работников нельзя направлять в служебную командировку?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент о командировании.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-016-requirement-1",
+          "requirement": "работники моложе 18 лет",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 4867,
+              "end": 4890,
+              "text": "работники моложе 18 лет"
+            }
+          ]
+        },
+        {
+          "id": "holdout-016-requirement-2",
+          "requirement": "беременные женщины",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 4914,
+              "end": 4932,
+              "text": "беременные женщины"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "работники моложе 18 лет",
+        "беременные женщины"
+      ],
+      "family": "travel",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-017",
+      "question": "Назовите сроки передачи решения перед командировкой, отчёта после возвращения и окончательного расчёта.",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент о командировании.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-017-requirement-1",
+          "requirement": "Не позднее чем за 7 рабочих дней до командировки",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 37512,
+              "end": 37560,
+              "text": "Не позднее чем за 7 рабочих дней до командировки"
+            }
+          ]
+        },
+        {
+          "id": "holdout-017-requirement-2",
+          "requirement": "в течение 3-х рабочих дней Отчет о расходах",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 41416,
+              "end": 41459,
+              "text": "в течение 3-х рабочих дней Отчет о расходах"
+            }
+          ]
+        },
+        {
+          "id": "holdout-017-requirement-3",
+          "requirement": "течение 7 рабочих дней осуществляет окончательный расчет",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 44661,
+              "end": 44717,
+              "text": "течение 7 рабочих дней осуществляет окончательный расчет"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Не позднее чем за 7 рабочих дней до командировки",
+        "в течение 3-х рабочих дней Отчет о расходах",
+        "течение 7 рабочих дней осуществляет окончательный расчет"
+      ],
+      "family": "travel",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-018",
+      "question": "Установлен ли предельный срок служебной командировки?",
+      "question_type": "paraphrase",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент о командировании.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-018-requirement-1",
+          "requirement": "Ограничений по длительности командирования не",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 7542,
+              "end": 7587,
+              "text": "Ограничений по длительности командирования не"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Ограничений по длительности командирования не"
+      ],
+      "family": "travel",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-019",
+      "question": "Какие одновременные условия должен выполнять сотрудник для получения места по общему правилу поселения?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент поселения сотрудников.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-019-requirement-1",
+          "requirement": "сотрудник трудоустроен в МФТИ на 1.0 ставку",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 1093,
+              "end": 1136,
+              "text": "сотрудник трудоустроен в МФТИ на 1.0 ставку"
+            }
+          ]
+        },
+        {
+          "id": "holdout-019-requirement-2",
+          "requirement": "возраст сотрудника не более 40 лет",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 1141,
+              "end": 1175,
+              "text": "возраст сотрудника не более 40 лет"
+            }
+          ]
+        },
+        {
+          "id": "holdout-019-requirement-3",
+          "requirement": "место регистрации сотрудника находится не на территории г. Москвы",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 1180,
+              "end": 1245,
+              "text": "место регистрации сотрудника находится не на территории г. Москвы"
+            }
+          ]
+        },
+        {
+          "id": "holdout-019-requirement-4",
+          "requirement": "у сотрудника отсутствует задолженность по оплате",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 1271,
+              "end": 1319,
+              "text": "у сотрудника отсутствует задолженность по оплате"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "сотрудник трудоустроен в МФТИ на 1.0 ставку",
+        "возраст сотрудника не более 40 лет",
+        "место регистрации сотрудника находится не на территории г. Москвы",
+        "у сотрудника отсутствует задолженность по оплате"
+      ],
+      "family": "housing",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-020",
+      "question": "В какой срок нужно заключить договор найма и что произойдёт после его истечения?",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент поселения сотрудников.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-020-requirement-1",
+          "requirement": "течение 5 рабочих дней с момента уведомления",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 4212,
+              "end": 4256,
+              "text": "течение 5 рабочих дней с момента уведомления"
+            }
+          ]
+        },
+        {
+          "id": "holdout-020-requirement-2",
+          "requirement": "место освобождается, заявка сотрудника аннулируется",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 4339,
+              "end": 4390,
+              "text": "место освобождается, заявка сотрудника аннулируется"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "течение 5 рабочих дней с момента уведомления",
+        "место освобождается, заявка сотрудника аннулируется"
+      ],
+      "family": "housing",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-021",
+      "question": "За сколько дней после расторжения договора сотрудник должен освободить жилое помещение?",
+      "question_type": "paraphrase",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент поселения сотрудников.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-021-requirement-1",
+          "requirement": "течение 3 календарных дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 5200,
+              "end": 5226,
+              "text": "течение 3 календарных дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "течение 3 календарных дней"
+      ],
+      "family": "housing",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-022",
+      "question": "Какой срок отведён на согласование соглашения в Электронном бюджете при наличии замечаний?",
+      "question_type": "deadline_responsible",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ и регламент по ЭБ.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-022-requirement-1",
+          "requirement": "Срок для согласования не более 2 рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 3897,
+              "end": 3942,
+              "text": "Срок для согласования не более 2 рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Срок для согласования не более 2 рабочих дней"
+      ],
+      "family": "electronic_budget",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-023",
+      "question": "Когда размещаются сведения об операциях с целевыми субсидиями?",
+      "question_type": "deadline_responsible",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ и регламент по ЭБ.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-023-requirement-1",
+          "requirement": "не позднее 5 рабочих дней со дня заключения Соглашения",
+          "alternatives": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 5731,
+              "end": 5785,
+              "text": "не позднее 5 рабочих дней со дня заключения Соглашения"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не позднее 5 рабочих дней со дня заключения Соглашения"
+      ],
+      "family": "electronic_budget",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-024",
+      "question": "Кто отвечает за техническое сопровождение и организационный контроль размещения информации в Электронном бюджете?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ и регламент по ЭБ.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-024-requirement-1",
+          "requirement": "Техническое сопровождение при размещении информации",
+          "alternatives": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 2247,
+              "end": 2298,
+              "text": "Техническое сопровождение при размещении информации"
+            }
+          ]
+        },
+        {
+          "id": "holdout-024-requirement-2",
+          "requirement": "осуществляет Управление информационных технологий",
+          "alternatives": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 2327,
+              "end": 2376,
+              "text": "осуществляет Управление информационных технологий"
+            }
+          ]
+        },
+        {
+          "id": "holdout-024-requirement-3",
+          "requirement": "Организационное обеспечение, контроль сроков размещения",
+          "alternatives": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 2401,
+              "end": 2456,
+              "text": "Организационное обеспечение, контроль сроков размещения"
+            }
+          ]
+        },
+        {
+          "id": "holdout-024-requirement-4",
+          "requirement": "осуществляет Финансово-экономическое управление",
+          "alternatives": [
+            {
+              "document_id": "Приказ и регламент по ЭБ.pdf",
+              "start": 2509,
+              "end": 2556,
+              "text": "осуществляет Финансово-экономическое управление"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Техническое сопровождение при размещении информации",
+        "осуществляет Управление информационных технологий",
+        "Организационное обеспечение, контроль сроков размещения",
+        "осуществляет Финансово-экономическое управление"
+      ],
+      "family": "electronic_budget",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-025",
+      "question": "Как долго хранятся ежесуточные резервные копии виртуальных серверов ЦОД?",
+      "question_type": "simple_fact",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-025-requirement-1",
+          "requirement": "Срок / Срок",
+          "alternatives": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 1472,
+              "end": 1476,
+              "text": "Срок"
+            },
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3003,
+              "end": 3007,
+              "text": "Срок"
+            }
+          ]
+        },
+        {
+          "id": "holdout-025-requirement-2",
+          "requirement": "хранения резервных копий — 30 календарных дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 1477,
+              "end": 1523,
+              "text": "хранения резервных копий — 30 календарных дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Срок / Срок",
+        "хранения резервных копий — 30 календарных дней"
+      ],
+      "family": "datacenter",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-026",
+      "question": "Какие предельные сроки выделения виртуального сервера и размещения нового оборудования указаны в регламенте ЦОД?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "holdout-026-requirement-1",
+          "requirement": "не должен превышать | год для виртуального сервера",
+          "alternatives": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3027,
+              "end": 3077,
+              "text": "не должен превышать | год для виртуального сервера"
+            }
+          ]
+        },
+        {
+          "id": "holdout-026-requirement-2",
+          "requirement": "7 лет с даты / 7 лет с даты / 7 лет с даты",
+          "alternatives": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 2741,
+              "end": 2753,
+              "text": "7 лет с даты"
+            },
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3080,
+              "end": 3092,
+              "text": "7 лет с даты"
+            },
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 6443,
+              "end": 6455,
+              "text": "7 лет с даты"
+            }
+          ]
+        },
+        {
+          "id": "holdout-026-requirement-3",
+          "requirement": "производства для физического размещения нового оборудования",
+          "alternatives": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3093,
+              "end": 3152,
+              "text": "производства для физического размещения нового оборудования"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не должен превышать | год для виртуального сервера",
+        "7 лет с даты / 7 лет с даты / 7 лет с даты",
+        "производства для физического размещения нового оборудования"
+      ],
+      "family": "datacenter",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "holdout-027",
+      "question": "Какое максимальное число виртуальных серверов может получить одно подразделение по регламенту ЦОД?",
+      "question_type": "unanswerable",
+      "answerable": false,
+      "gold_document_ids": [],
+      "evidence_groups": [],
+      "semantic_requirements": [],
+      "family": "datacenter",
+      "split": "holdout",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    }
+  ]
+}

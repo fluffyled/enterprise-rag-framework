@@ -1,0 +1,55 @@
+{
+  "gpu": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+  "vram_bytes": 8589410304,
+  "checks": {
+    "e5": {
+      "device": "cuda:0",
+      "shape": [
+        2,
+        384
+      ],
+      "seconds": 2.687667899997905,
+      "peak_vram_bytes": 480733696
+    },
+    "reranker": {
+      "device": "cuda:0",
+      "scores": [
+        1.1115256547927856,
+        -3.6829965114593506
+      ],
+      "seconds": 2.3268027000012808,
+      "peak_vram_bytes": 952166400
+    },
+    "bge_m3": {
+      "device": "cuda",
+      "dense_shape": [
+        2,
+        1024
+      ],
+      "sparse_queries": 1,
+      "late_interaction_scores": [
+        0.7534874081611633,
+        0.5331864356994629
+      ],
+      "late_interaction_device": "cuda",
+      "seconds": 3.0553968000021996,
+      "peak_vram_bytes": 2089903104
+    },
+    "pipeline": {
+      "device": "cuda",
+      "selected": 2,
+      "timings": {
+        "embedding": 0.01953489999868907,
+        "bm25": 0.00039450000622309744,
+        "dense": 0.0006083999905968085,
+        "rrf": 4.650000482797623e-05,
+        "query_analysis": 0.00021910000941716135,
+        "subtask_retrieval": 0.031131900002947077,
+        "reranking": 0.044084599998313934,
+        "context_selection": 0.000218700006371364,
+        "total": 0.09639930000412278
+      },
+      "source_spans_preserved": true
+    }
+  }
+}

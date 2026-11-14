@@ -1,11 +1,19 @@
 /.venv/
-/data/
 /models/
 /tools/
-/reports/
 /.cache/
 /.codegraph/
 .env
 __pycache__/
 .pytest_cache/
 *.log
+
+# Retrieval v4.1: проект фиксируется целиком (код, конфиги, отчёты, датасеты,
+# индексы). Исключения — только неподъёмное и воспроизводимое:
+# пер-запросные traces (гигабайты, восстанавливаются прогонами),
+# внешние индексы >100 МБ (GitHub limit, перестраиваются скриптами),
+# сырые corpora-архивы кэша.
+reports/**/per_query_results.json
+data/experiment_indexes/multidoc2dial/88ae285727d63b84/index.json
+data/experiment_indexes/multidoc2dial/f08c5dd40c32277b/index.json
+.cache/

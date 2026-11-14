@@ -1,0 +1,69 @@
+{
+  "git_sha": "44a18a2f9bb2a3b4d9a14d7467fca9dc7667026b",
+  "started_utc": "2026-11-12T13:38:53.054637+00:00",
+  "seed": 42,
+  "hardware": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.18",
+    "processor": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "logical_cpus": 16,
+    "ram_bytes": 33492262912
+  },
+  "packages": {
+    "haystack-ai": "3.5.0",
+    "sentence-transformers": "6.3.0",
+    "transformers": "5.22.2",
+    "torch": "2.11.0+cu126",
+    "numpy": "2.5.4"
+  },
+  "models": {
+    "embedding": {
+      "repo": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+    },
+    "reranker": {
+      "repo": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+      "revision": "1427fd652930e4ba29e8149678df786c240d8825"
+    },
+    "llm": {
+      "repo": "Qwen/Qwen2.5-3B-Instruct-GGUF",
+      "revision": "7dabda4d13d513e3e842b20f0d435c732f172cbe",
+      "file": "qwen2.5-3b-instruct-q4_k_m.gguf",
+      "local_dir": "llm3"
+    }
+  },
+  "index_fingerprint": "56b78bba8c6381be19d1d3a26cb287b3926f7231f755371e93d80e91fe15a029",
+  "config": {
+    "schema_version": 1,
+    "retrieval": {
+      "hierarchical": false,
+      "hierarchy_mode": "off",
+      "contextual": false,
+      "contextual_mode": "off",
+      "coverage_aware": false,
+      "selection_strategy": "top_k",
+      "adaptive": true,
+      "adaptive_mode": "query_planner",
+      "graph_expansion": false,
+      "graph_depth": 1,
+      "embedding_backend": "e5-small",
+      "reranker_backend": "mminilm",
+      "candidate_top_k": 20,
+      "output_top_k": 6,
+      "context_token_budget": 2000,
+      "rerank": true,
+      "chunk_words": 110,
+      "chunk_stride": 90,
+      "contextual_max_chars": 1200,
+      "mmr_lambda": 0.7,
+      "coverage_lambda": 0.15,
+      "adaptive_min_candidates": 2,
+      "adaptive_min_unique_documents": 1,
+      "adaptive_min_score": 0.0,
+      "adaptive_max_expansions": 2,
+      "bge_sparse_weight": 0.5,
+      "bge_late_interaction_top_n": 20
+    },
+    "seed": 42
+  }
+}

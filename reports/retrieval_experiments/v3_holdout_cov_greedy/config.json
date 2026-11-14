@@ -1,0 +1,84 @@
+{
+  "git_sha": "28e1e5cc2fa57410f4f056d4cc3e94baa3ec230b",
+  "git_dirty": true,
+  "started_utc": "2026-11-13T08:58:55.716272+00:00",
+  "seed": 42,
+  "hardware": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.18",
+    "processor": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "logical_cpus": 16,
+    "ram_bytes": 33492262912
+  },
+  "packages": {
+    "haystack-ai": "3.5.0",
+    "sentence-transformers": "6.3.0",
+    "transformers": "5.22.2",
+    "torch": "2.11.0+cu126",
+    "numpy": "2.5.4"
+  },
+  "models": {
+    "embedding": {
+      "repo": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+    },
+    "reranker": {
+      "repo": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+      "revision": "1427fd652930e4ba29e8149678df786c240d8825"
+    },
+    "bge_m3": {
+      "repo": "BAAI/bge-m3",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "local_dir": "bge-m3"
+    },
+    "llm": {
+      "repo": "Qwen/Qwen2.5-3B-Instruct-GGUF",
+      "revision": "7dabda4d13d513e3e842b20f0d435c732f172cbe",
+      "file": "qwen2.5-3b-instruct-q4_k_m.gguf",
+      "local_dir": "llm3"
+    }
+  },
+  "index_fingerprint": "a0b27b50142e2bab86688c435bb4fd128f0c8ac34b4559ad1e0983208aca7c01",
+  "config": {
+    "schema_version": 1,
+    "retrieval": {
+      "hierarchical": false,
+      "hierarchy_mode": "off",
+      "contextual": false,
+      "contextual_mode": "off",
+      "coverage_aware": true,
+      "selection_strategy": "coverage_decomposed",
+      "decomposition_method": "existing",
+      "adaptive": false,
+      "adaptive_mode": "off",
+      "graph_expansion": false,
+      "graph_depth": 1,
+      "graph_relation_mode": "references",
+      "embedding_backend": "e5-small",
+      "reranker_backend": "mminilm",
+      "device": "cuda",
+      "candidate_top_k": 20,
+      "output_top_k": 6,
+      "context_token_budget": 2000,
+      "rerank": true,
+      "batch_cross_encoder": false,
+      "chunk_words": 110,
+      "chunk_stride": 90,
+      "contextual_max_chars": 1200,
+      "mmr_lambda": 0.7,
+      "coverage_lambda": 0.0,
+      "coverage_cost_normalization": false,
+      "coverage_document_diversity": 0.0,
+      "coverage_min_subtask": false,
+      "adaptive_min_candidates": 4,
+      "adaptive_min_unique_documents": 2,
+      "adaptive_min_score": -4.0,
+      "adaptive_max_expansions": 2,
+      "bge_sparse_weight": 0.5,
+      "bge_late_interaction_top_n": 20,
+      "bge_fusion": "late_only",
+      "bge_late_weight": 0.5
+    },
+    "seed": 42
+  }
+}

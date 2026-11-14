@@ -1,0 +1,735 @@
+{
+  "method": "grid on baseline dev; objective=triggered_failures-0.25*triggered_successes",
+  "best": {
+    "score": 0,
+    "candidates": 2,
+    "unique": 1,
+    "triggered": 7,
+    "failure_triggered": 3,
+    "success_triggered": 4,
+    "missed_failures": 2,
+    "objective": 2.0
+  },
+  "candidates": [
+    {
+      "score": 0,
+      "candidates": 2,
+      "unique": 1,
+      "triggered": 7,
+      "failure_triggered": 3,
+      "success_triggered": 4,
+      "missed_failures": 2,
+      "objective": 2.0
+    },
+    {
+      "score": 0,
+      "candidates": 3,
+      "unique": 1,
+      "triggered": 7,
+      "failure_triggered": 3,
+      "success_triggered": 4,
+      "missed_failures": 2,
+      "objective": 2.0
+    },
+    {
+      "score": 0,
+      "candidates": 4,
+      "unique": 1,
+      "triggered": 7,
+      "failure_triggered": 3,
+      "success_triggered": 4,
+      "missed_failures": 2,
+      "objective": 2.0
+    },
+    {
+      "score": -2,
+      "candidates": 2,
+      "unique": 3,
+      "triggered": 17,
+      "failure_triggered": 5,
+      "success_triggered": 12,
+      "missed_failures": 0,
+      "objective": 2.0
+    },
+    {
+      "score": -2,
+      "candidates": 3,
+      "unique": 3,
+      "triggered": 17,
+      "failure_triggered": 5,
+      "success_triggered": 12,
+      "missed_failures": 0,
+      "objective": 2.0
+    },
+    {
+      "score": -2,
+      "candidates": 4,
+      "unique": 3,
+      "triggered": 17,
+      "failure_triggered": 5,
+      "success_triggered": 12,
+      "missed_failures": 0,
+      "objective": 2.0
+    },
+    {
+      "score": 0,
+      "candidates": 5,
+      "unique": 1,
+      "triggered": 9,
+      "failure_triggered": 3,
+      "success_triggered": 6,
+      "missed_failures": 2,
+      "objective": 1.5
+    },
+    {
+      "score": 2,
+      "candidates": 2,
+      "unique": 1,
+      "triggered": 14,
+      "failure_triggered": 4,
+      "success_triggered": 10,
+      "missed_failures": 1,
+      "objective": 1.5
+    },
+    {
+      "score": 2,
+      "candidates": 3,
+      "unique": 1,
+      "triggered": 14,
+      "failure_triggered": 4,
+      "success_triggered": 10,
+      "missed_failures": 1,
+      "objective": 1.5
+    },
+    {
+      "score": 2,
+      "candidates": 4,
+      "unique": 1,
+      "triggered": 14,
+      "failure_triggered": 4,
+      "success_triggered": 10,
+      "missed_failures": 1,
+      "objective": 1.5
+    },
+    {
+      "score": 0,
+      "candidates": 2,
+      "unique": 3,
+      "triggered": 19,
+      "failure_triggered": 5,
+      "success_triggered": 14,
+      "missed_failures": 0,
+      "objective": 1.5
+    },
+    {
+      "score": 0,
+      "candidates": 3,
+      "unique": 3,
+      "triggered": 19,
+      "failure_triggered": 5,
+      "success_triggered": 14,
+      "missed_failures": 0,
+      "objective": 1.5
+    },
+    {
+      "score": 0,
+      "candidates": 4,
+      "unique": 3,
+      "triggered": 19,
+      "failure_triggered": 5,
+      "success_triggered": 14,
+      "missed_failures": 0,
+      "objective": 1.5
+    },
+    {
+      "score": -8,
+      "candidates": 5,
+      "unique": 3,
+      "triggered": 19,
+      "failure_triggered": 5,
+      "success_triggered": 14,
+      "missed_failures": 0,
+      "objective": 1.5
+    },
+    {
+      "score": -6,
+      "candidates": 5,
+      "unique": 3,
+      "triggered": 19,
+      "failure_triggered": 5,
+      "success_triggered": 14,
+      "missed_failures": 0,
+      "objective": 1.5
+    },
+    {
+      "score": -4,
+      "candidates": 5,
+      "unique": 3,
+      "triggered": 19,
+      "failure_triggered": 5,
+      "success_triggered": 14,
+      "missed_failures": 0,
+      "objective": 1.5
+    },
+    {
+      "score": -2,
+      "candidates": 5,
+      "unique": 3,
+      "triggered": 19,
+      "failure_triggered": 5,
+      "success_triggered": 14,
+      "missed_failures": 0,
+      "objective": 1.5
+    },
+    {
+      "score": -8,
+      "candidates": 2,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": -6,
+      "candidates": 2,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": -4,
+      "candidates": 2,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": -8,
+      "candidates": 3,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": -6,
+      "candidates": 3,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": -4,
+      "candidates": 3,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": -8,
+      "candidates": 4,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": -6,
+      "candidates": 4,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": -4,
+      "candidates": 4,
+      "unique": 3,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": 2,
+      "candidates": 5,
+      "unique": 1,
+      "triggered": 16,
+      "failure_triggered": 4,
+      "success_triggered": 12,
+      "missed_failures": 1,
+      "objective": 1.0
+    },
+    {
+      "score": 0,
+      "candidates": 5,
+      "unique": 3,
+      "triggered": 21,
+      "failure_triggered": 5,
+      "success_triggered": 16,
+      "missed_failures": 0,
+      "objective": 1.0
+    },
+    {
+      "score": -2,
+      "candidates": 2,
+      "unique": 1,
+      "triggered": 3,
+      "failure_triggered": 1,
+      "success_triggered": 2,
+      "missed_failures": 4,
+      "objective": 0.5
+    },
+    {
+      "score": -2,
+      "candidates": 3,
+      "unique": 1,
+      "triggered": 3,
+      "failure_triggered": 1,
+      "success_triggered": 2,
+      "missed_failures": 4,
+      "objective": 0.5
+    },
+    {
+      "score": -2,
+      "candidates": 4,
+      "unique": 1,
+      "triggered": 3,
+      "failure_triggered": 1,
+      "success_triggered": 2,
+      "missed_failures": 4,
+      "objective": 0.5
+    },
+    {
+      "score": -8,
+      "candidates": 5,
+      "unique": 1,
+      "triggered": 3,
+      "failure_triggered": 1,
+      "success_triggered": 2,
+      "missed_failures": 4,
+      "objective": 0.5
+    },
+    {
+      "score": -6,
+      "candidates": 5,
+      "unique": 1,
+      "triggered": 3,
+      "failure_triggered": 1,
+      "success_triggered": 2,
+      "missed_failures": 4,
+      "objective": 0.5
+    },
+    {
+      "score": 0,
+      "candidates": 2,
+      "unique": 2,
+      "triggered": 13,
+      "failure_triggered": 3,
+      "success_triggered": 10,
+      "missed_failures": 2,
+      "objective": 0.5
+    },
+    {
+      "score": 0,
+      "candidates": 3,
+      "unique": 2,
+      "triggered": 13,
+      "failure_triggered": 3,
+      "success_triggered": 10,
+      "missed_failures": 2,
+      "objective": 0.5
+    },
+    {
+      "score": 0,
+      "candidates": 4,
+      "unique": 2,
+      "triggered": 13,
+      "failure_triggered": 3,
+      "success_triggered": 10,
+      "missed_failures": 2,
+      "objective": 0.5
+    },
+    {
+      "score": 2,
+      "candidates": 2,
+      "unique": 3,
+      "triggered": 23,
+      "failure_triggered": 5,
+      "success_triggered": 18,
+      "missed_failures": 0,
+      "objective": 0.5
+    },
+    {
+      "score": 2,
+      "candidates": 3,
+      "unique": 3,
+      "triggered": 23,
+      "failure_triggered": 5,
+      "success_triggered": 18,
+      "missed_failures": 0,
+      "objective": 0.5
+    },
+    {
+      "score": 2,
+      "candidates": 4,
+      "unique": 3,
+      "triggered": 23,
+      "failure_triggered": 5,
+      "success_triggered": 18,
+      "missed_failures": 0,
+      "objective": 0.5
+    },
+    {
+      "score": -4,
+      "candidates": 5,
+      "unique": 1,
+      "triggered": 4,
+      "failure_triggered": 1,
+      "success_triggered": 3,
+      "missed_failures": 4,
+      "objective": 0.25
+    },
+    {
+      "score": 2,
+      "candidates": 2,
+      "unique": 2,
+      "triggered": 19,
+      "failure_triggered": 4,
+      "success_triggered": 15,
+      "missed_failures": 1,
+      "objective": 0.25
+    },
+    {
+      "score": 2,
+      "candidates": 3,
+      "unique": 2,
+      "triggered": 19,
+      "failure_triggered": 4,
+      "success_triggered": 15,
+      "missed_failures": 1,
+      "objective": 0.25
+    },
+    {
+      "score": 2,
+      "candidates": 4,
+      "unique": 2,
+      "triggered": 19,
+      "failure_triggered": 4,
+      "success_triggered": 15,
+      "missed_failures": 1,
+      "objective": 0.25
+    },
+    {
+      "score": -8,
+      "candidates": 2,
+      "unique": 1,
+      "triggered": 0,
+      "failure_triggered": 0,
+      "success_triggered": 0,
+      "missed_failures": 5,
+      "objective": 0.0
+    },
+    {
+      "score": -6,
+      "candidates": 2,
+      "unique": 1,
+      "triggered": 0,
+      "failure_triggered": 0,
+      "success_triggered": 0,
+      "missed_failures": 5,
+      "objective": 0.0
+    },
+    {
+      "score": -8,
+      "candidates": 3,
+      "unique": 1,
+      "triggered": 0,
+      "failure_triggered": 0,
+      "success_triggered": 0,
+      "missed_failures": 5,
+      "objective": 0.0
+    },
+    {
+      "score": -6,
+      "candidates": 3,
+      "unique": 1,
+      "triggered": 0,
+      "failure_triggered": 0,
+      "success_triggered": 0,
+      "missed_failures": 5,
+      "objective": 0.0
+    },
+    {
+      "score": -8,
+      "candidates": 4,
+      "unique": 1,
+      "triggered": 0,
+      "failure_triggered": 0,
+      "success_triggered": 0,
+      "missed_failures": 5,
+      "objective": 0.0
+    },
+    {
+      "score": -6,
+      "candidates": 4,
+      "unique": 1,
+      "triggered": 0,
+      "failure_triggered": 0,
+      "success_triggered": 0,
+      "missed_failures": 5,
+      "objective": 0.0
+    },
+    {
+      "score": -2,
+      "candidates": 5,
+      "unique": 1,
+      "triggered": 5,
+      "failure_triggered": 1,
+      "success_triggered": 4,
+      "missed_failures": 4,
+      "objective": 0.0
+    },
+    {
+      "score": 0,
+      "candidates": 5,
+      "unique": 2,
+      "triggered": 15,
+      "failure_triggered": 3,
+      "success_triggered": 12,
+      "missed_failures": 2,
+      "objective": 0.0
+    },
+    {
+      "score": 2,
+      "candidates": 5,
+      "unique": 3,
+      "triggered": 25,
+      "failure_triggered": 5,
+      "success_triggered": 20,
+      "missed_failures": 0,
+      "objective": 0.0
+    },
+    {
+      "score": -4,
+      "candidates": 2,
+      "unique": 1,
+      "triggered": 1,
+      "failure_triggered": 0,
+      "success_triggered": 1,
+      "missed_failures": 5,
+      "objective": -0.25
+    },
+    {
+      "score": -4,
+      "candidates": 3,
+      "unique": 1,
+      "triggered": 1,
+      "failure_triggered": 0,
+      "success_triggered": 1,
+      "missed_failures": 5,
+      "objective": -0.25
+    },
+    {
+      "score": -4,
+      "candidates": 4,
+      "unique": 1,
+      "triggered": 1,
+      "failure_triggered": 0,
+      "success_triggered": 1,
+      "missed_failures": 5,
+      "objective": -0.25
+    },
+    {
+      "score": 2,
+      "candidates": 5,
+      "unique": 2,
+      "triggered": 21,
+      "failure_triggered": 4,
+      "success_triggered": 17,
+      "missed_failures": 1,
+      "objective": -0.25
+    },
+    {
+      "score": -2,
+      "candidates": 2,
+      "unique": 2,
+      "triggered": 9,
+      "failure_triggered": 1,
+      "success_triggered": 8,
+      "missed_failures": 4,
+      "objective": -1.0
+    },
+    {
+      "score": -2,
+      "candidates": 3,
+      "unique": 2,
+      "triggered": 9,
+      "failure_triggered": 1,
+      "success_triggered": 8,
+      "missed_failures": 4,
+      "objective": -1.0
+    },
+    {
+      "score": -2,
+      "candidates": 4,
+      "unique": 2,
+      "triggered": 9,
+      "failure_triggered": 1,
+      "success_triggered": 8,
+      "missed_failures": 4,
+      "objective": -1.0
+    },
+    {
+      "score": -8,
+      "candidates": 5,
+      "unique": 2,
+      "triggered": 9,
+      "failure_triggered": 1,
+      "success_triggered": 8,
+      "missed_failures": 4,
+      "objective": -1.0
+    },
+    {
+      "score": -6,
+      "candidates": 5,
+      "unique": 2,
+      "triggered": 9,
+      "failure_triggered": 1,
+      "success_triggered": 8,
+      "missed_failures": 4,
+      "objective": -1.0
+    },
+    {
+      "score": -4,
+      "candidates": 5,
+      "unique": 2,
+      "triggered": 10,
+      "failure_triggered": 1,
+      "success_triggered": 9,
+      "missed_failures": 4,
+      "objective": -1.25
+    },
+    {
+      "score": -8,
+      "candidates": 2,
+      "unique": 2,
+      "triggered": 6,
+      "failure_triggered": 0,
+      "success_triggered": 6,
+      "missed_failures": 5,
+      "objective": -1.5
+    },
+    {
+      "score": -6,
+      "candidates": 2,
+      "unique": 2,
+      "triggered": 6,
+      "failure_triggered": 0,
+      "success_triggered": 6,
+      "missed_failures": 5,
+      "objective": -1.5
+    },
+    {
+      "score": -8,
+      "candidates": 3,
+      "unique": 2,
+      "triggered": 6,
+      "failure_triggered": 0,
+      "success_triggered": 6,
+      "missed_failures": 5,
+      "objective": -1.5
+    },
+    {
+      "score": -6,
+      "candidates": 3,
+      "unique": 2,
+      "triggered": 6,
+      "failure_triggered": 0,
+      "success_triggered": 6,
+      "missed_failures": 5,
+      "objective": -1.5
+    },
+    {
+      "score": -8,
+      "candidates": 4,
+      "unique": 2,
+      "triggered": 6,
+      "failure_triggered": 0,
+      "success_triggered": 6,
+      "missed_failures": 5,
+      "objective": -1.5
+    },
+    {
+      "score": -6,
+      "candidates": 4,
+      "unique": 2,
+      "triggered": 6,
+      "failure_triggered": 0,
+      "success_triggered": 6,
+      "missed_failures": 5,
+      "objective": -1.5
+    },
+    {
+      "score": -2,
+      "candidates": 5,
+      "unique": 2,
+      "triggered": 11,
+      "failure_triggered": 1,
+      "success_triggered": 10,
+      "missed_failures": 4,
+      "objective": -1.5
+    },
+    {
+      "score": -4,
+      "candidates": 2,
+      "unique": 2,
+      "triggered": 7,
+      "failure_triggered": 0,
+      "success_triggered": 7,
+      "missed_failures": 5,
+      "objective": -1.75
+    },
+    {
+      "score": -4,
+      "candidates": 3,
+      "unique": 2,
+      "triggered": 7,
+      "failure_triggered": 0,
+      "success_triggered": 7,
+      "missed_failures": 5,
+      "objective": -1.75
+    },
+    {
+      "score": -4,
+      "candidates": 4,
+      "unique": 2,
+      "triggered": 7,
+      "failure_triggered": 0,
+      "success_triggered": 7,
+      "missed_failures": 5,
+      "objective": -1.75
+    }
+  ]
+}

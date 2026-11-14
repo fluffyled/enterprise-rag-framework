@@ -1,0 +1,692 @@
+{
+  "schema_version": 1,
+  "private": true,
+  "split": "test",
+  "queries": [
+    {
+      "id": "test-001",
+      "question": "Когда руководитель должен сообщить УРП о решении по кандидату?",
+      "question_type": "deadline_responsible",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент поиска и подбора персонала.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-001-requirement-1",
+          "requirement": "информирует управление по работе с персоналом",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 7934,
+              "end": 7979,
+              "text": "информирует управление по работе с персоналом"
+            }
+          ]
+        },
+        {
+          "id": "test-001-requirement-2",
+          "requirement": "в течение двух рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 8045,
+              "end": 8072,
+              "text": "в течение двух рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "информирует управление по работе с персоналом",
+        "в течение двух рабочих дней"
+      ],
+      "family": "hr",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-002",
+      "question": "Как кандидата информируют об отрицательном решении по вакансии?",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент поиска и подбора персонала.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-002-requirement-1",
+          "requirement": "информирует о принятом решении кандидата в форме электронного ответа кандидату",
+          "alternatives": [
+            {
+              "document_id": "Регламент поиска и подбора персонала.pdf",
+              "start": 8246,
+              "end": 8324,
+              "text": "информирует о принятом решении кандидата в форме электронного ответа кандидату"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "информирует о принятом решении кандидата в форме электронного ответа кандидату"
+      ],
+      "family": "hr",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-003",
+      "question": "Обрабатывает ли первая линия обращения по оборудованию, которое не числится на балансе МФТИ?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ и Регламент работы первой линии техподдержки.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-003-requirement-1",
+          "requirement": "не состоящим",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 4053,
+              "end": 4065,
+              "text": "не состоящим"
+            }
+          ]
+        },
+        {
+          "id": "test-003-requirement-2",
+          "requirement": "на балансе МФТИ",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 4068,
+              "end": 4083,
+              "text": "на балансе МФТИ"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не состоящим",
+        "на балансе МФТИ"
+      ],
+      "family": "it_support",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-004",
+      "question": "Входят ли ошибочно введённые пользователем данные в обязанности первой линии поддержки?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ и Регламент работы первой линии техподдержки.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-004-requirement-1",
+          "requirement": "не являются сбоем в работе ИТ",
+          "alternatives": [
+            {
+              "document_id": "Приказ и Регламент работы первой линии техподдержки.pdf",
+              "start": 3892,
+              "end": 3921,
+              "text": "не являются сбоем в работе ИТ"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "не являются сбоем в работе ИТ"
+      ],
+      "family": "it_support",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-005",
+      "question": "За сколько рабочих дней организатор передаёт презентации и сценарный план в КМО?",
+      "question_type": "deadline_responsible",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент бронирования конц зала.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-005-requirement-1",
+          "requirement": "Не позднее, чем за 10 рабочих дней",
+          "alternatives": [
+            {
+              "document_id": "Регламент бронирования конц зала.pdf",
+              "start": 4382,
+              "end": 4416,
+              "text": "Не позднее, чем за 10 рабочих дней"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Не позднее, чем за 10 рабочих дней"
+      ],
+      "family": "booking",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-006",
+      "question": "За какое время после мероприятия организатор должен убрать мусор и вывезти имущество?",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент бронирования конц зала.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-006-requirement-1",
+          "requirement": "в течение 1 часа после окончания мероприятия",
+          "alternatives": [
+            {
+              "document_id": "Регламент бронирования конц зала.pdf",
+              "start": 8194,
+              "end": 8238,
+              "text": "в течение 1 часа после окончания мероприятия"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "в течение 1 часа после окончания мероприятия"
+      ],
+      "family": "booking",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-007",
+      "question": "В какой срок нужно возместить вред имуществу концертного зала?",
+      "question_type": "deadline_responsible",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент бронирования конц зала.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-007-requirement-1",
+          "requirement": "10 рабочих дней с момента завершения мероприятия",
+          "alternatives": [
+            {
+              "document_id": "Регламент бронирования конц зала.pdf",
+              "start": 9435,
+              "end": 9483,
+              "text": "10 рабочих дней с момента завершения мероприятия"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "10 рабочих дней с момента завершения мероприятия"
+      ],
+      "family": "booking",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-008",
+      "question": "Выдаётся ли новый денежный аванс при непогашенной задолженности по прошлой командировке?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент о командировании.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-008-requirement-1",
+          "requirement": "новый аванс не выплачивается до погашения задолженности",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 39828,
+              "end": 39883,
+              "text": "новый аванс не выплачивается до погашения задолженности"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "новый аванс не выплачивается до погашения задолженности"
+      ],
+      "family": "travel",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-009",
+      "question": "Как оформляется решение о командировке сотрудника на нескольких должностях?",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент о командировании.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-009-requirement-1",
+          "requirement": "по каждой должности отдельно оформляется Решение о",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 37245,
+              "end": 37295,
+              "text": "по каждой должности отдельно оформляется Решение о"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "по каждой должности отдельно оформляется Решение о"
+      ],
+      "family": "travel",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-010",
+      "question": "Что нужно сделать с приглашением на иностранном языке перед командировкой?",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент о командировании.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-010-requirement-1",
+          "requirement": "построчный перевод на русский язык / построчный перевод на русский язык",
+          "alternatives": [
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 15310,
+              "end": 15344,
+              "text": "построчный перевод на русский язык"
+            },
+            {
+              "document_id": "Регламент о командировании.pdf",
+              "start": 34619,
+              "end": 34653,
+              "text": "построчный перевод на русский язык"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "построчный перевод на русский язык / построчный перевод на русский язык"
+      ],
+      "family": "travel",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-011",
+      "question": "Можно ли заключить новый договор найма при непогашенной задолженности по предыдущему?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент поселения сотрудников.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-011-requirement-1",
+          "requirement": "Новые договоры найма с сотрудниками не заключаются до момента погашения",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 4972,
+              "end": 5043,
+              "text": "Новые договоры найма с сотрудниками не заключаются до момента погашения"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Новые договоры найма с сотрудниками не заключаются до момента погашения"
+      ],
+      "family": "housing",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-012",
+      "question": "На чьё имя подаётся мотивированная служебная записка об исключительном случае поселения?",
+      "question_type": "procedure",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент поселения сотрудников.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-012-requirement-1",
+          "requirement": "на имя председателя комиссии по поселению сотрудников",
+          "alternatives": [
+            {
+              "document_id": "Регламент поселения сотрудников.pdf",
+              "start": 3944,
+              "end": 3997,
+              "text": "на имя председателя комиссии по поселению сотрудников"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "на имя председателя комиссии по поселению сотрудников"
+      ],
+      "family": "housing",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-013",
+      "question": "В стойки какого размера принимается оборудование в ЦОД?",
+      "question_type": "simple_fact",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-013-requirement-1",
+          "requirement": "стандартные серверные стойки 19 дюймов",
+          "alternatives": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 1877,
+              "end": 1915,
+              "text": "стандартные серверные стойки 19 дюймов"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "стандартные серверные стойки 19 дюймов"
+      ],
+      "family": "datacenter",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-014",
+      "question": "Какие две категории обращений в техническую поддержку УИТ указаны в регламенте ЦОД?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-014-requirement-1",
+          "requirement": "Запрос на обслуживание и предоставление сервисов",
+          "alternatives": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3315,
+              "end": 3363,
+              "text": "Запрос на обслуживание и предоставление сервисов"
+            }
+          ]
+        },
+        {
+          "id": "test-014-requirement-2",
+          "requirement": "Информация об инциденте",
+          "alternatives": [
+            {
+              "document_id": "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf",
+              "start": 3542,
+              "end": 3565,
+              "text": "Информация об инциденте"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "Запрос на обслуживание и предоставление сервисов",
+        "Информация об инциденте"
+      ],
+      "family": "datacenter",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-015",
+      "question": "Какой КФО соответствует собственным средствам от приносящей доход деятельности?",
+      "question_type": "table_attachment",
+      "answerable": true,
+      "gold_document_ids": [
+        "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-015-requirement-1",
+          "requirement": "собственные средства учреждения от приносящей доход деятельности",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 3050,
+              "end": 3114,
+              "text": "собственные средства учреждения от приносящей доход деятельности"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "собственные средства учреждения от приносящей доход деятельности"
+      ],
+      "family": "fls_number",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-016",
+      "question": "Какой КФО указан для субсидий на выполнение государственного задания?",
+      "question_type": "table_attachment",
+      "answerable": true,
+      "gold_document_ids": [
+        "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-016-requirement-1",
+          "requirement": "средства субсидий на выполнение государственного задания",
+          "alternatives": [
+            {
+              "document_id": "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx",
+              "start": 3327,
+              "end": 3383,
+              "text": "средства субсидий на выполнение государственного задания"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "средства субсидий на выполнение государственного задания"
+      ],
+      "family": "fls_number",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-017",
+      "question": "Какой штраф начисляется за просрочку внутреннего займа более чем на месяц?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ №  5990-1 от 03.11.2026 новый.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-017-requirement-1",
+          "requirement": "0,5% от суммы задолженности",
+          "alternatives": [
+            {
+              "document_id": "Приказ №  5990-1 от 03.11.2026 новый.pdf",
+              "start": 6768,
+              "end": 6795,
+              "text": "0,5% от суммы задолженности"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "0,5% от суммы задолженности"
+      ],
+      "family": "loans",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-018",
+      "question": "Какой процент страховых взносов используется при планировании оплаты труда на 2026 год?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ N 3699-1 от 18.08.2025.docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-018-requirement-1",
+          "requirement": "отчисления по страховым взносам в размере 30,2%",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 12472,
+              "end": 12519,
+              "text": "отчисления по страховым взносам в размере 30,2%"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "отчисления по страховым взносам в размере 30,2%"
+      ],
+      "family": "budget_2026",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-019",
+      "question": "Какой резерв отпускных планируется для профессорско-преподавательского состава?",
+      "question_type": "multi_condition",
+      "answerable": true,
+      "gold_document_ids": [
+        "Приказ N 3699-1 от 18.08.2025.docx"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-019-requirement-1",
+          "requirement": "16,4% от суммы планируемой заработной платы",
+          "alternatives": [
+            {
+              "document_id": "Приказ N 3699-1 от 18.08.2025.docx",
+              "start": 12641,
+              "end": 12684,
+              "text": "16,4% от суммы планируемой заработной платы"
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "16,4% от суммы планируемой заработной платы"
+      ],
+      "family": "budget_2026",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    },
+    {
+      "id": "test-020",
+      "question": "С какой даты вводился в действие регламент открытия ФЛС в редакции 460-1?",
+      "question_type": "version_change",
+      "answerable": true,
+      "gold_document_ids": [
+        "460-1 Открытие ФЛС_приказ об изменении в приказе на открытие ФЛС.pdf"
+      ],
+      "evidence_groups": [
+        {
+          "id": "test-020-requirement-1",
+          "requirement": "ввести в действие с 1 мая 2017г.",
+          "alternatives": [
+            {
+              "document_id": "460-1 Открытие ФЛС_приказ об изменении в приказе на открытие ФЛС.pdf",
+              "start": 262,
+              "end": 294,
+              "text": "ввести в действие с 1 мая 2017г."
+            }
+          ]
+        }
+      ],
+      "semantic_requirements": [
+        "ввести в действие с 1 мая 2017г."
+      ],
+      "family": "fls_open",
+      "split": "test",
+      "annotation": {
+        "method": "manual_anchor_review",
+        "review_status": "single_annotator"
+      }
+    }
+  ]
+}

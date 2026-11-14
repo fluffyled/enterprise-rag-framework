@@ -1,0 +1,125 @@
+{
+  "documents": {
+    "460-1 Открытие ФЛС_приказ об изменении в приказе на открытие ФЛС.pdf": {
+      "clauses": 60,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0,
+      "duplicate_numbers": 33
+    },
+    "Копия Приложение 1б Бланк сметы РЦНИ.xlsx": {
+      "clauses": 0,
+      "has_numbered_clauses": false,
+      "gap_ratio": 1.0,
+      "duplicate_numbers": 0
+    },
+    "Приказ N 3065-1 от 25.11.2021.docx": {
+      "clauses": 71,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0152,
+      "duplicate_numbers": 30
+    },
+    "Приказ N 3614-1 от 11.08.2025 по Фин.структуре 2026г..docx": {
+      "clauses": 4,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0094,
+      "duplicate_numbers": 0
+    },
+    "Приказ N 3699-1 от 18.08.2025.docx": {
+      "clauses": 125,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0149,
+      "duplicate_numbers": 74
+    },
+    "Приказ N 794-1 от 28.03.2023.docx": {
+      "clauses": 26,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.055,
+      "duplicate_numbers": 2
+    },
+    "Приказ N 889-1 от 04.04.2023_инструкция по корректировке смет.docx": {
+      "clauses": 4,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.3149,
+      "duplicate_numbers": 0
+    },
+    "Приказ и регламент по ЭБ.pdf": {
+      "clauses": 31,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0,
+      "duplicate_numbers": 2
+    },
+    "Приказ и Регламент работы первой линии техподдержки.pdf": {
+      "clauses": 31,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0915,
+      "duplicate_numbers": 5
+    },
+    "Приказ №  5990-1 от 03.11.2026 новый.pdf": {
+      "clauses": 26,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0355,
+      "duplicate_numbers": 9
+    },
+    "Приложение 1_новая смета 2019 (с незащищенными формулами).xlsx": {
+      "clauses": 0,
+      "has_numbered_clauses": false,
+      "gap_ratio": 1.0,
+      "duplicate_numbers": 0
+    },
+    "Приложение 1а Бланк сметы.docx": {
+      "clauses": 0,
+      "has_numbered_clauses": false,
+      "gap_ratio": 1.0,
+      "duplicate_numbers": 0
+    },
+    "Приложение к приказу об утверждении фин. структуры 2026г..xlsx": {
+      "clauses": 0,
+      "has_numbered_clauses": false,
+      "gap_ratio": 1.0,
+      "duplicate_numbers": 0
+    },
+    "Приложения к приказу_ о формировании бюджетирования  2026г..docx": {
+      "clauses": 88,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0118,
+      "duplicate_numbers": 64
+    },
+    "Распоряжение N 700 от 28.12.2024 Порядок присвоения номера ФЛС.docx": {
+      "clauses": 24,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0302,
+      "duplicate_numbers": 4
+    },
+    "Регламент бронирования конц зала.pdf": {
+      "clauses": 77,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0049,
+      "duplicate_numbers": 24
+    },
+    "Регламент о командировании.pdf": {
+      "clauses": 80,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0059,
+      "duplicate_numbers": 4
+    },
+    "Регламент поиска и подбора персонала.pdf": {
+      "clauses": 56,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0204,
+      "duplicate_numbers": 4
+    },
+    "Регламент поселения сотрудников.pdf": {
+      "clauses": 27,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0294,
+      "duplicate_numbers": 2
+    },
+    "Регламент эксплуатации центра обработки данных МФТИ, Физтех.pdf": {
+      "clauses": 17,
+      "has_numbered_clauses": true,
+      "gap_ratio": 0.0,
+      "duplicate_numbers": 0
+    }
+  },
+  "total_clauses": 747
+}

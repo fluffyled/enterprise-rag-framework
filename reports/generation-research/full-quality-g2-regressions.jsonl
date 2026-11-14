@@ -1,0 +1,3 @@
+{"dataset": "complex50", "id": "HQ004", "answerable": true, "retrieval": "quality", "generation": "g2", "status": "partial", "seconds": 181.011, "total": 4, "hits": 2, "quotes": 8, "invalid_quotes": 0, "error": ""}
+{"dataset": "complex50", "id": "HQ014", "answerable": true, "retrieval": "quality", "generation": "g2", "status": "partial", "seconds": 394.248, "total": 5, "hits": 0, "quotes": 38, "invalid_quotes": 0, "error": ""}
+{"dataset": "complex50", "id": "HQ022", "answerable": true, "retrieval": "quality", "generation": "g2", "status": "partial", "seconds": 142.394, "total": 4, "hits": 0, "quotes": 10, "invalid_quotes": 0, "error": ""}
