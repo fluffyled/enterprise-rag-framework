@@ -88,7 +88,8 @@ def main():
                 "error": result.error,
             }
             if result.status == "error" and result.diagnostics.get("transport_error"):
-                raise RuntimeError(f"Local LLM is unavailable at {case['id']}; stopping the evaluation")
+                reason = result.diagnostics.get("review_issues") or result.error
+                raise RuntimeError(f"Local LLM is unavailable at {case['id']}: {reason}")
             rows.append(row)
             stream.write(json.dumps(row, ensure_ascii=False) + "\n")
             stream.flush()
