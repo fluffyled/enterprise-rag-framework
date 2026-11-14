@@ -106,13 +106,12 @@ def parse_clauses(document_id, sha256, text):
 def main():
     documents = json.loads((ROOT / "data/source_documents.json").read_text(encoding="utf-8"))
     gold = [json.loads(line) for line in GOLD.read_text(encoding="utf-8").splitlines() if line.strip()]
-    needed = {e["document_filename"] for row in gold for e in row["gold_evidence"]}
+    # gold используется ТОЛЬКО для offline-валидации покрытия цитат,
+    # не для выбора документов: clause store строится по всему корпусу.
 
     store = {}
     report = {"documents": {}, "total_clauses": 0}
     for document in documents:
-        if document["document_id"] not in needed:
-            continue
         clauses = parse_clauses(document["document_id"], document["sha256"], document["text"])
         store[document["sha256"]] = {"document_id": document["document_id"], "clauses": clauses}
         spans = sorted((clause["start"], clause["end"]) for clause in clauses)
@@ -123,9 +122,11 @@ def main():
             else:
                 merged.append([start, end])
         covered = sum(end - start for start, end in merged)
+        numbers = [clause["number"] for clause in clauses]
         report["documents"][document["document_id"]] = {
             "clauses": len(clauses),
             "gap_ratio": round(1 - covered / len(document["text"]), 4),
+            "duplicate_numbers": len(numbers) - len(set(numbers)),
         }
         report["total_clauses"] += len(clauses)
 
@@ -156,7 +157,8 @@ def main():
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps({"documents": store}, ensure_ascii=False), encoding="utf-8")
-    print(json.dumps(report, ensure_ascii=False, indent=2)[:2000])
+    (OUT.parent / "clause_build_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(json.dumps({key: report[key] for key in ("total_clauses", "gold_evidence_total")}, ensure_ascii=False))
     print(OUT)
 
 

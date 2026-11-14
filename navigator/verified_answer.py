@@ -73,6 +73,8 @@ def build_evidence_blocks(documents, char_cap=5800, block_char_cap=2400):
         used_chars += len(content)
         blocks.append({
             "id": f"block_{index}",
+            "chunk_id": meta.get("chunk_id"),
+            "clause_id": meta.get("clause_id"),
             "document": meta.get("document_id") or meta.get("name"),
             "clause": meta.get("clause_number") or meta.get("locator") or "",
             "page": meta.get("page"),
@@ -128,7 +130,7 @@ def verify_plan(plan, blocks):
         if not _action_supported(step, block):
             missing.append(f"не подтверждено источником: {step.get('action', '')[:80]}")
             continue
-        clean = {"action": step["action"], "quote": block["text"], "block_id": block["id"], "document": block["document"], "clause": block["clause"]}
+        clean = {"action": step["action"], "quote": block["text"], "block_id": block["id"], "chunk_id": block.get("chunk_id"), "clause_id": block.get("clause_id"), "document": block["document"], "clause": block["clause"]}
         for field in ("actor", "condition", "deadline"):
             value = step.get(field)
             clean[field] = value if value and _field_supported(value, block) else None
@@ -148,6 +150,6 @@ def verified_answer(question, documents, endpoint):
     supported, missing = verify_plan(plan, blocks)
     if not supported:
         return {"status": "insufficient", "answer": [], "steps": [], "conflicts": [], "plan": plan, "raw": raw, "missing": missing}
-    steps = [{"source": step["block_id"], "quote": step["quote"], "action": step["action"], "actor": step.get("actor"), "condition": step.get("condition"), "deadline": step.get("deadline"), "document": step.get("document"), "clause": step.get("clause")} for step in supported]
+    steps = [{"source": step["block_id"], "chunk_id": step.get("chunk_id"), "clause_id": step.get("clause_id"), "quote": step["quote"], "action": step["action"], "actor": step.get("actor"), "condition": step.get("condition"), "deadline": step.get("deadline"), "document": step.get("document"), "clause": step.get("clause")} for step in supported]
     answer = steps[:3]
     return {"status": "supported_quotes", "answer": answer, "steps": steps, "conflicts": [], "plan": plan, "raw": raw, "missing": missing}

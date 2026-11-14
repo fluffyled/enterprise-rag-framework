@@ -16,7 +16,9 @@ import time
 from .parent_expansion import expand_parents, load_clause_store
 from .query_analysis import local_llm_decompose
 
-SUPPORTED_SCORE = -2.0
+SUPPORTED_SCORE = -2.0  # произвольный порог (аудит D7): при нём supported≈всегда,
+# раунд-2 H4 фактически не срабатывает. Осознанно НЕ подгоняется под данные;
+# выносится в конфиг для явности.
 
 
 def plan_subtasks(question, use_llm=True):
@@ -93,6 +95,8 @@ def multi_hop_search(retriever, question, effective, metadata, timings):
                     item["best_score"] = best.meta.get("rerank_score", 0.0)
                     item["recovered_in_round"] = 1
     diagnostics["unsupported_after_rounds"] = [item["requirement"] for item in coverage if not item["supported"]]
+    diagnostics["support_threshold"] = SUPPORTED_SCORE
+    diagnostics["candidate_ids"] = [_candidate_key(document) for document in ordered]
 
     if settings.get("parent_expansion"):
         if not hasattr(retriever, "_clause_store"):

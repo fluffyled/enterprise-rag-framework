@@ -83,45 +83,59 @@ def build_indexes(gold, index_path):
 
 
 def stage_coverage(items, gold_row, chunk_units):
-    """Покрытие gold стадией. items — список (chunk_id, content); покрытие
-    определяется по содержимому: needle ⊆ content (strict) или пересечение
-    токенов с evidence_quote ≥ 0.5 (loose). Работает для обычных чанков,
-    clause-expanded и oracle-документов одинаково."""
+    """Покрытие gold стадией. items — список (chunk_id, content, document).
+
+    Аудит D2: needle/soft совпадения засчитываются ТОЛЬКО в контенте того же
+    документа, что и gold evidence (в корпусе есть дубликаты положений D05/D14 —
+    совпадение в чужом документе не является нахождением доказательства).
+    Аудит D3: strict (дословный needle) и soft (токенное пересечение с цитатой
+    ≥ 0.5) разделены; итог — объединение. Аудит: legacy-ключи — прежнее
+    поведение без проверки документа, для сравнения до/после.
+    """
     gold_docs = {e["document_filename"] for e in gold_row["gold_evidence"]}
     gold_units = {e["source_unit_id"] for e in gold_row["gold_evidence"]}
     gold_clauses = {e["evidence_id"] for e in gold_row["gold_evidence"]}
+    strict, soft, legacy = set(), set(), set()
     covered_units = set()
-    covered_clauses = set()
     filename_by_code = {e["document_code"]: e["document_filename"] for e in gold_row["gold_evidence"]}
-    for chunk_id, content in items:
+    for chunk_id, content, item_document in items:
         covered_units.update(chunk_units.get(chunk_id, []))
         content_norm = norm(content)
         content_tokens = set(re.findall(r"\w+", content_norm.lower()))
         for evidence in gold_row["gold_evidence"]:
             evidence_id = evidence["evidence_id"]
-            if evidence_id in covered_clauses:
-                continue
             needle = norm(evidence["evidence_needle"])
-            if needle and needle in content_norm:
-                covered_clauses.add(evidence_id)
-                covered_units.add(evidence["source_unit_id"])
-                continue
             quote_tokens = set(re.findall(r"\w+", norm(evidence["evidence_quote"]).lower()))
-            if quote_tokens and len(content_tokens & quote_tokens) / len(quote_tokens) >= 0.5:
-                covered_clauses.add(evidence_id)
+            is_strict = bool(needle) and needle in content_norm
+            is_soft = bool(quote_tokens) and len(content_tokens & quote_tokens) / len(quote_tokens) >= 0.5
+            if is_strict or is_soft:
+                legacy.add(evidence_id)
+            if evidence["document_filename"] != item_document:
+                continue  # D2: совпадение в другом документе не считается
+            if is_strict:
+                strict.add(evidence_id)
                 covered_units.add(evidence["source_unit_id"])
+            elif is_soft:
+                soft.add(evidence_id)
+                covered_units.add(evidence["source_unit_id"])
+    covered = strict | soft
     doc_hit = {filename_by_code.get(unit.split("::")[0]) for unit in covered_units}
-    fact_covered = sum(
-        1 for fact in gold_row["required_facts"]
-        if all(eid in covered_clauses for eid in fact["evidence_ids"])
-    )
+    total_facts = len(gold_row["required_facts"])
+    fact_covered = sum(1 for fact in gold_row["required_facts"] if all(eid in covered for eid in fact["evidence_ids"]))
+    fact_covered_strict = sum(1 for fact in gold_row["required_facts"] if all(eid in strict for eid in fact["evidence_ids"]))
+    fact_covered_legacy = sum(1 for fact in gold_row["required_facts"] if all(eid in legacy for eid in fact["evidence_ids"]))
     return {
         "document_recall": len(doc_hit & gold_docs) / len(gold_docs) if gold_docs else 0.0,
         "unit_recall": len(covered_units & gold_units) / len(gold_units) if gold_units else 0.0,
-        "clause_recall": len(covered_clauses & gold_clauses) / len(gold_clauses) if gold_clauses else 0.0,
-        "evidence_recall": len(covered_clauses & gold_clauses) / len(gold_clauses) if gold_clauses else 0.0,
-        "fact_coverage": fact_covered / len(gold_row["required_facts"]) if gold_row["required_facts"] else 0.0,
-        "all_evidence_found": float(covered_clauses >= gold_clauses),
+        "clause_recall": len(covered & gold_clauses) / len(gold_clauses) if gold_clauses else 0.0,
+        "clause_recall_strict": len(strict & gold_clauses) / len(gold_clauses) if gold_clauses else 0.0,
+        "clause_recall_soft_only": len((soft - strict) & gold_clauses) / len(gold_clauses) if gold_clauses else 0.0,
+        "evidence_recall": len(covered & gold_clauses) / len(gold_clauses) if gold_clauses else 0.0,
+        "fact_coverage": fact_covered / total_facts if total_facts else 0.0,
+        "fact_coverage_strict": fact_covered_strict / total_facts if total_facts else 0.0,
+        "all_evidence_found": float(covered >= gold_clauses),
+        "clause_recall_legacy": len(legacy & gold_clauses) / len(gold_clauses) if gold_clauses else 0.0,
+        "fact_coverage_legacy": fact_covered_legacy / total_facts if total_facts else 0.0,
     }
 
 
@@ -167,25 +181,57 @@ def quote_covers_fact(quote, gold_row, fact):
     return False
 
 
+def step_text_covers_fact(step_text, gold_row, fact):
+    """Аудит D4: проверка СОДЕРЖИМОГО шага (а не цитатного блока) против
+    объединённого содержимого ВСЕХ обязательных evidence факта: цифры шага ⊆
+    цифрам evidence-объединения и ≥ 50% содержательных слов шага (длины ≥ 4)
+    присутствуют в нём. Составной факт покрыт только целиком."""
+    text_norm = norm(step_text).lower()
+    if not text_norm:
+        return False
+    text_tokens = {t for t in re.findall(r"\w+", text_norm) if len(t) >= 4}
+    text_digits = set(re.findall(r"\d+", text_norm))
+    evidence_tokens, evidence_digits = set(), set()
+    for evidence in gold_row["gold_evidence"]:
+        if evidence["evidence_id"] not in fact["evidence_ids"]:
+            continue
+        evidence_norm = norm(evidence["evidence_quote"]).lower()
+        evidence_tokens |= set(re.findall(r"\w+", evidence_norm))
+        evidence_digits |= set(re.findall(r"\d+", evidence_norm))
+    if text_digits and not text_digits <= evidence_digits:
+        return False
+    if text_tokens and len(text_tokens & evidence_tokens) / len(text_tokens) < 0.5:
+        return False
+    return True
+
+
 def generation_metrics(result, gold_row):
-    quotes = [item.get("quote", "") for item in (result.get("answer") or []) + (result.get("steps") or [])]
+    """Аудит D4/D5: verified-режим оценивает текст шагов (action+поля),
+    quotes-режим — цитаты; error и false_abstention разделены;
+    legacy_step_recall — прежняя оценка по полным цитатным блокам (завышение)."""
     status = result.get("status")
-    facts_covered = 0
-    for fact in gold_row["required_facts"]:
-        if any(quote_covers_fact(quote, gold_row, fact) for quote in quotes):
-            facts_covered += 1
+    is_verified = bool(result.get("steps")) and all("action" in item for item in result["steps"])
     total_facts = len(gold_row["required_facts"])
-    unsupported = 0
-    for quote in quotes:
-        if not any(quote_covers_fact(quote, gold_row, fact) for fact in gold_row["required_facts"]):
-            unsupported += 1
+    legacy_quotes = [item.get("quote", "") for item in (result.get("answer") or []) + (result.get("steps") or [])]
+    if is_verified and status == "supported_quotes":
+        steps_text = [" ".join(filter(None, (item.get("action", ""), item.get("actor") or "", item.get("condition") or "", item.get("deadline") or ""))) for item in result["steps"]]
+        facts_covered = sum(1 for fact in gold_row["required_facts"] if any(step_text_covers_fact(text, gold_row, fact) for text in steps_text))
+        unsupported = sum(1 for text in steps_text if not any(step_text_covers_fact(text, gold_row, fact) for fact in gold_row["required_facts"]))
+        unit_count = len(steps_text)
+    else:
+        facts_covered = sum(1 for fact in gold_row["required_facts"] if any(quote_covers_fact(quote, gold_row, fact) for quote in legacy_quotes))
+        unsupported = sum(1 for quote in legacy_quotes if not any(quote_covers_fact(quote, gold_row, fact) for fact in gold_row["required_facts"]))
+        unit_count = len(legacy_quotes)
+    legacy_covered = sum(1 for fact in gold_row["required_facts"] if any(quote_covers_fact(quote, gold_row, fact) for quote in legacy_quotes))
     return {
         "step_recall": facts_covered / total_facts if total_facts else 0.0,
-        "complete_at_all": float(facts_covered == total_facts),
+        "complete_at_all": float(facts_covered == total_facts and status == "supported_quotes"),
         "false_abstention": float(status == "insufficient"),
-        "unsupported_quote_rate": unsupported / len(quotes) if quotes else 0.0,
+        "error_rate": float(status == "error"),
+        "unsupported_quote_rate": unsupported / unit_count if unit_count else 0.0,
         "status": status,
-        "quote_count": len(quotes),
+        "quote_count": unit_count,
+        "legacy_step_recall": legacy_covered / total_facts if total_facts else 0.0,
     }
 
 
@@ -234,18 +280,25 @@ def run(args):
         retrieval_seconds = 0.0
         if args.oracle:
             documents = [Document(content=e["evidence_quote"], meta={"document_id": e["document_filename"], "name": e["document_filename"], "chunk_id": e["evidence_id"]}) for e in gold_row["gold_evidence"]]
-            stage_chunks = {"oracle": [(e["evidence_id"], e["evidence_quote"]) for e in gold_row["gold_evidence"]]}
+            stage_chunks = {"oracle": [(e["evidence_id"], e["evidence_quote"], e["document_filename"]) for e in gold_row["gold_evidence"]]}
         else:
             retrieval_started = time.perf_counter()
             search = retriever.search(gold_row["question"], config=config)
             retrieval_seconds = time.perf_counter() - retrieval_started
             trace = search.to_dict()
             documents = list(search)
+            def snap(item):
+                return (item["meta"].get("chunk_id"), item["content"], item.get("document_id"))
             stage_chunks = {
-                "rrf": [(item["meta"].get("chunk_id"), item["content"]) for item in trace["stages"].get("rrf", [])],
-                "reranked": [(item["meta"].get("chunk_id"), item["content"]) for item in trace["stages"].get("cross_encoder", [])],
-                "selected": [(item["meta"].get("chunk_id"), item["content"]) for item in trace["results"]],
+                "rrf": [snap(item) for item in trace["stages"].get("rrf", [])],
+                "reranked": [snap(item) for item in trace["stages"].get("cross_encoder", [])],
+                "selected": [snap(item) for item in trace["results"]],
             }
+            if trace.get("metadata", {}).get("multi_hop"):
+                # Аудит: в multi-hop прогонах стадии rrf/reranked относятся только
+                # к базовому вопросу (поиски по подзадачам — в rounds диагностике).
+                stage_chunks["base_rrf"] = stage_chunks.pop("rrf")
+                stage_chunks["base_reranked"] = stage_chunks.pop("reranked")
         stages = {}
         for stage_name, items in stage_chunks.items():
             stages[stage_name] = stage_coverage(items, gold_row, chunk_units)
@@ -300,7 +353,7 @@ def run(args):
     (output / "per_query_results.json").write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
 
     metrics = {"questions": len(rows), "oracle": args.oracle}
-    for stage_name in ("rrf", "reranked", "selected", "oracle"):
+    for stage_name in ("rrf", "reranked", "selected", "oracle", "base_rrf", "base_reranked"):
         stage_rows = [row["stages"][stage_name] for row in rows if stage_name in row["stages"]]
         if not stage_rows:
             continue
@@ -312,7 +365,7 @@ def run(args):
         gen_rows = [row["generation"] for row in rows]
         metrics["generation"] = {
             key: sum(row[key] for row in gen_rows) / len(gen_rows)
-            for key in ("step_recall", "complete_at_all", "false_abstention", "unsupported_quote_rate")
+            for key in ("step_recall", "complete_at_all", "false_abstention", "error_rate", "unsupported_quote_rate", "legacy_step_recall")
         }
         metrics["latency"] = {
             "retrieval_median": sorted(row["retrieval_seconds"] for row in rows)[len(rows) // 2],
