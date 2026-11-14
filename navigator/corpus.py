@@ -29,6 +29,8 @@ def rebuild(directory, uploads=(), *, raw=DATA / "raw"):
         for name, path in uploads:
             # Source identity survives rebuilds and includes its display name.
             target = pending / ".uploads" / path.stem / Path(name).name
+            if not target.resolve().is_relative_to(pending.resolve()):
+                raise ValueError("Некорректный путь загруженного документа")
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(path, target)
         manifest = {"empty": not any(path.is_file() for path in pending.rglob("*"))}

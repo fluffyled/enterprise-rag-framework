@@ -43,7 +43,7 @@ def stage_file(name, content, owner):
     path.write_bytes(content)
     return {"id": digest + suffix, "name": name, "type": suffix[1:].upper(),
             "size": len(content), "added": datetime.now(timezone.utc).isoformat(),
-            "status": "Загружен · ожидает подключения индексации", "owner": owner}
+            "status": "Загружен · ожидает обновления базы", "owner": owner}
 
 
 def delete_file(item):
