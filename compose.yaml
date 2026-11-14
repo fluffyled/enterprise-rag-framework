@@ -1,9 +1,15 @@
 services:
+  prepare:
+    profiles: [setup]
+    build: .
+    command: ["sh", "-ec", "python scripts/download_models.py --bge && python scripts/download_answer_model.py"]
+    volumes:
+      - ./models:/app/models
   llm:
     build:
       context: .
       dockerfile: Dockerfile.llm
-    command: ["-m", "/models/llm3/qwen2.5-3b-instruct-q4_k_m.gguf", "--host", "0.0.0.0", "--port", "8080", "-c", "8192", "-t", "4"]
+    command: ["-m", "/models/answer-llm/Qwen3.5-4B-Q4_K_M.gguf", "--host", "0.0.0.0", "--port", "8080", "-c", "8192", "--parallel", "1", "--cache-ram", "512", "--reasoning", "off", "-ngl", "0"]
     volumes:
       - ./models:/models:ro
     networks: [private]
@@ -11,6 +17,11 @@ services:
     build: .
     environment:
       LLM_ENDPOINT: http://llm:8080/v1/chat/completions
+      ANSWER_LLM_ENDPOINT: http://llm:8080/v1/chat/completions
+      NAVIGATOR_UI_MODE: Подключённый
+      NAVIGATOR_INDEX: /app/data/experiment_indexes/internal/f08c5dd40c32277b/index.json
+      NAVIGATOR_RETRIEVAL_DEVICE: cpu
+      HF_HUB_OFFLINE: "1"
     ports:
       - "127.0.0.1:8501:8501"
     volumes:

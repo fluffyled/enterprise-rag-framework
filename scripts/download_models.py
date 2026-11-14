@@ -16,8 +16,11 @@ parser.add_argument("--bge", action="store_true", help="Download the frozen BGE 
 if parser.parse_args().bge:
     for role in ("bge_m3", "reranker_bge_v2_m3"):
         entry = lock[role]
+        files = HfApi().list_repo_files(entry["repo"], revision=entry["revision"])
+        weights = "model.safetensors" if "model.safetensors" in files else "pytorch_model.bin"
         path = snapshot_download(entry["repo"], revision=entry["revision"], local_dir=models / entry["local_dir"],
-                                 ignore_patterns=["onnx/*", "openvino/*", "*.h5", "*.ot", "*.msgpack"])
+                                 allow_patterns=["*.json", "*.model", "*.txt", weights],
+                                 ignore_patterns=["onnx/*", "openvino/*"])
         print(role, path, flush=True)
     raise SystemExit(0)
 for role, repo in specs.items():

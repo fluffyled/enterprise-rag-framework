@@ -3,6 +3,9 @@ models
 tools
 reports
 .venv
+.cache
 .git
 .env
 __pycache__
+.pytest_cache
+.codegraph

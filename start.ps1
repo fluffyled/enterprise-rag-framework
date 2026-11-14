@@ -14,7 +14,13 @@ $model = (Resolve-Path -LiteralPath (Join-Path $lock.local_dir $lock.filename)).
 $env:LLM_ENDPOINT = 'http://127.0.0.1:8080/v1/chat/completions'
 $env:ANSWER_LLM_ENDPOINT = $env:LLM_ENDPOINT
 $env:NAVIGATOR_UI_MODE = 'Подключённый'
-& $pythonExe -c 'from navigator.rag_service import application_config; application_config()'
+if (-not $env:NAVIGATOR_INDEX) {
+    $publishedIndex = 'data/experiment_indexes/internal/f08c5dd40c32277b/index.json'
+    if (Test-Path -LiteralPath $publishedIndex -PathType Leaf) {
+        $env:NAVIGATOR_INDEX = (Resolve-Path -LiteralPath $publishedIndex).Path
+    }
+}
+& $pythonExe -c 'import answering; from navigator.rag_service import application_config; application_config()'
 if ($LASTEXITCODE -ne 0) { throw 'Ошибка окружения или application.yaml.' }
 New-Item -ItemType Directory -Path 'data','reports' -Force | Out-Null
 $llm = $null

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import os
 
 import numpy as np
 from sentence_transformers import CrossEncoder, SentenceTransformer
@@ -7,6 +8,7 @@ from .settings import MODELS
 
 
 def resolve_device(device):
+    device = os.environ.get("NAVIGATOR_RETRIEVAL_DEVICE") or device
     if device == "auto":
         import torch
         return "cuda" if torch.cuda.is_available() else "cpu"
