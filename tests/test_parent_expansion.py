@@ -8,8 +8,8 @@ from navigator.parent_expansion import expand_parents, load_clause_store
 
 def make_store(clauses_by_sha):
     return {
-        sha: {"document_id": f"doc{i}.pdf", "clauses": clauses}
-        for i, (sha, clauses) in enumerate(clauses_by_sha.items())
+        sha: {"document_id": clauses[0]["document_id"], "clauses": clauses}
+        for sha, clauses in clauses_by_sha.items()
     }
 
 
@@ -17,11 +17,11 @@ def make_clause(cid, number, text, start, end, sha="sha1"):
     return {"clause_id": cid, "document_id": "doc.pdf", "number": number, "level": number.count(".") + 1, "title": text[:40], "full_text": text, "start": start, "end": end, "parent_id": None, "references": []}
 
 
-def make_chunk(start, sha="sha1", content="кусок текста", chunk_id="chunk-1"):
+def make_chunk(start, sha="sha1", content="кусок текста", chunk_id="chunk-1", document_id="doc.pdf"):
     return Document(content=content, meta={
-        "sha256": sha, "chunk_id": chunk_id, "document_id": "doc.pdf",
+        "sha256": sha, "chunk_id": chunk_id, "document_id": document_id,
         "page": "2", "locator": "абзац 5",
-        "source_span": {"document_id": "doc.pdf", "start": start, "end": start + len(content)},
+        "source_span": {"document_id": document_id, "start": start, "end": start + len(content)},
     })
 
 
@@ -78,10 +78,21 @@ def test_invalid_source_span_falls_back():
 def test_identical_texts_from_different_docs_not_merged():
     clause_a = make_clause("cA", "1", "1. Одинаковый текст пункта.", 0, 40, sha="shaA")
     clause_b = make_clause("cB", "1", "1. Одинаковый текст пункта.", 0, 40, sha="shaB")
+    clause_b["document_id"] = "other.pdf"
     store = make_store({"shaA": [clause_a], "shaB": [clause_b]})
-    docs, diag = expand_parents([make_chunk(5, sha="shaA"), make_chunk(5, sha="shaB", chunk_id="chunk-2")], store, token_budget=1000)
+    docs, diag = expand_parents([make_chunk(5, sha="shaA"),
+                                 make_chunk(5, sha="shaB", chunk_id="chunk-2", document_id="other.pdf")],
+                                store, token_budget=1000)
     assert len(docs) == 2
     assert {d.meta["clause_id"] for d in docs} == {"cA", "cB"}
+
+
+def test_shared_sha_does_not_borrow_clause_from_another_document():
+    store = make_store({"sha1": [make_clause("c1", "3", "3. Пункт.", 0, 20)]})
+    chunk = make_chunk(5, document_id="copy.pdf")
+    docs, diag = expand_parents([chunk], store, token_budget=1000)
+    assert docs == [chunk]
+    assert diag["items"][0]["reason"] == "missing_clause"
 
 
 def test_budget_never_exceeded():

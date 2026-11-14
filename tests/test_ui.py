@@ -72,6 +72,17 @@ def test_invalid_backend():
     with pytest.raises(ValueError): validate_response({'status':'fake'})
 
 
+def test_document_number_does_not_become_a_citation(monkeypatch):
+    from ui import views
+    rendered = []
+    monkeypatch.setattr(views.st, "markdown", lambda text, **_: rendered.append(text))
+    views.linked_text("Пункт [1] [источник 1]", {
+        "metadata": {"mode": "Подключённый"}, "sources": [{}],
+    }, "turn")
+    assert "Пункт [1] <a" in rendered[0]
+    assert rendered[0].count('href="#turn-s1"') == 1
+
+
 
 def test_export_and_all_status_views():
     from ui.views import export_text

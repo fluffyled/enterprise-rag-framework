@@ -85,11 +85,19 @@ def main(output_path, repair_from=None, *, resume=False):
         done = {(r["dataset"], r["id"]): r["input_sha256"] for r in previous}
         if len(done) != len(previous) or any(expected.get(key) != sha for key, sha in done.items()):
             raise ValueError("Existing results do not match the Oracle inputs")
+        if any(row["result"]["status"] == "error" and
+               (row["result"]["trace"].get("transport_error") or
+                any(issue.startswith("Extraction failed: URLError")
+                    for issue in row["result"]["verification"]["issues"]))
+               for row in previous):
+            raise ValueError("Existing results contain connection errors; start a new benchmark")
         cases = [row for row in cases if (row[0], row[1]["id"]) not in done]
     with output_path.open("a" if resume else "x", encoding="utf-8") as output:
         for dataset, case, request, gold in cases:
             started = perf_counter()
             result = generate_v2(request, endpoint=ENDPOINT, settings=SETTINGS)
+            if result.trace.get("transport_error"):
+                raise RuntimeError("Local LLM connection failed; resume once the server is available")
             visible = [result.summary.text, *(step.action for step in result.steps)]
             row = {
                 "dataset": dataset, "id": case["id"], "split": case["split"],

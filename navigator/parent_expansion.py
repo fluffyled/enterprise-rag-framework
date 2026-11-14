@@ -67,6 +67,8 @@ def expand_parents(documents, store, token_budget, related_clauses=False, **kwar
         sha = meta.get("sha256")
         source_span = meta.get("source_span") or {}
         entry = store.get(sha) if sha else None
+        if entry and meta.get("document_id") and entry.get("document_id") != meta["document_id"]:
+            entry = None
         start = source_span.get("start")
         if entry is None or not isinstance(start, int) or start < 0:
             emit_chunk_fallback(document, "missing_clause" if entry is None else "invalid_source_span")

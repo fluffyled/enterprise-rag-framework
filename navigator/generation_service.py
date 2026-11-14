@@ -52,7 +52,8 @@ class GenerationService:
         if mode == "legacy":
             result = answer(question, [SimpleNamespace(content=item.full_text) for item in evidence])
             if result["status"] == "error":
-                return AnswerResponse("error", error=f"LLM: {result['error']}")
+                return AnswerResponse("error", error=f"LLM: {result['error']}",
+                                      diagnostics={"transport_error": result.get("transport_error", False)})
 
             def legacy_citation(position, quote):
                 if type(position) is not int or not 1 <= position <= len(evidence):
@@ -67,7 +68,8 @@ class GenerationService:
             for pair in result["conflicts"]:
                 response.conflicts.append({"text": f"{pair['left_quote']} / {pair['right_quote']}",
                     "citations": [legacy_citation(pair[side], pair[side + "_quote"]) for side in ("left", "right")]})
-            response.status = "conflict" if response.conflicts else "partial" if response.summary else "insufficient"
+            response.status = ("conflict" if response.conflicts else
+                               "partial" if response.summary or response.steps else "insufficient")
         elif mode == "g2":
             result = generate_v2(AnswerInputV1(question=question, evidence=evidence), settings=G2_SETTINGS)
             response.diagnostics["trace"] = result.trace
@@ -75,6 +77,8 @@ class GenerationService:
             if result.status == "error":
                 response.status = "error"
                 response.error = "LLM: генерация или проверка ответа завершилась ошибкой."
+                if result.trace.get("transport_error"):
+                    response.diagnostics["transport_error"] = True
                 return response
             # Quote provenance and review by the same model cannot establish completeness.
             response.status = "partial" if result.status == "answered" else result.status

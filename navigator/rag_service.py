@@ -107,9 +107,12 @@ def ask(question, retrieval=None, generation=None, *, snapshot=None, diagnostics
                 info["model"] = model.replace("\\", "/").rsplit("/", 1)[-1]
         if diagnostics and trace:
             target = DATA / "traces" / (uuid4().hex + ".json")
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(json.dumps({**info, "trace": trace}, ensure_ascii=False), encoding="utf-8")
-            info["trace_file"] = target.name
+            try:
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(json.dumps({**info, "trace": trace}, ensure_ascii=False), encoding="utf-8")
+                info["trace_file"] = target.name
+            except OSError:
+                response.warnings.append("Диагностическая трасса недоступна для записи.")
         response.diagnostics.update(info)
         return response
     except KeyboardInterrupt:

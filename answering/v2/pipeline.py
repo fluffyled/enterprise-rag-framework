@@ -5,8 +5,7 @@ import re
 from dataclasses import dataclass
 from graphlib import CycleError, TopologicalSorter
 from time import perf_counter
-
-from answering.core import request_selection
+from answering.core import connection_failed, request_selection
 
 from .contracts import Citation, Coverage, Fact, Missing, Requirement, Step, Summary, Verification, VerifiedAnswerV1
 
@@ -100,7 +99,7 @@ def evidence_batches(evidence, budget, method):
     if budget < 128:
         raise ValueError("Evidence budget too small")
     rows = []
-    for source in sorted(evidence, key=lambda item: item.id):
+    for source in evidence:
         text = source.full_text
         start = 0
         while start < len(text):
@@ -109,8 +108,14 @@ def evidence_batches(evidence, budget, method):
                 boundary = max(text.rfind("\n", start, end), text.rfind(" ", start, end))
                 if boundary > start:
                     end = boundary + 1
-            rows.append({"id": source.id, "text": text[start:end], "offset": start,
-                         "partial": bool(start or end < len(text) or source.metadata.get("incomplete"))})
+            row = {"id": source.id, "text": text[start:end], "offset": start,
+                   "partial": bool(start or end < len(text) or source.metadata.get("incomplete"))}
+            while len(json.dumps([row], ensure_ascii=False)) > budget:
+                end = start + (end - start) // 2
+                if end == start:
+                    raise ValueError("Evidence identifier exceeds configured input budget")
+                row.update(text=text[start:end], partial=True)
+            rows.append(row)
             start = end
     if method == "global":
         if len(json.dumps(rows, ensure_ascii=False)) > budget:
@@ -192,9 +197,11 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                 ):
                     raise ValueError("Invalid response fields")
                 return result
-            except (ValueError, OSError) as exc:
+            except (ValueError, OSError, KeyError, TypeError, IndexError) as exc:
                 record["error"] = f"{type(exc).__name__}: {exc}"
                 if attempt > settings.technical_retries:
+                    if connection_failed(exc):
+                        trace["transport_error"] = True
                     raise
                 payload["messages"][0]["content"] += (
                     " Сократи формулировки без потери условий. Верни компактный JSON без отступов."
@@ -236,7 +243,7 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                         " Пиши кратко. Не превращай варианты выбора в обязательные шаги. "
                         "Если действие зависит от выбора, укажи вариант в alternative и в text. "
                         "Условие применимости, отрицание и исключение сохраняй в text. "
-                        "Для неприменимого поля не создавай ключ. Используй короткий дословный фрагмент."
+                        "Используй короткий дословный фрагмент."
                         " Для фрагмента partial=true извлекай только правило, чьи условия полностью видны."
                     )
                 fact_schema = FACT
@@ -261,7 +268,8 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                 result = ask("repair" if feedback else "extract", prompt, {"evidence": batch, "repair": list(feedback)}, schema)
                 if settings.preserve_alternatives and result["facts"]:
                     candidates = [Fact.model_validate({**row, "id": "candidate"}) for row in result["facts"]]
-                    if not any(check_citations([restore_quote(c, scope) for c in fact.citations], scope)
+                    if not any(set(fact.requirement_ids) <= required.keys()
+                               and check_citations([restore_quote(c, scope) for c in fact.citations], scope)
                                for fact in candidates):
                         complete = [row for row in batch if not row["partial"]]
                         result = ask("quote_repair", prompt + " Предыдущие цитаты не совпали. "
@@ -284,7 +292,7 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                         continue
                     facts.append(fact)
             except (KeyError, TypeError, ValueError, OSError) as exc:
-                if settings.fail_on_batch_error:
+                if settings.fail_on_batch_error or trace.get("transport_error"):
                     raise
                 issues.append(f"Extraction failed: {type(exc).__name__}")
         return facts
@@ -337,7 +345,7 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                 if len(conflict) >= 2 and conflict <= ids and "contradicted" in verdicts.values():
                     conflicts.update(conflict)
             except (KeyError, TypeError, ValueError, OSError) as exc:
-                if settings.fail_on_batch_error:
+                if settings.fail_on_batch_error or trace.get("transport_error"):
                     raise
                 issues.append(f"Verification failed: {type(exc).__name__}")
         for fact in facts:
@@ -422,5 +430,5 @@ def generate_v2(request, *, endpoint=None, settings=Settings(), client=request_s
                                 verification=Verification(passed=settings.verify and status == "answered"
                                                           and not settings.fail_on_batch_error, issues=issues),
                                 trace=trace)
-    except (KeyError, TypeError, ValueError, OSError) as exc:
+    except (KeyError, TypeError, ValueError, OSError, IndexError) as exc:
         return VerifiedAnswerV1(status="error", verification=Verification(issues=[*issues, str(exc)]), trace=trace)

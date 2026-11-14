@@ -21,7 +21,7 @@ $llm = $null
 $app = $null
 try {
     $llmArgs = @('-m', ('"' + $model + '"'), '--host','127.0.0.1','--port','8080',
-                 '-c','8192','--parallel','1','-ngl',"$GpuLayers",'--reasoning','off')
+                 '-c','8192','--parallel','1','--cache-ram','512','-ngl',"$GpuLayers",'--reasoning','off')
     $llm = Start-Process -FilePath $serverExe -ArgumentList $llmArgs -WindowStyle Hidden -PassThru -RedirectStandardOutput 'reports/llm.stdout.log' -RedirectStandardError 'reports/llm.stderr.log'
     $deadline = [DateTime]::UtcNow.AddMinutes(2)
     $ready = $false

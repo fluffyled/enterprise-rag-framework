@@ -34,9 +34,10 @@ def linked_text(text, result, prefix):
     def link(match):
         number = int(match.group(1))
         if 1 <= number <= len(result["sources"]):
-            return f'<a href="#{prefix}-s{number}" target="_self">[{number}]</a>'
+            return f'<a href="#{prefix}-s{number}" target="_self">{match.group(0)}</a>'
         return match.group(0)
-    st.markdown('<div class="answer-text">' + re.sub(r"\[(\d+)\]", link, escaped).replace('\n', '<br>') + '</div>', unsafe_allow_html=True)
+    pattern = r"\[(\d+)\]" if result["metadata"].get("mode") == "Демонстрационный" else r"\[источник (\d+)\]"
+    st.markdown('<div class="answer-text">' + re.sub(pattern, link, escaped).replace('\n', '<br>') + '</div>', unsafe_allow_html=True)
 
 
 def local_document(source):
@@ -77,7 +78,9 @@ def answer_view(turn, settings):
         st.markdown("#### Действия и варианты")
         for i, step in enumerate(result["steps"], 1):
             linked_text(f"{i}. {step}", result, key)
-    for message in result["conflicts"] + result["missing_information"]:
+    for message in result["conflicts"]:
+        linked_text(message, result, key)
+    for message in result["missing_information"]:
         st.warning(message)
     for message in result.get("warnings", []):
         st.caption(str(message))

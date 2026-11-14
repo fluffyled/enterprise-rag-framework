@@ -67,7 +67,7 @@ def connected(request):
                    snapshot=request.get("snapshot"), diagnostics=request.get("diagnostics", False))
     numbers = {source["id"]: i for i, source in enumerate(response.sources, 1)}
     def render(item):
-        return item["text"] + "".join(f" [{numbers[key]}]" for key in item["citations"])
+        return item["text"] + "".join(f" [источник {numbers[key]}]" for key in item["citations"])
 
     fields = {"actor": "Ответственный", "recipient": "Адресат", "deadline": "Срок",
               "condition": "Условие", "exception": "Исключение", "alternative": "Вариант"}

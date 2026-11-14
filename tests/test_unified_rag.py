@@ -6,6 +6,7 @@ import pytest
 from answering.v2 import pipeline
 from navigator import generation_service, rag_service
 from navigator.evidence_adapter import adapt_evidence, validate_citation
+from navigator.answer import selected_quotes, sentence_options
 
 
 def document(doc_id="rules.pdf", **meta):
@@ -84,7 +85,31 @@ def test_llm_failure_is_error(monkeypatch):
     result = generation_service.GenerationService().generate("Куда подать заявку?",
                                                             adapt_evidence([document()], "fast"), "g2")
     assert result.status == "error"
+    assert result.diagnostics["transport_error"]
     assert len(result.diagnostics["trace"]["calls"]) == 2
+
+
+def test_legacy_rejects_missing_fields_and_preserves_steps():
+    docs = [document()]
+    options = sentence_options(docs)
+    with pytest.raises(ValueError):
+        selected_quotes({}, options, docs)
+    result = selected_quotes({"insufficient": False, "answer_ids": [], "step_ids": [1],
+                              "conflict_pairs": []}, options, docs)
+    assert result["status"] == "supported_quotes"
+    assert result["steps"][0]["quote"] == docs[0].content
+
+
+def test_evidence_batches_bound_escaped_json_and_preserve_order():
+    from answering.v2.contracts import Evidence
+
+    evidence = [Evidence(id="Z", document_id="d", full_text='"\\' * 100),
+                Evidence(id="A", document_id="d", full_text="строка")]
+    batches = pipeline.evidence_batches(evidence, 140, "map")
+    assert all(len(json.dumps(batch, ensure_ascii=False)) <= 140 for batch in batches)
+    rows = [row for batch in batches for row in batch]
+    assert rows[-1]["id"] == "A"
+    assert "".join(row["text"] for row in rows if row["id"] == "Z") == evidence[0].full_text
 
 
 def test_missing_or_empty_documents(tmp_path):

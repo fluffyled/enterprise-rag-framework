@@ -29,12 +29,14 @@ def adapt_evidence(documents, mode, source_documents=(), clause_store=None, *, a
         source = corpus.get(document_id, {})
         version = meta.get("sha256") or meta.get("document_version_id")
         coordinates = []
-        if source.get("sha256") == version and source.get("text") and (
-            type(start) is int and type(end) is int and 0 <= start < end <= len(source["text"])
-        ):
-            original = source["text"][start:end].strip()
+        source_text = source.get("text", "")
+        same_source = (version and source.get("sha256") == version
+                       and span.get("document_id", document_id) == document_id)
+        if same_source and type(start) is int and type(end) is int and 0 <= start < end <= len(source_text):
+            excerpt = source_text[start:end]
+            original = excerpt.strip()
             if " ".join(original.split()) == " ".join(content.split()):
-                leading = len(source["text"][start:end]) - len(source["text"][start:end].lstrip())
+                leading = len(excerpt) - len(excerpt.lstrip())
                 content = original
                 coordinates = [(start + leading, start + leading + len(content))]
         expanded = meta.get("expansion_status") == "expanded_successfully"
@@ -64,6 +66,8 @@ def adapt_evidence(documents, mode, source_documents=(), clause_store=None, *, a
                     **meta, "clause_id": parent_id, "clause_number": parent["number"],
                     "source_span": {"start": parent["start"], "end": parent["end"]},
                 }))
+        if evidence_id in evidence:
+            continue
         evidence[evidence_id] = Evidence(
             id=evidence_id, document_id=document_id, document_title=meta.get("name") or document_id,
             full_text=content, locator=locator, node_id=node_id,
